@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="DevInterview.MobileApp.Views.MainPage">
+
+
+    <ContentPage.Behaviors>
+        <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+
+            <!--#region Roles -->
+            <!--#endregion-->
+
+            <CollectionView ItemsSource="{Binding Roles}" Margin="0" x:Name="roles">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Image Source="{Binding Image}"
+                               VerticalOptions="Start"
+                               Aspect="AspectFill"
+                               HeightRequest="150"
+                               Margin="5">
+                            </Image>
+                            <StackLayout Grid.Row="1"
+                                     Margin="0"
+                                     Orientation="Horizontal">
+                                <Label VerticalOptions="Center"
+                                       Margin="5"
+                                       Text="{Binding Name}"
+                                       FontAttributes="Bold" />
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
