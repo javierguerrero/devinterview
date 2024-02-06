@@ -4,7 +4,6 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="DevInterview.MobileApp.Views.MainPage">
 
-
     <ContentPage.Behaviors>
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
@@ -13,8 +12,6 @@
         <VerticalStackLayout Padding="20">
 
             <!--#region Roles -->
-            <!--#endregion-->
-
             <CollectionView ItemsSource="{Binding Roles}" Margin="0" x:Name="roles">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2" />
@@ -31,6 +28,12 @@
                                Aspect="AspectFill"
                                HeightRequest="150"
                                Margin="5">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                            Command="{Binding Path=BindingContext.RoleTapCommand, Source = {x:Reference roles}}"
+                                            CommandParameter="{Binding}">
+                                    </TapGestureRecognizer>
+                                </Image.GestureRecognizers>
                             </Image>
                             <StackLayout Grid.Row="1"
                                      Margin="0"
@@ -44,8 +47,8 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <!--#endregion-->
             
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
