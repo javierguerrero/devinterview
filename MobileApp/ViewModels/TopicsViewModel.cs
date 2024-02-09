@@ -12,12 +12,10 @@ namespace DevInterview.MobileApp.ViewModels
     {
         private readonly IDataService _dataService;
         private readonly INavigation _navigation;
-
         private List<Topic> _topics;
 
-        public ObservableCollection<Topic> Topics { get; set; } = new();
-
         public string RoleId { get; set; }
+        public ObservableCollection<Topic> Topics { get; set; } = new();
 
         public TopicsViewModel(INavigation navigation)
         {
@@ -41,7 +39,7 @@ namespace DevInterview.MobileApp.ViewModels
             //}
 
             var qaPage = new QuestionsAnswersPage();
-            qaPage.BindingContext = new QuestionsAnswersViewModel(_navigation)
+            qaPage.BindingContext = new QuestionsViewModel(_navigation)
             {
                 TopicId = topic.Id
             };

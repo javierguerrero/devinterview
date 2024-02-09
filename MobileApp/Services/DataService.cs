@@ -89,30 +89,30 @@ namespace DevInterview.MobileApp.Services
             }
         }
 
-        public async Task<List<QuestionAnswer>> GetQuestionsAnswersByTopic(string topicId)
+        public async Task<List<Question>> GetQuestionsByTopic(string topicId)
         {
             _firestoreDb = await InitFirestore();
             try
             {
-                Query query = _firestoreDb.Collection("questionsAnswers");
+                Query query = _firestoreDb.Collection("questions");
                 QuerySnapshot qs = await query
                         .WhereEqualTo("topicId", topicId)
                         .GetSnapshotAsync();
 
-                var questionAnswerList = new List<QuestionAnswer>();
+                var questionList = new List<Question>();
 
                 foreach (DocumentSnapshot ds in qs.Documents)
                 {
                     if (ds.Exists)
                     {
                         Dictionary<string, object> raw = ds.ToDictionary();
-                        string questionAnswerJson = JsonConvert.SerializeObject(raw);
-                        var newQuestionAnswer = JsonConvert.DeserializeObject<QuestionAnswer>(questionAnswerJson);
-                        newQuestionAnswer.Id = ds.Id;
-                        questionAnswerList.Add(newQuestionAnswer);
+                        string questionJson = JsonConvert.SerializeObject(raw);
+                        var newQuestion = JsonConvert.DeserializeObject<Question>(questionJson);
+                        newQuestion.Id = ds.Id;
+                        questionList.Add(newQuestion);
                     }
                 }
-                return questionAnswerList;
+                return questionList;
             }
             catch (Exception ex)
             {

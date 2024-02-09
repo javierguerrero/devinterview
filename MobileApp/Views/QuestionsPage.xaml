@@ -2,17 +2,19 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:DevInterview.MobileApp.Models"
-             x:Class="DevInterview.MobileApp.Views.TopicsPage"
+             x:Class="DevInterview.MobileApp.Views.QuestionsAnswersPage"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="Topics">
+             Title="Questions">
 
     <ContentPage.Behaviors>
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
-
+    
     <VerticalStackLayout>
-        <!--#region Topics -->
-        <CollectionView ItemsSource="{Binding Topics}" Margin="0" x:Name="topics">
+
+        <!--#region Questions -->
+        <CollectionView ItemsSource="{Binding Questions}" x:Name="questions">
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -20,26 +22,25 @@
                             <RowDefinition Height="2*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-
                         <StackLayout Grid.Row="1" Margin="0" Orientation="Horizontal">
                             <Frame Padding="10" Margin="0,5,0,5">
-                                <Label VerticalOptions="Center" Text="{Binding Name}" />
+                                <Label VerticalOptions="Center" Text="{Binding Text}" />
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
-                                      Command="{Binding Path=BindingContext.TopicTapCommand, Source = {x:Reference topics}}"
+                                      Command="{Binding Path=BindingContext.TapCommand, Source = {x:Reference questions}}"
                                       CommandParameter="{Binding}">
                                     </TapGestureRecognizer>
                                 </Frame.GestureRecognizers>
                             </Frame>
                         </StackLayout>
+
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
         <!--#endregion-->
+
 
     </VerticalStackLayout>
 </ContentPage>
-
-
-

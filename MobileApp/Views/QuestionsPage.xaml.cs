@@ -7,6 +7,6 @@ public partial class QuestionsAnswersPage : ContentPage
 	public QuestionsAnswersPage()
 	{
 		InitializeComponent();
-        BindingContext = new QuestionsAnswersViewModel(this.Navigation);
+        BindingContext = new QuestionsViewModel(this.Navigation);
     }
 }
