@@ -2,9 +2,9 @@ using DevInterview.MobileApp.ViewModels;
 
 namespace DevInterview.MobileApp.Views;
 
-public partial class QuestionsAnswersPage : ContentPage
+public partial class QuestionsPage : ContentPage
 {
-	public QuestionsAnswersPage()
+	public QuestionsPage()
 	{
 		InitializeComponent();
         BindingContext = new QuestionsViewModel(this.Navigation);

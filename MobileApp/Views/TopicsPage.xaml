@@ -26,7 +26,7 @@
                                 <Label VerticalOptions="Center" Text="{Binding Name}" />
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
-                                      Command="{Binding Path=BindingContext.TopicTapCommand, Source = {x:Reference topics}}"
+                                      Command="{Binding Path=BindingContext.TapCommand, Source = {x:Reference topics}}"
                                       CommandParameter="{Binding}">
                                     </TapGestureRecognizer>
                                 </Frame.GestureRecognizers>

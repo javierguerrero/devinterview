@@ -9,5 +9,7 @@ namespace DevInterview.MobileApp.Services
         Task<List<Topic>> GetTopicsByRole(string roleId);
 
         Task<List<Question>> GetQuestionsByTopic(string topicId);
+
+        Task<Answer> GetAnswer(string questionId);
     }
 }

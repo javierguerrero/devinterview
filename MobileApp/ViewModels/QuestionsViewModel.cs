@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using DevInterview.MobileApp.Models;
 using DevInterview.MobileApp.Services;
+using DevInterview.MobileApp.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -27,8 +28,14 @@ namespace DevInterview.MobileApp.ViewModels
         public async void OnTapped(Question question)
         {
             //await App.Current.MainPage.DisplayAlert("Alert", question.Answer, "OK");
-        }
 
+            var answerPage = new AnswerPage();
+            answerPage.BindingContext = new AnswerViewModel(_navigation)
+            {
+                QuestionId = question.Id
+            };
+            await _navigation.PushAsync(answerPage);
+        }
 
         [RelayCommand]
         private Task AppearingAsync()

@@ -119,5 +119,33 @@ namespace DevInterview.MobileApp.Services
                 throw;
             }
         }
+
+        public async Task<Answer> GetAnswer(string questionId)
+        {
+            _firestoreDb = await InitFirestore();
+            try
+            {
+                Query query = _firestoreDb.Collection("answers");
+                QuerySnapshot querySnapshot = await query.WhereEqualTo("questionId", questionId)
+                                                         .GetSnapshotAsync();
+
+                var answer = new Answer();
+                foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
+                {
+                    if (documentSnapshot.Exists)
+                    {
+                        Dictionary<string, object> raw = documentSnapshot.ToDictionary();
+                        string json = JsonConvert.SerializeObject(raw);
+                        answer = JsonConvert.DeserializeObject<Answer>(json);
+                        answer.Id = documentSnapshot.Id;
+                    }
+                }
+                return answer;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

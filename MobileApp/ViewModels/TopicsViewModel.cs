@@ -23,27 +23,16 @@ namespace DevInterview.MobileApp.ViewModels
             _navigation = navigation;
         }
 
-        public ICommand TopicTapCommand => new Command<Topic>(OnTappedTopic);
+        public ICommand TapCommand => new Command<Topic>(OnTapped);
 
-        public async void OnTappedTopic(Topic topic)
+        public async void OnTapped(Topic topic)
         {
-            //if (topic.ToggleIcon == "down_arrow")
-            //{
-            //    //hide content
-            //    topic.ToggleIcon = "up_arrow";
-            //}
-            //else
-            //{
-            //    //show content
-            //    topic.ToggleIcon = "down_arrow";
-            //}
-
-            var qaPage = new QuestionsAnswersPage();
-            qaPage.BindingContext = new QuestionsViewModel(_navigation)
+            var questionsPage = new QuestionsPage();
+            questionsPage.BindingContext = new QuestionsViewModel(_navigation)
             {
                 TopicId = topic.Id
             };
-            await _navigation.PushAsync(qaPage);
+            await _navigation.PushAsync(questionsPage);
         }
 
         [RelayCommand]

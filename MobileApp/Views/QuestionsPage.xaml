@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:DevInterview.MobileApp.Models"
-             x:Class="DevInterview.MobileApp.Views.QuestionsAnswersPage"
+             x:Class="DevInterview.MobileApp.Views.QuestionsPage"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Questions">
 
