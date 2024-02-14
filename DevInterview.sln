@@ -9,6 +9,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdminPanel", "AdminPanel", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevInterview.MobileApp", "MobileApp\DevInterview.MobileApp.csproj", "{BCF7A65B-B3B5-49A3-86EE-B207C04C32C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevInterview.AdminPanel.Domain", "AdminPanel\DevInterview.AdminPanel.Domain\DevInterview.AdminPanel.Domain.csproj", "{3339920F-8422-462F-95F3-85486B65F323}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevInterview.AdminPanel.Infrastructure", "AdminPanel\DevInterview.AdminPanel.Infrastructure\DevInterview.AdminPanel.Infrastructure.csproj", "{52DB393A-21F4-4EDA-8C4F-CA8BBCBD5A09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevInterview.AdminPanel.Application", "AdminPanel\DevInterview.AdminPanel.Application\DevInterview.AdminPanel.Application.csproj", "{8CF34C1B-9DC0-4C50-8479-E0C8D43E2DAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevInterview.AdminPanel.Web", "DevInterview.AdminPanel.Web\DevInterview.AdminPanel.Web.csproj", "{FF3DC125-E1D1-4AF9-ADBD-676EE6FEC039}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,12 +29,32 @@ Global
 		{BCF7A65B-B3B5-49A3-86EE-B207C04C32C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCF7A65B-B3B5-49A3-86EE-B207C04C32C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BCF7A65B-B3B5-49A3-86EE-B207C04C32C6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3339920F-8422-462F-95F3-85486B65F323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3339920F-8422-462F-95F3-85486B65F323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3339920F-8422-462F-95F3-85486B65F323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3339920F-8422-462F-95F3-85486B65F323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52DB393A-21F4-4EDA-8C4F-CA8BBCBD5A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52DB393A-21F4-4EDA-8C4F-CA8BBCBD5A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52DB393A-21F4-4EDA-8C4F-CA8BBCBD5A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52DB393A-21F4-4EDA-8C4F-CA8BBCBD5A09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CF34C1B-9DC0-4C50-8479-E0C8D43E2DAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CF34C1B-9DC0-4C50-8479-E0C8D43E2DAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CF34C1B-9DC0-4C50-8479-E0C8D43E2DAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CF34C1B-9DC0-4C50-8479-E0C8D43E2DAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF3DC125-E1D1-4AF9-ADBD-676EE6FEC039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF3DC125-E1D1-4AF9-ADBD-676EE6FEC039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF3DC125-E1D1-4AF9-ADBD-676EE6FEC039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF3DC125-E1D1-4AF9-ADBD-676EE6FEC039}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BCF7A65B-B3B5-49A3-86EE-B207C04C32C6} = {60FE4643-E372-4C39-A131-73A9AF58434D}
+		{3339920F-8422-462F-95F3-85486B65F323} = {BF0108E1-13FB-47D7-9A3C-9D52350517DA}
+		{52DB393A-21F4-4EDA-8C4F-CA8BBCBD5A09} = {BF0108E1-13FB-47D7-9A3C-9D52350517DA}
+		{8CF34C1B-9DC0-4C50-8479-E0C8D43E2DAC} = {BF0108E1-13FB-47D7-9A3C-9D52350517DA}
+		{FF3DC125-E1D1-4AF9-ADBD-676EE6FEC039} = {BF0108E1-13FB-47D7-9A3C-9D52350517DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {520C8CDF-D7A1-49F8-8489-EC0BDCC95429}
