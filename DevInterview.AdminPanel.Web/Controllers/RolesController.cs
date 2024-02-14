@@ -1,3 +1,4 @@
+using DevInterview.AdminPanel.Application.Commands;
 using DevInterview.AdminPanel.Application.Queries;
 using DevInterview.AdminPanel.Web.Models;
 using MediatR;
@@ -16,7 +17,6 @@ namespace DevInterview.AdminPanel.Web.Controllers
             _mediator = mediator;
         }
 
-
         public async Task<IActionResult> Index()
         {
             var token = HttpContext.Session.GetString("_UserToken");
@@ -31,6 +31,31 @@ namespace DevInterview.AdminPanel.Web.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(IList<IFormFile> files, string name)
+        {
+            string urlImage = string.Empty;
+
+            if (files.Count > 0 && files[0].Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await files[0].CopyToAsync(ms);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    //urlImage = await Upload(ms, $"{Guid.NewGuid().ToString()}.jpg");
+                }
+            }
+
+            await _mediator.Send(new CreateRoleCommand(name, urlImage));
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<JsonResult> Delete(string id)
+        {
+            return Json(await _mediator.Send(new DeleteRoleCommand(id)));
         }
     }
 }

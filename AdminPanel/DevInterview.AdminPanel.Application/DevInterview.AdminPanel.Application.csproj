@@ -19,8 +19,4 @@
     <ProjectReference Include="..\DevInterview.AdminPanel.Infrastructure\DevInterview.AdminPanel.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
-
 </Project>
