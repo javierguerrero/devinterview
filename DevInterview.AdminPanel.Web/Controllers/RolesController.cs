@@ -23,7 +23,7 @@ namespace DevInterview.AdminPanel.Web.Controllers
 
             if (token != null)
             {
-                var viewModel = new RolesViewModel();
+                var viewModel = new RolesIndexViewModel();
                 viewModel.RoleList = await _mediator.Send(new GetAllRolesQuery());
                 return View(viewModel);
             }
@@ -52,6 +52,21 @@ namespace DevInterview.AdminPanel.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(string roleId)
+        {
+            var role = await _mediator.Send(new GetRoleQuery(roleId));
+            //return View(role);
+            return View(null);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update()
+        {
+            return View();
+        }
+
 
         public async Task<JsonResult> Delete(string id)
         {

@@ -4,6 +4,7 @@ using DevInterview.AdminPanel.Domain.Interfaces;
 using DevInterview.AdminPanel.Infrastructure.DataAccess.FirebaseEntities;
 using Google.Cloud.Firestore;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
 {
@@ -49,7 +50,25 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
 
         public async Task<Role> GetRole(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var roleFirebase = new RoleFirebase();
+                DocumentReference docRef = _firebaseContext.Database.Collection("roles").Document(id);
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+                if (snapshot.Exists)
+                {
+                    Dictionary<string, object> role = snapshot.ToDictionary();
+                    string json = JsonConvert.SerializeObject(role);
+                    roleFirebase = JsonConvert.DeserializeObject<RoleFirebase>(json);
+                    roleFirebase.RoleId = snapshot.Id;
+                }
+
+                return _mapper.Map<Role>(roleFirebase);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<string> CreateRole(Role role)

@@ -1,52 +1,43 @@
-﻿@model DevInterview.AdminPanel.Web.Models.RolesViewModel
+﻿@model DevInterview.AdminPanel.Web.Models.RolesIndexViewModel
 
 @{
     ViewData["Title"] = "Roles";
 }
-<div class="container">
-    <div class="row">
-        <h1>@ViewData["Title"]</h1>
-    </div>
 
-    <div class="row">
-        <div class="col-xs-3">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddRoleModal">
-                Add Role
-            </button>
-        </div>
+<div class="card">
+    <div class="card-header">
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoleModal">Add Role</button>
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model.RoleList)
+                {
+                    <tr>
+                        <td>@role.RoleId</td>
+                        <td>@role.Name</td>
+                        <td></td>
+                        <td>
+                            <a asp-action="Update" asp-controller="Roles" asp-route-roleId="@role.RoleId" class="btn btn-sm btn-outline-dark">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" onclick="Confirm('@role.RoleId')">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
-<table class='table'>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var role in Model.RoleList)
-        {
-            <tr>
-                <td>@role.RoleId</td>
-                <td>@role.Name</td>
-                <td></td>
-                <td>
-                    <a class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditRoleModal">
-                        Edit
-                    </a>
-                    <a class="btn btn-outline-danger" onclick="Confirm('@role.RoleId')">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<input type="hidden" id="RoleId" />
-
-<div class="modal fade" id="AddRoleModal">
+<div class="modal fade" id="addRoleModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -100,6 +91,8 @@
     </div>
 </div>
 
+<input type="hidden" id="roleId" />
+
 <script>
     $(document).ready(function () {
         $("#btnSave").click(function () {
@@ -127,14 +120,14 @@
         });
 
         $("#btnDelete").click(function () {
-            var id = $("#RoleId").val();
+            var id = $("#roleId").val();
             $.ajax({
                 type: "POST",
                 url: "/Roles/Delete",
                 data: { id: id },
                 success: function (result) {
                     if (result) {
-                        $("#RoleId").val(null);
+                        $("#roleId").val(null);
                         window.location.href = "/Roles/Index";
                     } else {
                         alert("Opps something wrong");
@@ -145,7 +138,7 @@
     });
 
     var Confirm = function (id) {
-        $("#RoleId").val(id);
+        $("#roleId").val(id);
         $("#deleteRoleModal").modal('show');
     }
 </script>
