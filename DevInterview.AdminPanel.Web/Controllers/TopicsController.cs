@@ -44,7 +44,6 @@ namespace DevInterview.AdminPanel.Web.Controllers
             {
                 RoleList = await _mediator.Send(new GetAllRolesQuery())
             };
-
             return View(vm);
         }
 
@@ -53,6 +52,11 @@ namespace DevInterview.AdminPanel.Web.Controllers
         {
             await _mediator.Send(new CreateTopicCommand(viewModel.Name, viewModel.SelectedRoleId));
             return RedirectToAction("Index");
+        }
+
+        public async Task<JsonResult> Delete(string id)
+        {
+            return Json(await _mediator.Send(new DeleteTopicCommand(id)));
         }
     }
 }

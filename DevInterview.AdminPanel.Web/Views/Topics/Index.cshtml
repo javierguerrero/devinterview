@@ -37,3 +37,51 @@
         </table>
     </div>
 </div>
+
+<div class="modal fade" id="deleteTopicModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Topic</h3>
+                <button type="button" class="close" data-bs-dismiss="modal">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this <strong>Topic</strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnCancel" data-bs-dismiss="modal">Cancel</button>
+                <button id="btnDelete" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="topicId" />
+
+<script>
+    $(document).ready(function () {
+        $("#btnDelete").click(function () {
+            var id = $("#topicId").val();
+            $.ajax({
+                type: "POST",
+                url: "/Topics/Delete",
+                data: { id: id },
+                success: function (result) {
+                    if (result) {
+                        $("#topicId").val(null);
+                        window.location.href = "/Topics/Index";
+                    } else {
+                        alert("Opps something wrong");
+                    }
+                }
+            });
+        });
+    });
+
+    var Confirm = function (id) {
+        $("#topicId").val(id);
+        $("#deleteTopicModal").modal('show');
+    }
+</script>
