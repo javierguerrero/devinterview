@@ -4,6 +4,8 @@ namespace DevInterview.AdminPanel.Domain.Interfaces
 {
     public interface ITopicRepository
     {
+        Task<List<Topic>> GetAllTopics();
+
         Task<List<Topic>> GetAllTopics(string roleId);
 
         Task<Topic> GetTopic(string id);

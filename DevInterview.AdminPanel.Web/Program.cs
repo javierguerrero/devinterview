@@ -1,8 +1,7 @@
 using AutoMapper;
 using DevInterview.AdminPanel.Application;
-using DevInterview.AdminPanel.Application.Mapper;
 using DevInterview.AdminPanel.Infrastructure;
-using DevInterview.AdminPanel.Infrastructure.DataAccess.Mappers;
+using DevInterview.AdminPanel.Web.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -18,8 +17,7 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 // Automapper
 var automapperConfig = new MapperConfiguration(mapperConfig =>
 {
-    mapperConfig.AddMaps(typeof(AdminPanelProfile).Assembly);
-    mapperConfig.AddMaps(typeof(FirebaseProfile).Assembly);
+    mapperConfig.AddMaps(typeof(MapProfile).Assembly);
 });
 IMapper mapper = automapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);

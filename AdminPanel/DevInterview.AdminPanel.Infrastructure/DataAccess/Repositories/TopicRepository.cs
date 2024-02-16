@@ -18,6 +18,33 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
             _mapper = mapper;
         }
 
+        public async Task<List<Topic>> GetAllTopics()
+        {
+            try
+            {
+                Query query = _firebaseContext.Database.Collection("topics");
+                QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+                var topicFirebaseList = new List<TopicFirebase>();
+
+                foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
+                {
+                    if (documentSnapshot.Exists)
+                    {
+                        Dictionary<string, object> role = documentSnapshot.ToDictionary();
+                        string json = JsonConvert.SerializeObject(role);
+                        var topicFirebase = JsonConvert.DeserializeObject<TopicFirebase>(json);
+                        topicFirebase.TopicId = documentSnapshot.Id;
+                        topicFirebaseList.Add(topicFirebase);
+                    }
+                }
+                return _mapper.Map<List<Topic>>(topicFirebaseList);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public async Task<List<Topic>> GetAllTopics(string roleId)
         {
             try

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DevInterview.AdminPanel.Web.Models.TopicsIndexViewModel
+
+@{
     ViewData["Title"] = "Topics";
 }
 
@@ -9,6 +11,29 @@
     <div class="card-body">
         <a asp-action="Create" asp-controller="Topics" class="btn btn-primary">Add Topic</a>
         <hr />
-
+        <table class='table table-bordered'>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var topic in Model.TopicList)
+                {
+                    <tr>
+                        <td>@topic.TopicId</td>
+                        <td>@topic.Name</td>
+                        <td>@topic.Description</td>
+                        <td>
+                            <a asp-action="Update" asp-controller="Topics" asp-route-roleId="@topic.TopicId" class="btn btn-sm btn-outline-dark">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" onclick="Confirm('@topic.TopicId')">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
