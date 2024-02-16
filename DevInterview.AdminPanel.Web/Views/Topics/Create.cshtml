@@ -1,0 +1,34 @@
+﻿@model DevInterview.AdminPanel.Web.Models.CreateTopicViewModel
+
+@{
+    ViewData["Title"] = "Create Topic";
+}
+
+<div class="card">
+    <div class="card-header">
+        Create Topic
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" asp-controller="Topics" method="post">
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input asp-for="Name" type="text" class="form-control">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+@*             <div class="mb-3">
+                <label class="form-label">Telefono</label>
+                <input asp-for="Telefono" type="text" class="form-control">
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Correo</label>
+                <input asp-for="Correo" type="text" class="form-control">
+                <span asp-validation-for="Correo" class="text-danger"></span>
+            </div> *@
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" asp-controller="Topics" class="btn btn-warning">Back</a>
+        </form>
+
+
+    </div>
+</div>
