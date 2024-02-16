@@ -4,7 +4,6 @@ using DevInterview.AdminPanel.Domain.Interfaces;
 using DevInterview.AdminPanel.Infrastructure.DataAccess.FirebaseEntities;
 using Google.Cloud.Firestore;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
 
 namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
 {
@@ -91,7 +90,8 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
             try
             {
                 DocumentReference docRef = _firebaseContext.Database.Collection("roles").Document(role.RoleId);
-                await docRef.SetAsync(role, SetOptions.Overwrite);
+                var roleFirebase = _mapper.Map<RoleFirebase>(role);
+                await docRef.SetAsync(roleFirebase, SetOptions.Overwrite);
                 return docRef.Id;
             }
             catch

@@ -57,16 +57,22 @@ namespace DevInterview.AdminPanel.Web.Controllers
         public async Task<IActionResult> Update(string roleId)
         {
             var role = await _mediator.Send(new GetRoleQuery(roleId));
-            //return View(role);
-            return View(null);
+            var viewModel = new UpdateRoleViewModel { 
+                RoleId = roleId, 
+                Name = role.Name 
+            };
+            return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update()
+        public async Task<IActionResult> Update(UpdateRoleViewModel vm)
         {
-            return View();
-        }
+            if (!ModelState.IsValid)
+                return View();
 
+            var response = await _mediator.Send(new UpdateRoleCommand(vm.RoleId, vm.Name));
+            return RedirectToAction("Index");
+        }
 
         public async Task<JsonResult> Delete(string id)
         {
