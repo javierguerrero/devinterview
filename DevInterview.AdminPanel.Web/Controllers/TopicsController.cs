@@ -4,6 +4,7 @@ using DevInterview.AdminPanel.Application.Queries;
 using DevInterview.AdminPanel.Web.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using static Google.Rpc.Context.AttributeContext.Types;
 
 namespace DevInterview.AdminPanel.Web.Controllers
 {
@@ -40,9 +41,11 @@ namespace DevInterview.AdminPanel.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var roles = await _mediator.Send(new GetAllRolesQuery());
+
             var vm = new CreateTopicViewModel();
-            var response = await _mediator.Send(new GetAllRolesQuery());
-            vm.RoleList = _mapper.Map<List<RoleViewModel>>(response);
+            vm.RoleList = _mapper.Map<List<RoleViewModel>>(roles);
+
             return View(vm);
         }
 
@@ -50,6 +53,26 @@ namespace DevInterview.AdminPanel.Web.Controllers
         public async Task<IActionResult> Create(CreateTopicViewModel vm)
         {
             await _mediator.Send(new CreateTopicCommand(vm.Topic.Name, vm.Topic.Description, vm.SelectedRoleId));
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(string topicId)
+        {
+            var topic = await _mediator.Send(new GetTopicQuery(topicId));
+            var roles = await _mediator.Send(new GetAllRolesQuery());
+
+            var vm = new UpdateTopicViewModel();
+            vm.Topic = _mapper.Map<TopicViewModel>(topic);
+            vm.RoleList = _mapper.Map<List<RoleViewModel>>(roles);
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateTopicViewModel vm)
+        {
+            await _mediator.Send(new UpdateTopicCommand(vm.Topic.TopicId, vm.Topic.Name, vm.Topic.Description, vm.SelectedRoleId));
             return RedirectToAction("Index");
         }
 

@@ -104,12 +104,40 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
 
         public async Task<Topic> GetTopic(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var topicFirebase = new TopicFirebase();
+                DocumentReference docRef = _firebaseContext.Database.Collection("topics").Document(id);
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+                if (snapshot.Exists)
+                {
+                    Dictionary<string, object> role = snapshot.ToDictionary();
+                    string json = JsonConvert.SerializeObject(role);
+                    topicFirebase = JsonConvert.DeserializeObject<TopicFirebase>(json);
+                    topicFirebase.TopicId = snapshot.Id;
+                }
+
+                return _mapper.Map<Topic>(topicFirebase);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<string> UpdateTopic(Topic topic)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DocumentReference docRef = _firebaseContext.Database.Collection("topics").Document(topic.TopicId);
+                var roleFirebase = _mapper.Map<TopicFirebase>(topic);
+                await docRef.SetAsync(roleFirebase, SetOptions.Overwrite);
+                return docRef.Id;
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }
