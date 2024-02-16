@@ -14,7 +14,7 @@
         <table class='table table-bordered'>
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th class="visually-hidden">Id</th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Actions</th>
@@ -24,7 +24,7 @@
                 @foreach (var topic in Model.TopicList)
                 {
                     <tr>
-                        <td>@topic.TopicId</td>
+                        <td class="visually-hidden">@topic.TopicId</td>
                         <td>@topic.Name</td>
                         <td>@topic.Description</td>
                         <td>

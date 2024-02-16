@@ -4,9 +4,10 @@ namespace DevInterview.AdminPanel.Web.Models
 {
     public class CreateTopicViewModel
     {
-        public string Name { get; set; }
+        public TopicViewModel Topic { get; set; }
 
         public string SelectedRoleId { get; set; }
-        public IEnumerable<RoleResponse> RoleList { get; set; } = new List<RoleResponse>();
+
+        public List<RoleViewModel> RoleList { get; set; } = new();
     }
 }

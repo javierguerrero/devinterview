@@ -26,10 +26,10 @@ namespace DevInterview.AdminPanel.Web.Controllers
 
             if (token != null)
             {
-                var viewModel = new TopicsIndexViewModel();
+                var vm = new TopicsIndexViewModel();
                 var response = await _mediator.Send(new GetAllTopicsQuery());
-                viewModel.TopicList = _mapper.Map<List<TopicViewModel>>(response);
-                return View(viewModel);
+                vm.TopicList = _mapper.Map<List<TopicViewModel>>(response);
+                return View(vm);
             }
             else
             {
@@ -40,17 +40,16 @@ namespace DevInterview.AdminPanel.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var vm = new CreateTopicViewModel()
-            {
-                RoleList = await _mediator.Send(new GetAllRolesQuery())
-            };
+            var vm = new CreateTopicViewModel();
+            var response = await _mediator.Send(new GetAllRolesQuery());
+            vm.RoleList = _mapper.Map<List<RoleViewModel>>(response);
             return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateTopicViewModel viewModel)
+        public async Task<IActionResult> Create(CreateTopicViewModel vm)
         {
-            await _mediator.Send(new CreateTopicCommand(viewModel.Name, viewModel.SelectedRoleId));
+            await _mediator.Send(new CreateTopicCommand(vm.Topic.Name, vm.Topic.Description, vm.SelectedRoleId));
             return RedirectToAction("Index");
         }
 

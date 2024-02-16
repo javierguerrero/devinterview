@@ -22,7 +22,6 @@ var automapperConfig = new MapperConfiguration(mapperConfig =>
 IMapper mapper = automapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-
 //Add sessions
 builder.Services.AddSession(options =>
 {

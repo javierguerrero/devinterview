@@ -20,7 +20,12 @@ namespace DevInterview.AdminPanel.Application.Commands.Handlers
 
         public async Task<string> Handle(CreateTopicCommand request, CancellationToken cancellationToken)
         {
-            var topic = new Topic() { Name = request.name, RoleId = request.roleId };
+            var topic = new Topic()
+            {
+                Name = request.name,
+                Description = request.description,
+                RoleId = request.roleId
+            };
             return await _topicRepository.CreateTopic(topic);
         }
     }
