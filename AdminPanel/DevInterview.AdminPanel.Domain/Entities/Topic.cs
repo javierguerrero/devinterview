@@ -8,7 +8,8 @@ namespace DevInterview.AdminPanel.Domain.Entities
 {
     public class Topic
     {
-        public string Id { get; set; }
+        public string TopicId { get; set; }
         public string Name { get; set; }
+        public string RoleId { get; set; }
     }
 }

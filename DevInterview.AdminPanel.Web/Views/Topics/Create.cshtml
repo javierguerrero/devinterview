@@ -11,10 +11,24 @@
     <div class="card-body">
         <form asp-action="Create" asp-controller="Topics" method="post">
             <div class="mb-3">
-                <label class="form-label">Nombre</label>
+                <label class="form-label">Name</label>
                 <input asp-for="Name" type="text" class="form-control">
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <div class="mb-3">
+                <label class="form-label">Role</label>
+                
+                <select class="form-control" asp-for="SelectedRoleId">
+                    @foreach (var item in Model.RoleList)
+                    {
+                        <option value="@item.RoleId" data="@item.Name">@item.Name</option>
+                    }
+                </select>
+
+
+            </div>
+
+
 @*             <div class="mb-3">
                 <label class="form-label">Telefono</label>
                 <input asp-for="Telefono" type="text" class="form-control">

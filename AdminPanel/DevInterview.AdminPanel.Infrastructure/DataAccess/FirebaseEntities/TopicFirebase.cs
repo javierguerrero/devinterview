@@ -7,11 +7,11 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.FirebaseEntities
     {
         public string TopicId { get; set; }
 
+        [FirestoreProperty("name")]
+        public string Name { get; set; }
+
         [FirestoreProperty("roleId")]
         public string RoleId { get; set; }
 
-
-        [FirestoreProperty("name")]
-        public string Name { get; set; }
     }
 }

@@ -1,3 +1,5 @@
+using DevInterview.AdminPanel.Application.Commands;
+using DevInterview.AdminPanel.Application.Queries;
 using DevInterview.AdminPanel.Web.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +23,9 @@ namespace DevInterview.AdminPanel.Web.Controllers
 
             if (token != null)
             {
-                //var viewModel = new RolesIndexViewModel();
-                //viewModel.RoleList = await _mediator.Send(new GetAllRolesQuery());
-                //return View(viewModel);
-
-                return View(null);
+                var viewModel = new TopicsIndexViewModel();
+                //viewModel.TopicList = await _mediator.Send(new GetAllRolesQuery());
+                return View(viewModel);
             }
             else
             {
@@ -34,17 +34,21 @@ namespace DevInterview.AdminPanel.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var vm = new CreateTopicViewModel()
+            {
+                RoleList = await _mediator.Send(new GetAllRolesQuery())
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Create(CreateTopicViewModel vm)
+        public async Task<IActionResult> Create(CreateTopicViewModel viewModel)
         {
-            return View();
+            await _mediator.Send(new CreateTopicCommand(viewModel.Name, viewModel.SelectedRoleId));
+            return RedirectToAction("Index");
         }
-
-
     }
 }
