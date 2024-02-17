@@ -42,10 +42,10 @@ namespace DevInterview.AdminPanel.Web.Controllers
         public async Task<IActionResult> Create()
         {
             var roles = await _mediator.Send(new GetAllRolesQuery());
-
-            var vm = new CreateTopicViewModel();
-            vm.RoleList = _mapper.Map<List<RoleViewModel>>(roles);
-
+            var vm = new CreateTopicViewModel
+            {
+                RoleList = _mapper.Map<List<RoleViewModel>>(roles)
+            };
             return View(vm);
         }
 

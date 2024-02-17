@@ -57,9 +57,10 @@ namespace DevInterview.AdminPanel.Web.Controllers
         public async Task<IActionResult> Update(string roleId)
         {
             var role = await _mediator.Send(new GetRoleQuery(roleId));
-            var viewModel = new UpdateRoleViewModel { 
-                RoleId = roleId, 
-                Name = role.Name 
+            var viewModel = new UpdateRoleViewModel
+            {
+                RoleId = roleId,
+                Name = role.Name
             };
             return View(viewModel);
         }
