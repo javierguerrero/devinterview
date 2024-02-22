@@ -26,12 +26,12 @@
                 </select>
             </div>
             <div class="col">
-                <a asp-action="Create" asp-controller="Questions" class="btn btn-primary">Add Question</a>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQuestionModal">Add Question</button>
             </div>
         </div>
         <hr />
 
-        <table class='table table-bordered'>
+@*         <table class='table table-bordered'>
             <thead>
                 <tr>
                     <th class="visually-hidden">Id</th>
@@ -52,10 +52,10 @@
                     </tr>
                 }
             </tbody>
-        </table>
+        </table> *@
 
 
-@*         <table id="dataTable" class='table table-bordered'>
+        <table id="dataTable" class='table table-bordered'>
             <thead>
                 <tr>
                     <th>Name</th>
@@ -66,9 +66,43 @@
                 <!-- Los datos se llenarán aquí dinámicamente -->
             </tbody>
         </table>
- *@
 
 
+
+    </div>
+</div>
+
+<div class="modal fade" id="addQuestionModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Question</h3>
+                <button type="button" class="close" data-bs-dismiss="modal">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="saveForm" enctype="multipart/form-data">
+@*                     <div class="form-group">
+                        <label class="control-label">Name</label>
+                        <input asp-for="Role.Name" id="name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Image</label>
+                        <input id="fileUpload"
+                               type="file"
+                               class="form-control"
+                               name="file"
+                               accept="image/*"
+                               required />
+                    </div> *@
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnCancel" data-bs-dismiss="modal">Cancel</button>
+                <button id="btnSave" class="btn btn-block btn-success">Save</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -105,24 +139,16 @@
         $.getJSON("/Questions/GetQuestionsByTopic", { topicId: selectedTopicId }, function (data) {
             if (data != null && data.length > 0) {
                 $.each(data, function (index, item) {
-                    dataTable.append('<tr><td>' + item.text + '</td><td><a class="btn btn-sm btn-outline-dark">Edit</a></td></tr>');
+                    dataTable.append('<tr><td>' + item.text + '</td><td><a class="btn btn-sm btn-outline-danger" onclick="Confirm(\'' + item.id + '\')">Delete</a></td></tr>');
                 });
             } else {
                 dataTable.append('<tr><td colspan="2">No data available</td></tr>');
             }
         });
     }
+
+
+    var Confirm = function (id) {
+        alert(id);
+    }
 </script>
-
-
-@*
-
-                            
-
-
-                            <a asp-action="Update" asp-controller="Questions" asp-route-topicId="@question.Id" class="btn btn-sm btn-outline-dark">Edit</a>
-                            <a class="btn btn-sm btn-outline-danger" onclick="Confirm('@question.Id')">Delete</a>
-
-
-
-                            *@
