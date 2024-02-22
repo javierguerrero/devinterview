@@ -45,7 +45,7 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
             }
         }
 
-        public async Task<List<Topic>> GetAllTopics(string roleId)
+        public async Task<List<Topic>> GetTopicsByRole(string roleId)
         {
             try
             {

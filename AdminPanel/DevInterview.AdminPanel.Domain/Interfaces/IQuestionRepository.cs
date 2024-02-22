@@ -6,7 +6,7 @@ namespace DevInterview.AdminPanel.Domain.Interfaces
     {
         Task<List<Question>> GetAllQuestions();
 
-        Task<List<Question>> GetAllQuestions(string topicId);
+        Task<List<Question>> GetQuestionsByTopic(string topicId);
 
         Task<Question> GetQuestion(string id);
 

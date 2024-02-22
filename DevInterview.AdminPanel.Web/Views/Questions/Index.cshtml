@@ -9,8 +9,28 @@
         <h4>@ViewData["Title"]</h4>
     </div>
     <div class="card-body">
-        <a asp-action="Create" asp-controller="Questions" class="btn btn-primary">Add Question</a>
+        <div class="row">
+            <div class="col">
+                <select id="roleId" class="form-select" asp-for="SelectedRoleId" onchange="FillTopics(this)">
+                    <option value="-1">-- Select a Role --</option>
+                    @foreach (var role in Model.RoleList)
+                    {
+                        <option value="@role.RoleId" data="@role.Name">@role.Name</option>
+                    }
+                </select>
+
+            </div>
+            <div class="col">
+                <select id="topicId" class="form-select" asp-for="SelectedTopicId" onchange="FillQuestions(this)">
+                    <option value="-1">-- Select a Topic --</option>
+                </select>
+            </div>
+            <div class="col">
+                <a asp-action="Create" asp-controller="Questions" class="btn btn-primary">Add Question</a>
+            </div>
+        </div>
         <hr />
+
         <table class='table table-bordered'>
             <thead>
                 <tr>
@@ -33,5 +53,76 @@
                 }
             </tbody>
         </table>
+
+
+@*         <table id="dataTable" class='table table-bordered'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los datos se llenarán aquí dinámicamente -->
+            </tbody>
+        </table>
+ *@
+
+
     </div>
 </div>
+
+<script>
+    function FillTopics(listRoleCtrl) {
+        var topicList = $("#topicId");
+        topicList.empty();
+        topicList.append('<option value="-1">-- Select a Topic --</option>');
+
+
+        var selectedRole = listRoleCtrl.options[listRoleCtrl.selectedIndex].value;
+
+        if (selectedRole != null && selectedRole != '') {
+            $.getJSON("/Topics/GetTopicsByRole", { roleId: selectedRole }, function (topics) {
+                if (topics != null && !jQuery.isEmptyObject(topics)) {
+                    $.each(topics, function (index, topic) {
+                        topicList.append($('<option/>', {
+                            value: topic.value,
+                            text: topic.text
+                        }));
+                    });
+                }
+            });
+        }
+        return;
+    }
+
+    function FillQuestions(listTopicCtrl) {
+        var dataTable = $("#dataTable tbody");
+        dataTable.empty();
+
+        var selectedTopicId = listTopicCtrl.options[listTopicCtrl.selectedIndex].value;
+
+        $.getJSON("/Questions/GetQuestionsByTopic", { topicId: selectedTopicId }, function (data) {
+            if (data != null && data.length > 0) {
+                $.each(data, function (index, item) {
+                    dataTable.append('<tr><td>' + item.text + '</td><td><a class="btn btn-sm btn-outline-dark">Edit</a></td></tr>');
+                });
+            } else {
+                dataTable.append('<tr><td colspan="2">No data available</td></tr>');
+            }
+        });
+    }
+</script>
+
+
+@*
+
+                            
+
+
+                            <a asp-action="Update" asp-controller="Questions" asp-route-topicId="@question.Id" class="btn btn-sm btn-outline-dark">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" onclick="Confirm('@question.Id')">Delete</a>
+
+
+
+                            *@

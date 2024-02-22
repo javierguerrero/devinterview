@@ -45,7 +45,7 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
             }
         }
 
-        public async Task<List<Question>> GetAllQuestions(string topicId)
+        public async Task<List<Question>> GetQuestionsByTopic(string topicId)
         {
             try
             {
@@ -59,9 +59,9 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
                     {
                         Dictionary<string, object> question = documentSnapshot.ToDictionary();
                         string json = JsonConvert.SerializeObject(question);
-                        QuestionFirebase newQuestionFirebase = JsonConvert.DeserializeObject<QuestionFirebase>(json);
-                        newQuestionFirebase.Id = documentSnapshot.Id;
-                        lstQuestionFirebase.Add(newQuestionFirebase);
+                        QuestionFirebase questionFirebase = JsonConvert.DeserializeObject<QuestionFirebase>(json);
+                        questionFirebase.Id = documentSnapshot.Id;
+                        lstQuestionFirebase.Add(questionFirebase);
                     }
                 }
 

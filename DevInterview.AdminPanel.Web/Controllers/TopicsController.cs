@@ -4,6 +4,7 @@ using DevInterview.AdminPanel.Application.Queries;
 using DevInterview.AdminPanel.Web.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using static Google.Rpc.Context.AttributeContext.Types;
 
 namespace DevInterview.AdminPanel.Web.Controllers
@@ -79,6 +80,29 @@ namespace DevInterview.AdminPanel.Web.Controllers
         public async Task<JsonResult> Delete(string id)
         {
             return Json(await _mediator.Send(new DeleteTopicCommand(id)));
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetTopicsByRole(string roleId)
+        {
+            var topics = await GetTopics(roleId);
+            return Json(topics);
+        }
+
+        private async Task<List<SelectListItem>> GetTopics(string roleId)
+        {
+            var results = new List<SelectListItem>();
+            var data = await _mediator.Send(new GetTopicsByRoleQuery(roleId));
+            foreach (var topic in data)
+            {
+                results.Add(new SelectListItem
+                {
+                    Text = topic.Name,
+                    Value = topic.TopicId
+                });
+            }
+
+            return results;
         }
     }
 }

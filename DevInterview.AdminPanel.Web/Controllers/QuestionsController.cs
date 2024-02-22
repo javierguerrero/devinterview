@@ -1,8 +1,10 @@
 using AutoMapper;
+using DevInterview.AdminPanel.Application.Commands;
 using DevInterview.AdminPanel.Application.Queries;
 using DevInterview.AdminPanel.Web.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DevInterview.AdminPanel.Web.Controllers
 {
@@ -26,14 +28,39 @@ namespace DevInterview.AdminPanel.Web.Controllers
             if (token != null)
             {
                 var vm = new QuestionsIndexViewModel();
-                var response = await _mediator.Send(new GetAllQuestionsQuery());
-                vm.QuestionList = _mapper.Map<List<QuestionViewModel>>(response);
+                var response = await _mediator.Send(new GetAllRolesQuery());
+                vm.RoleList = _mapper.Map<List<RoleViewModel>>(response);
                 return View(vm);
             }
             else
             {
                 return RedirectToAction("Login", "Home");
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var roles = await _mediator.Send(new GetAllRolesQuery());
+            var vm = new CreateTopicViewModel
+            {
+                RoleList = _mapper.Map<List<RoleViewModel>>(roles)
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateTopicViewModel vm)
+        {
+            await _mediator.Send(new CreateTopicCommand(vm.Topic.Name, vm.Topic.Description, vm.SelectedRoleId));
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetQuestionsByTopic(string topicId)
+        {
+            var data = await _mediator.Send(new GetQuestionsByTopicQuery(topicId));
+            return Json(data);
         }
     }
 }
