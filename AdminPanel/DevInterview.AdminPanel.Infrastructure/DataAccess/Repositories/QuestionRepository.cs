@@ -18,6 +18,33 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
             _mapper = mapper;
         }
 
+        public async Task<List<Question>> GetAllQuestions()
+        {
+            try
+            {
+                Query query = _firebaseContext.Database.Collection("questions");
+                QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+                var questionFirebaseList = new List<QuestionFirebase>();
+
+                foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
+                {
+                    if (documentSnapshot.Exists)
+                    {
+                        Dictionary<string, object> question = documentSnapshot.ToDictionary();
+                        string json = JsonConvert.SerializeObject(question);
+                        var questionFirebase = JsonConvert.DeserializeObject<QuestionFirebase>(json);
+                        questionFirebase.Id = documentSnapshot.Id;
+                        questionFirebaseList.Add(questionFirebase);
+                    }
+                }
+                return _mapper.Map<List<Question>>(questionFirebaseList);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public async Task<List<Question>> GetAllQuestions(string topicId)
         {
             try
@@ -33,7 +60,7 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
                         Dictionary<string, object> question = documentSnapshot.ToDictionary();
                         string json = JsonConvert.SerializeObject(question);
                         QuestionFirebase newQuestionFirebase = JsonConvert.DeserializeObject<QuestionFirebase>(json);
-                        newQuestionFirebase.QuestionId = documentSnapshot.Id;
+                        newQuestionFirebase.Id = documentSnapshot.Id;
                         lstQuestionFirebase.Add(newQuestionFirebase);
                     }
                 }

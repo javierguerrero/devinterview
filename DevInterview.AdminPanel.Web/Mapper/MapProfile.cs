@@ -17,9 +17,11 @@ namespace DevInterview.AdminPanel.Web.Mapper
 
             CreateMap<Role, RoleResponse>().ReverseMap();
             CreateMap<Topic, TopicResponse>().ReverseMap();
+            CreateMap<Question, QuestionResponse>();
 
             CreateMap<RoleResponse, RoleViewModel>().ReverseMap();
             CreateMap<TopicResponse, TopicViewModel>().ReverseMap();
+            CreateMap<QuestionResponse, QuestionViewModel>().ReverseMap();
         }
     }
 }

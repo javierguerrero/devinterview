@@ -4,6 +4,8 @@ namespace DevInterview.AdminPanel.Domain.Interfaces
 {
     public interface IQuestionRepository
     {
+        Task<List<Question>> GetAllQuestions();
+
         Task<List<Question>> GetAllQuestions(string topicId);
 
         Task<Question> GetQuestion(string id);

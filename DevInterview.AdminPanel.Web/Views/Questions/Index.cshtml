@@ -1,0 +1,37 @@
+﻿@model DevInterview.AdminPanel.Web.Models.QuestionsIndexViewModel
+
+@{
+    ViewData["Title"] = "Questions";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>@ViewData["Title"]</h4>
+    </div>
+    <div class="card-body">
+        <a asp-action="Create" asp-controller="Questions" class="btn btn-primary">Add Question</a>
+        <hr />
+        <table class='table table-bordered'>
+            <thead>
+                <tr>
+                    <th class="visually-hidden">Id</th>
+                    <th>Name</th>
+                    <th class="w-25">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var question in Model.QuestionList)
+                {
+                    <tr>
+                        <td class="visually-hidden">@question.Id</td>
+                        <td>@question.Text</td>
+                        <td>
+                            <a asp-action="Update" asp-controller="Questions" asp-route-topicId="@question.Id" class="btn btn-sm btn-outline-dark">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" onclick="Confirm('@question.Id')">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
