@@ -7,8 +7,11 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.FirebaseEntities
     {
         public string Id { get; set; }
 
-        [FirestoreProperty("text")]
-        public string Text { get; set; }
+        [FirestoreProperty("questionText")]
+        public string QuestionText { get; set; }
+
+        [FirestoreProperty("answerText")]
+        public string AnswerText { get; set; }
 
         [FirestoreProperty("topicId")]
         public string TopicId { get; set; }

@@ -13,7 +13,6 @@ namespace DevInterview.AdminPanel.Web.Mapper
             CreateMap<RoleFirebase, Role>().ReverseMap();
             CreateMap<TopicFirebase, Topic>().ReverseMap();
             CreateMap<QuestionFirebase, Question>().ReverseMap();
-            CreateMap<AnswerFirebase, Answer>().ReverseMap();
 
             CreateMap<Role, RoleResponse>().ReverseMap();
             CreateMap<Topic, TopicResponse>().ReverseMap();

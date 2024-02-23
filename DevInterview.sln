@@ -9,13 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdminPanel", "AdminPanel", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevInterview.MobileApp", "MobileApp\DevInterview.MobileApp.csproj", "{BCF7A65B-B3B5-49A3-86EE-B207C04C32C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevInterview.AdminPanel.Domain", "AdminPanel\DevInterview.AdminPanel.Domain\DevInterview.AdminPanel.Domain.csproj", "{3339920F-8422-462F-95F3-85486B65F323}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevInterview.AdminPanel.Domain", "AdminPanel\DevInterview.AdminPanel.Domain\DevInterview.AdminPanel.Domain.csproj", "{3339920F-8422-462F-95F3-85486B65F323}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevInterview.AdminPanel.Infrastructure", "AdminPanel\DevInterview.AdminPanel.Infrastructure\DevInterview.AdminPanel.Infrastructure.csproj", "{52DB393A-21F4-4EDA-8C4F-CA8BBCBD5A09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevInterview.AdminPanel.Infrastructure", "AdminPanel\DevInterview.AdminPanel.Infrastructure\DevInterview.AdminPanel.Infrastructure.csproj", "{52DB393A-21F4-4EDA-8C4F-CA8BBCBD5A09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevInterview.AdminPanel.Application", "AdminPanel\DevInterview.AdminPanel.Application\DevInterview.AdminPanel.Application.csproj", "{8CF34C1B-9DC0-4C50-8479-E0C8D43E2DAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevInterview.AdminPanel.Application", "AdminPanel\DevInterview.AdminPanel.Application\DevInterview.AdminPanel.Application.csproj", "{8CF34C1B-9DC0-4C50-8479-E0C8D43E2DAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevInterview.AdminPanel.Web", "DevInterview.AdminPanel.Web\DevInterview.AdminPanel.Web.csproj", "{FF3DC125-E1D1-4AF9-ADBD-676EE6FEC039}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevInterview.AdminPanel.Web", "DevInterview.AdminPanel.Web\DevInterview.AdminPanel.Web.csproj", "{FF3DC125-E1D1-4AF9-ADBD-676EE6FEC039}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

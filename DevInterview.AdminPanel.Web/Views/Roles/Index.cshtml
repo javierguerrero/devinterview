@@ -14,7 +14,7 @@
         <table class='table table-bordered'>
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th class="visually-hidden">Id</th>
                     <th>Name</th>
                     <th>Image</th>
                     <th>Actions</th>
@@ -24,7 +24,7 @@
                 @foreach (var role in Model.RoleList)
                 {
                     <tr>
-                        <td>@role.RoleId</td>
+                        <td class="visually-hidden">@role.RoleId</td>
                         <td>@role.Name</td>
                         <td></td>
                         <td>

@@ -38,21 +38,11 @@ namespace DevInterview.AdminPanel.Web.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            var roles = await _mediator.Send(new GetAllRolesQuery());
-            var vm = new CreateTopicViewModel
-            {
-                RoleList = _mapper.Map<List<RoleViewModel>>(roles)
-            };
-            return View(vm);
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Create(CreateTopicViewModel vm)
+        public async Task<IActionResult> Create(string questionText, string answerText, string topicId)
         {
-            await _mediator.Send(new CreateTopicCommand(vm.Topic.Name, vm.Topic.Description, vm.SelectedRoleId));
+            await _mediator.Send(new CreateQuestionCommand(questionText, answerText, topicId));
+
             return RedirectToAction("Index");
         }
 
@@ -61,6 +51,11 @@ namespace DevInterview.AdminPanel.Web.Controllers
         {
             var data = await _mediator.Send(new GetQuestionsByTopicQuery(topicId));
             return Json(data);
+        }
+
+        public async Task<JsonResult> Delete(string id)
+        {
+            return Json(await _mediator.Send(new DeleteQuestionCommand(id)));
         }
     }
 }

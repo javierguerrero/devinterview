@@ -8,7 +8,6 @@
         Create Topic
     </div>
     <div class="card-body">
-        <span>@Model.Topic.TopicId</span>
         <form asp-action="Update" asp-controller="Topics" method="post">
             <input asp-for="Topic.TopicId" type="hidden" class="form-control" value="@Model.Topic.TopicId" />
             <div class="mb-3">
