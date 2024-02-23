@@ -27,12 +27,10 @@ namespace DevInterview.MobileApp.ViewModels
 
         public async void OnTapped(Question question)
         {
-            //await App.Current.MainPage.DisplayAlert("Alert", question.Answer, "OK");
-
             var answerPage = new AnswerPage();
             answerPage.BindingContext = new AnswerViewModel(_navigation)
             {
-                QuestionId = question.Id
+                Question = question
             };
             await _navigation.PushAsync(answerPage);
         }
