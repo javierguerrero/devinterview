@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdminPanel\DevInterview.AdminPanel.Application\DevInterview.AdminPanel.Application.csproj" />
-    <ProjectReference Include="..\AdminPanel\DevInterview.AdminPanel.Infrastructure\DevInterview.AdminPanel.Infrastructure.csproj" />
+    <ProjectReference Include="..\DevInterview.AdminPanel.Application\DevInterview.AdminPanel.Application.csproj" />
+    <ProjectReference Include="..\DevInterview.AdminPanel.Infrastructure\DevInterview.AdminPanel.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

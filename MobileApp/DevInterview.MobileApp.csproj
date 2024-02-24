@@ -21,10 +21,10 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>DevInterview.MobileApp</ApplicationTitle>
+		<ApplicationTitle>DevInterview</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.devinterview.mobileapp</ApplicationId>
+		<ApplicationId>com.ambarlabs.devinterview</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -87,5 +87,13 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+	
+<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+	<AndroidKeyStore>True</AndroidKeyStore>
+	<AndroidSigningKeyStore>.\key.keystore</AndroidSigningKeyStore>
+	<AndroidSigningStorePass>Peru1821*</AndroidSigningStorePass>
+	<AndroidSigningKeyAlias>DevInterview</AndroidSigningKeyAlias>
+	<AndroidSigningKeyPass>Peru1821*</AndroidSigningKeyPass>
+</PropertyGroup>	
 
 </Project>
