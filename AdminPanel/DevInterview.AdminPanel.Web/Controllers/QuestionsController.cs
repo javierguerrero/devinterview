@@ -4,7 +4,6 @@ using DevInterview.AdminPanel.Application.Queries;
 using DevInterview.AdminPanel.Web.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DevInterview.AdminPanel.Web.Controllers
 {
@@ -59,6 +58,13 @@ namespace DevInterview.AdminPanel.Web.Controllers
             };
 
             return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateQuestionViewModel vm)
+        {
+            await _mediator.Send(new UpdateQuestionCommand(vm.Question.Id, vm.Question.QuestionText, vm.Question.AnswerText, vm.SelectedTopicId));
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

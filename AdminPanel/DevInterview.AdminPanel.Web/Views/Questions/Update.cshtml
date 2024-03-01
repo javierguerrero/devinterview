@@ -1,5 +1,35 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model DevInterview.AdminPanel.Web.Models.UpdateQuestionViewModel
 @{
+    ViewData["Title"] = "Update Question";
 }
+
+<div class="card">
+    <div class="card-header">
+        Update Question
+    </div>
+    <div class="card-body">
+        <form asp-action="Update" asp-controller="Questions" method="post">
+            <input asp-for="Question.Id" type="hidden" class="form-control" value="@Model.Question.Id" />
+            <div class="mb-3">
+                <label class="form-label">Topic</label>
+                <select class="form-control" asp-for="SelectedTopicId">
+                    @foreach (var item in Model.TopicList)
+                    {
+                        <option value="@item.TopicId" data="@item.Name">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Question</label>
+                <input asp-for="Question.QuestionText" type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Answer</label>
+                <textarea asp-for="Question.AnswerText" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" asp-controller="Questions" class="btn btn-warning">Back</a>
+        </form>
+    </div>
+</div>
