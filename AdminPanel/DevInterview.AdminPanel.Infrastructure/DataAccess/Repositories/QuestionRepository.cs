@@ -75,7 +75,25 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
 
         public async Task<Question> GetQuestion(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var questionFirebase = new QuestionFirebase();
+                DocumentReference docRef = _firebaseContext.Database.Collection("questions").Document(id);
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+                if (snapshot.Exists)
+                {
+                    Dictionary<string, object> question = snapshot.ToDictionary();
+                    string json = JsonConvert.SerializeObject(question);
+                    questionFirebase = JsonConvert.DeserializeObject<QuestionFirebase>(json);
+                    questionFirebase.Id = snapshot.Id;
+                }
+
+                return _mapper.Map<Question>(questionFirebase);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<string> CreateQuestion(Question question)

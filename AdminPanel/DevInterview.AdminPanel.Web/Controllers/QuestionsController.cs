@@ -47,6 +47,21 @@ namespace DevInterview.AdminPanel.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Update(string questionId, string roleId)
+        {
+            var question = await _mediator.Send(new GetQuestionQuery(questionId));
+            var topics = await _mediator.Send(new GetTopicsByRoleQuery(roleId));
+
+            var vm = new UpdateQuestionViewModel
+            {
+                Question = _mapper.Map<QuestionViewModel>(question),
+                TopicList = _mapper.Map<List<TopicViewModel>>(topics),
+            };
+
+            return View(vm);
+        }
+
+        [HttpGet]
         public async Task<JsonResult> GetQuestionsByTopic(string topicId)
         {
             var data = await _mediator.Send(new GetQuestionsByTopicQuery(topicId));
