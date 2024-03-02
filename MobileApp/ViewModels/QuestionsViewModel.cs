@@ -17,6 +17,9 @@ namespace DevInterview.MobileApp.ViewModels
         public string TopicId { get; internal set; }
         public ObservableCollection<Question> Questions { get; set; } = new();
 
+        [ObservableProperty]
+        private bool _isBusy = true;
+
         public QuestionsViewModel(INavigation navigation)
         {
             _dataService = new DataService();
@@ -48,6 +51,7 @@ namespace DevInterview.MobileApp.ViewModels
                     {
                         Questions.Clear();
                         _questions.ForEach(topic => Questions.Add(topic));
+                        IsBusy = false;
                     });
                 });
             }

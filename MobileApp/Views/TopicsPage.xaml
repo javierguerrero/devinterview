@@ -10,7 +10,10 @@
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
 
-    <VerticalStackLayout Padding="10">
+    <VerticalStackLayout Padding="10" HorizontalOptions="Center">
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
         <!--#region Topics -->
         <CollectionView ItemsSource="{Binding Topics}" Margin="0" x:Name="topics">
             <CollectionView.ItemTemplate>

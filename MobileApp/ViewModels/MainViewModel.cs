@@ -18,6 +18,9 @@ namespace DevInterview.MobileApp.ViewModels
 
         public ObservableCollection<Role> Roles { get; set; } = new();
 
+        [ObservableProperty]
+        private bool _isBusy = true;
+
         public MainViewModel(INavigation navigation)
         {
             _dataService = new DataService();
@@ -52,6 +55,7 @@ namespace DevInterview.MobileApp.ViewModels
                             role.Image = "https://via.placeholder.com/200x200";
                             Roles.Add(role);
                         }
+                        IsBusy = false;
                     });
                 });
             }

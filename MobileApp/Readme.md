@@ -44,7 +44,7 @@ View >> Terminal
 \bin\Release\net8.0-android
 ```
 
-7. Acceder a "Google Play Console" 
+7. Acceder a "Google Play Console"  https://play.google.com/console/u/1/developers/?pli=1
 * Create app
 * Internal Testing >> Create new release >> upload .aab file
 * Save and Publish

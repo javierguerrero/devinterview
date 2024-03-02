@@ -10,37 +10,39 @@
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
 
-    <VerticalStackLayout Padding="10">
+    <ScrollView  HorizontalOptions="Center">
+        <VerticalStackLayout Padding="10">
 
-        <!--#region Questions -->
-        <CollectionView ItemsSource="{Binding Questions}" x:Name="questions">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <StackLayout Grid.Row="1">
-                            <Frame Padding="10" Margin="0,5,0,5">
-                                <Label Text="{Binding QuestionText}" />
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer
+            <!--#region Questions -->
+            <CollectionView ItemsSource="{Binding Questions}" x:Name="questions">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackLayout Grid.Row="1">
+                                <Frame Padding="10" Margin="0,5,0,5">
+                                    <Label Text="{Binding QuestionText}" />
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer
                                       Command="{Binding Path=BindingContext.TapCommand, Source = {x:Reference questions}}"
                                       CommandParameter="{Binding}">
-                                    </TapGestureRecognizer>
-                                </Frame.GestureRecognizers>
-                            </Frame>
-                        </StackLayout>
+                                        </TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </StackLayout>
 
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <!--#endregion-->
-
-
-    </VerticalStackLayout>
+            <!--#endregion-->
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

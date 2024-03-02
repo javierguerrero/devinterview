@@ -9,9 +9,10 @@
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
 
-    <VerticalStackLayout Padding="20">
-        <Label Text="{Binding Question.QuestionText}" FontSize="Subtitle" FontAttributes="Bold" />
-        <Label Text="{Binding Question.AnswerText}" />
-
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <Label Text="{Binding Question.QuestionText}" FontSize="Subtitle" FontAttributes="Bold" />
+            <Label Text="{Binding Question.AnswerText}" FontSize="15" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

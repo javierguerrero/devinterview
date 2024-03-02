@@ -7,23 +7,11 @@
     Shell.FlyoutBehavior="Flyout"
     Shell.BackgroundColor="LightBlue"
     Title="DevInterview.MobileApp">
-    
 
-
-    <TabBar FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent
+    <ShellContent
             Title="Home"
             Icon="dotnet_bot.svg"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" />
-        <ShellContent
-            Title="Topics"
-            Icon="dotnet_bot.svg"
-            ContentTemplate="{DataTemplate local:TopicsPage}"
-            Route="StudentsPage" />
-    </TabBar>
-
-
-
 
 </Shell>

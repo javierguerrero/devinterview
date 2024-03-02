@@ -2,15 +2,18 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="DevInterview.MobileApp.Views.MainPage">
+             x:Class="DevInterview.MobileApp.Views.MainPage"
+             Title="DevInterview">
 
     <ContentPage.Behaviors>
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
 
-    <ScrollView>
+    <ScrollView HorizontalOptions="Center">
         <VerticalStackLayout Padding="20">
 
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+            
             <!--#region Roles -->
             <CollectionView ItemsSource="{Binding Roles}" Margin="0" x:Name="roles">
                 <CollectionView.ItemsLayout>
