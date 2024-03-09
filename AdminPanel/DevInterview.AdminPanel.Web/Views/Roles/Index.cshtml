@@ -9,7 +9,7 @@
         <h4>@ViewData["Title"]</h4>
     </div>
     <div class="card-body">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoleModal">Add Role</button>
+        <a asp-action="Create" asp-controller="Roles" class="btn btn-primary">Add Role</a>
         <hr />
         <table class='table table-bordered'>
             <thead>
@@ -38,40 +38,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="addRoleModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Add Role</h3>
-                <button type="button" class="close" data-bs-dismiss="modal">
-                    <span aria-hidden="true">X</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="saveForm" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label class="control-label">Name</label>
-                        <input asp-for="Role.Name" id="name" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Image</label>
-                        <input id="fileUpload"
-                                type="file"
-                                class="form-control"
-                                name="file"
-                                accept="image/*"
-                                required />
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btnCancel" data-bs-dismiss="modal">Cancel</button>
-                <button id="btnSave" class="btn btn-block btn-success">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="modal fade" id="deleteRoleModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -96,30 +62,6 @@
 
 <script>
     $(document).ready(function () {
-        $("#btnSave").click(function () {
-            var fileinput = document.getElementById("fileUpload");
-            var files = fileinput.files; //get files
-            var name = document.getElementById("name");
-
-            var formData = new FormData();
-            formData.append("Name", name.value);
-
-            for (var i = 0; i != files.length; i++) {
-                formData.append("files", files[i]);
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/Roles/Create",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function () {
-                    window.location.href = "/Roles/Index"
-                }
-            });
-        });
-
         $("#btnDelete").click(function () {
             var id = $("#roleId").val();
             $.ajax({

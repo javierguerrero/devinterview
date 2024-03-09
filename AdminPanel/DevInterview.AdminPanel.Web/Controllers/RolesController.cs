@@ -1,6 +1,8 @@
 using DevInterview.AdminPanel.Application.Commands;
 using DevInterview.AdminPanel.Application.Queries;
 using DevInterview.AdminPanel.Web.Models;
+using Firebase.Auth;
+using Firebase.Storage;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +12,13 @@ namespace DevInterview.AdminPanel.Web.Controllers
     {
         private readonly ILogger<RolesController> _logger;
         private readonly IMediator _mediator;
+
+
+        //TODO: crear servicio Storage
+        private static string ApiKey = "AIzaSyAMQnAATQawfwiQJeOCK9n07MmkIOQ_5MU";
+        private static string Bucket = "devinterview-2aedb.appspot.com";
+        private static string AuthEmail = "uploadfiles@devinterview.com";
+        private static string AuthPassword = "z6273KEr93C!";
 
         public RolesController(ILogger<RolesController> logger, IMediator mediator)
         {
@@ -33,22 +42,29 @@ namespace DevInterview.AdminPanel.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var vm = new CreateRoleViewModel();
+            return View(vm);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Create(IList<IFormFile> files, string name)
+        public async Task<IActionResult> Create(CreateRoleViewModel vm, IFormFile Image)
         {
             string urlImage = string.Empty;
 
-            if (files.Count > 0 && files[0].Length > 0)
+            if(Image != null)
             {
                 using (var ms = new MemoryStream())
                 {
-                    await files[0].CopyToAsync(ms);
+                    await Image.CopyToAsync(ms);
                     ms.Seek(0, SeekOrigin.Begin);
-                    //urlImage = await Upload(ms, $"{Guid.NewGuid().ToString()}.jpg");
+                    urlImage = await Upload(ms, $"{Guid.NewGuid()}.jpg");
                 }
             }
 
-            await _mediator.Send(new CreateRoleCommand(name, urlImage));
+            await _mediator.Send(new CreateRoleCommand(vm.Name, urlImage));
 
             return RedirectToAction("Index");
         }
@@ -78,6 +94,30 @@ namespace DevInterview.AdminPanel.Web.Controllers
         public async Task<JsonResult> Delete(string id)
         {
             return Json(await _mediator.Send(new DeleteRoleCommand(id)));
+        }
+
+        private async Task<string> Upload(MemoryStream stream, string filename)
+        {
+            var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
+            var firebaseAuthLink = await auth.SignInWithEmailAndPasswordAsync(AuthEmail, AuthPassword);
+
+            // You can use CancellationTokenSource to cancel the upload midway
+            var cancellation = new CancellationTokenSource();
+
+            var task = new FirebaseStorage(Bucket, new FirebaseStorageOptions { AuthTokenAsyncFactory = () => Task.FromResult(firebaseAuthLink.FirebaseToken), ThrowOnCancel = true })
+                            .Child("images")
+                            .Child(filename)
+                            .PutAsync(stream, cancellation.Token);
+
+            try
+            {
+                string link = await task;
+                return link;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

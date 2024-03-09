@@ -14,5 +14,8 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.FirebaseEntities
 
         [FirestoreProperty("name")]
         public string Name { get; set; }
+
+        [FirestoreProperty("image")]
+        public string Image { get; set; }
     }
 }
