@@ -50,11 +50,7 @@ namespace DevInterview.MobileApp.ViewModels
                     App.Current.Dispatcher.Dispatch(() =>
                     {
                         Roles.Clear();
-                        foreach (var role in _roles)
-                        {
-                            role.Image = "https://via.placeholder.com/200x200";
-                            Roles.Add(role);
-                        }
+                        _roles.ForEach(role => Roles.Add(role));
                         IsBusy = false;
                     });
                 });

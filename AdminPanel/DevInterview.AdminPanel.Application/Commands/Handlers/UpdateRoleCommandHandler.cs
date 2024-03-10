@@ -23,6 +23,7 @@ namespace DevInterview.AdminPanel.Application.Commands.Handlers
             {
                 RoleId = request.roleId,
                 Name = request.name,
+                Image = request.image
             };
             return await _roleRepository.UpdateRole(role);
         }

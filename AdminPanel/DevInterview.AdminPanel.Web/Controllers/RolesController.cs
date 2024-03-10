@@ -76,18 +76,28 @@ namespace DevInterview.AdminPanel.Web.Controllers
             var viewModel = new UpdateRoleViewModel
             {
                 RoleId = roleId,
-                Name = role.Name
+                Name = role.Name,
+                Image = role.Image
             };
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(UpdateRoleViewModel vm)
+        public async Task<IActionResult> Update(UpdateRoleViewModel vm, IFormFile Image)
         {
-            if (!ModelState.IsValid)
-                return View();
+            string urlImage = string.Empty;
 
-            var response = await _mediator.Send(new UpdateRoleCommand(vm.RoleId, vm.Name));
+            if (Image != null)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await Image.CopyToAsync(ms);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    urlImage = await Upload(ms, $"{Guid.NewGuid()}.jpg");
+                }
+            }
+
+            var response = await _mediator.Send(new UpdateRoleCommand(vm.RoleId, vm.Name, urlImage));
             return RedirectToAction("Index");
         }
 
