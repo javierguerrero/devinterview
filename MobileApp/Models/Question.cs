@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DevInterview.MobileApp.Models
 {
     public class Question
@@ -14,6 +15,8 @@ namespace DevInterview.MobileApp.Models
         public string QuestionText { get; set; }
         public string AnswerText { get; set; }
         public string TopicId { get; set; }
+        public int Number { get; set; }
+        public string Title => $"{Number}. {QuestionText}";
     }
 
 }

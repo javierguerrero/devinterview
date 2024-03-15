@@ -81,6 +81,13 @@ namespace DevInterview.MobileApp.Services
                         topicList.Add(newTopic);
                     }
                 }
+
+                topicList = topicList.Select((item, index) =>
+                {
+                    item.Number = index + 1;
+                    return item;
+                }).ToList();
+
                 return topicList;
             }
             catch (Exception ex)
@@ -112,6 +119,13 @@ namespace DevInterview.MobileApp.Services
                         questionList.Add(newQuestion);
                     }
                 }
+
+                questionList = questionList.Select((item, index) =>
+                {
+                    item.Number = index + 1;
+                    return item;
+                }).ToList();
+
                 return questionList;
             }
             catch (Exception ex)
