@@ -11,8 +11,11 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20">
-            <Label Text="{Binding Question.QuestionText}" FontSize="Subtitle" FontAttributes="Bold" />
-            <Label Text="{Binding Question.AnswerText}" FontSize="15" />
+            <Frame Padding="0" Margin="0,5,0,20" BorderColor="White" >
+                <Label Text="{Binding Question.QuestionText}" FontSize="Large" FontAttributes="Bold" />
+            </Frame>
+            
+            <Label Text="{Binding Question.AnswerText}" FontSize="16" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

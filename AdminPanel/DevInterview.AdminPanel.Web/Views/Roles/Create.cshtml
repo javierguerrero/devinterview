@@ -19,8 +19,16 @@
                 <label class="form-label">Image</label>
                 <input type="file" name="image" accept="image/*" class="form-control" />
             </div>
-            <button type="submit" class="btn btn-primary">Create</button>
-            <a asp-action="Index" asp-controller="Roles" class="btn btn-warning">Back</a>
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+                <div class="col text-end">
+                    <a asp-action="Index" asp-controller="Roles" class="btn btn-warning">Cancel</a>
+                </div>
+            </div>
+
         </form>
     </div>
 </div>

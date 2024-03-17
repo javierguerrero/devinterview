@@ -8,7 +8,9 @@
         <h4>@ViewData["Title"]</h4>
     </div>
     <div class="card-body">
-        <a asp-action="Create" asp-controller="Roles" class="btn btn-primary">Add Role</a>
+        <div class="col text-end">
+            <a asp-action="Create" asp-controller="Roles" class="btn btn-primary">Add Role</a>
+        </div>
         <hr />
         <table class='table table-bordered'>
             <thead>

@@ -9,7 +9,9 @@
         <h4>@ViewData["Title"]</h4>
     </div>
     <div class="card-body">
-        <a asp-action="Create" asp-controller="Topics" class="btn btn-primary">Add Topic</a>
+        <div class="col text-end">
+            <a asp-action="Create" asp-controller="Topics" class="btn btn-primary">Add Topic</a>
+        </div>
         <hr />
         <table class='table table-bordered'>
             <thead>
@@ -17,7 +19,7 @@
                     <th class="visually-hidden">Id</th>
                     <th>Name</th>
                     <th>Description</th>
-                    <th class="w-25">Actions</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
