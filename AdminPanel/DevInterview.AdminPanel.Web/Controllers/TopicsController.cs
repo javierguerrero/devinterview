@@ -28,9 +28,14 @@ namespace DevInterview.AdminPanel.Web.Controllers
 
             if (token != null)
             {
-                var vm = new TopicsIndexViewModel();
-                var response = await _mediator.Send(new GetAllTopicsQuery());
-                vm.TopicList = _mapper.Map<List<TopicViewModel>>(response);
+                var roles = await _mediator.Send(new GetAllRolesQuery());
+                var topics = await _mediator.Send(new GetAllTopicsQuery());
+                var vm = new TopicsIndexViewModel
+                {
+                    TopicList = _mapper.Map<List<TopicViewModel>>(topics),
+                    RoleList = _mapper.Map<List<RoleViewModel>>(roles)
+                };
+
                 return View(vm);
             }
             else

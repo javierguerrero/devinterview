@@ -9,14 +9,17 @@
         <h4>@ViewData["Title"]</h4>
     </div>
     <div class="card-body">
-        <div class="col text-end">
-            <a asp-action="Create" asp-controller="Topics" class="btn btn-primary">Add Topic</a>
+
+   
+        <div class="row">
+            <div class="col text-end">
+                <a asp-action="Create" asp-controller="Topics" class="btn btn-primary">Add Topic</a>
+            </div>
         </div>
         <hr />
-        <table class='table table-bordered'>
+        <table id="data" class='table table-bordered display'>
             <thead>
                 <tr>
-                    <th class="visually-hidden">Id</th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Actions</th>
@@ -26,7 +29,6 @@
                 @foreach (var topic in Model.TopicList)
                 {
                     <tr>
-                        <td class="visually-hidden">@topic.TopicId</td>
                         <td>@topic.Name</td>
                         <td>@topic.Description</td>
                         <td>
@@ -64,6 +66,11 @@
 
 <script>
     $(document).ready(function () {
+        
+        //$('#data').DataTable();
+
+        let table = new DataTable('#data');
+
         $("#btnDelete").click(function () {
             var id = $("#topicId").val();
             $.ajax({
