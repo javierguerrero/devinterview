@@ -6,6 +6,5 @@ namespace DevInterview.AdminPanel.Web.Models
     {
         public List<TopicViewModel> TopicList { get; set; } = new();
         public List<RoleViewModel> RoleList { get; set; } = new();
-        public string SelectedRoleId { get; set; }
     }
 }

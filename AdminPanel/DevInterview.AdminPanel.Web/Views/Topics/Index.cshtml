@@ -20,9 +20,10 @@
         <table id="data" class='table table-bordered display'>
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th width="200">Name</th>
                     <th>Description</th>
-                    <th>Actions</th>
+                    <th width="200">Role</th>
+                    <th width="130">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +32,7 @@
                     <tr>
                         <td>@topic.Name</td>
                         <td>@topic.Description</td>
+                        <td>@topic.RoleName</td>
                         <td>
                             <a asp-action="Update" asp-controller="Topics" asp-route-topicId="@topic.TopicId" class="btn btn-sm btn-outline-dark">Edit</a>
                             <a class="btn btn-sm btn-outline-danger" onclick="Confirm('@topic.TopicId')">Delete</a>
@@ -66,9 +68,6 @@
 
 <script>
     $(document).ready(function () {
-        
-        //$('#data').DataTable();
-
         let table = new DataTable('#data');
 
         $("#btnDelete").click(function () {

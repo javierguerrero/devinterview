@@ -22,27 +22,65 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
         {
             try
             {
+                var topicFirebaseList = new List<TopicFirebase>();
                 Query query = _firebaseContext.Database.Collection("topics");
                 QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
-                var topicFirebaseList = new List<TopicFirebase>();
 
                 foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
                 {
                     if (documentSnapshot.Exists)
                     {
-                        Dictionary<string, object> role = documentSnapshot.ToDictionary();
-                        string json = JsonConvert.SerializeObject(role);
-                        var topicFirebase = JsonConvert.DeserializeObject<TopicFirebase>(json);
+                        Dictionary<string, object> topicRaw = documentSnapshot.ToDictionary();
+                        string topicJson = JsonConvert.SerializeObject(topicRaw);
+                        var topicFirebase = JsonConvert.DeserializeObject<TopicFirebase>(topicJson);
                         topicFirebase.TopicId = documentSnapshot.Id;
                         topicFirebaseList.Add(topicFirebase);
                     }
                 }
-                return _mapper.Map<List<Topic>>(topicFirebaseList);
+                return await FillRoleNames(_mapper.Map<List<Topic>>(topicFirebaseList));
             }
             catch
             {
                 throw;
             }
+        }
+
+        private async Task<List<Topic>> FillRoleNames(List<Topic> topics)
+        {
+            try
+            {
+                var roleFirebaseList = new List<RoleFirebase>();
+                Query query = _firebaseContext.Database.Collection("roles");
+                QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+
+                foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
+                {
+                    if (documentSnapshot.Exists)
+                    {
+                        var roleRaw = documentSnapshot.ToDictionary();
+                        var roleJson = JsonConvert.SerializeObject(roleRaw);
+                        var roleFirebase = JsonConvert.DeserializeObject<RoleFirebase>(roleJson);
+                        roleFirebase.RoleId = documentSnapshot.Id;
+                        roleFirebaseList.Add(roleFirebase);
+                    }
+                }
+
+                topics.ForEach(topic => { 
+                    var found = roleFirebaseList.Single(r => r.RoleId == topic.RoleId);
+                    if (found is not null)
+                    {
+                        topic.RoleName = found.Name;
+                    }
+                });
+
+                return topics;
+            }
+            catch
+            {
+                throw;
+            }
+            //topics.ForEach(topic => { topic.RoleName = "algo"; });
+            
         }
 
         public async Task<List<Topic>> GetTopicsByRole(string roleId)

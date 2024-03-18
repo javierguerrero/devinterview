@@ -16,5 +16,7 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.FirebaseEntities
         [FirestoreProperty("roleId")]
         public string RoleId { get; set; }
 
+        public string RoleName { get; set; }
+
     }
 }

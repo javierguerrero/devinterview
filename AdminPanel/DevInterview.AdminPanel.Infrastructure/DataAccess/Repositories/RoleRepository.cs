@@ -22,19 +22,19 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
         {
             try
             {
+                var lstRoleFirebase = new List<RoleFirebase>();
                 Query query = _firebaseContext.Database.Collection("roles");
                 QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
-                var lstRoleFirebase = new List<RoleFirebase>();
 
                 foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
                 {
                     if (documentSnapshot.Exists)
                     {
-                        Dictionary<string, object> role = documentSnapshot.ToDictionary();
-                        string json = JsonConvert.SerializeObject(role);
-                        var newRoleFirebase = JsonConvert.DeserializeObject<RoleFirebase>(json);
-                        newRoleFirebase.RoleId = documentSnapshot.Id;
-                        lstRoleFirebase.Add(newRoleFirebase);
+                        var roleRaw = documentSnapshot.ToDictionary();
+                        var roleJson = JsonConvert.SerializeObject(roleRaw);
+                        var roleFirebase = JsonConvert.DeserializeObject<RoleFirebase>(roleJson);
+                        roleFirebase.RoleId = documentSnapshot.Id;
+                        lstRoleFirebase.Add(roleFirebase);
                     }
                 }
                 var sortedRoleFirebaseList = lstRoleFirebase.OrderBy(x => x.Name).ToList();
