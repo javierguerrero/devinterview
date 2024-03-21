@@ -6,7 +6,7 @@ namespace DevInterview.AdminPanel.Domain.Interfaces
     {
         Task<List<Topic>> GetAllTopics();
 
-        Task<List<Topic>> GetTopicsByRole(string roleId);
+        Task<List<Topic>> GetTopicsBySubject(string subjectId);
 
         Task<Topic> GetTopic(string id);
 

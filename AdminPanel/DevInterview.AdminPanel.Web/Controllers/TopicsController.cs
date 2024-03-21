@@ -95,7 +95,7 @@ namespace DevInterview.AdminPanel.Web.Controllers
         private async Task<List<SelectListItem>> GetTopics(string subjectId)
         {
             var results = new List<SelectListItem>();
-            var data = await _mediator.Send(new GetTopicsByRoleQuery(subjectId));
+            var data = await _mediator.Send(new GetTopicsBySubjectQuery(subjectId));
             foreach (var topic in data)
             {
                 results.Add(new SelectListItem

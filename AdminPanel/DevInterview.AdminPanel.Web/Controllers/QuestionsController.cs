@@ -52,7 +52,7 @@ namespace DevInterview.AdminPanel.Web.Controllers
         public async Task<IActionResult> Update(string questionId, string subjectId)
         {
             var question = await _mediator.Send(new GetQuestionQuery(questionId));
-            var topics = await _mediator.Send(new GetTopicsByRoleQuery(subjectId));
+            var topics = await _mediator.Send(new GetTopicsBySubjectQuery(subjectId));
 
             var vm = new UpdateQuestionViewModel
             {

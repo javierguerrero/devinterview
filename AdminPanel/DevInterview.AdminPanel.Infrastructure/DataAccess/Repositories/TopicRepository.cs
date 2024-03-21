@@ -81,11 +81,11 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
             }
         }
 
-        public async Task<List<Topic>> GetTopicsByRole(string roleId)
+        public async Task<List<Topic>> GetTopicsBySubject(string subjectId)
         {
             try
             {
-                Query query = _firebaseContext.Database.Collection("topics").WhereEqualTo("roleId", roleId);
+                Query query = _firebaseContext.Database.Collection("topics").WhereEqualTo("subjectId", subjectId);
                 QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
                 var lstTopicFirebase = new List<TopicFirebase>();
 
