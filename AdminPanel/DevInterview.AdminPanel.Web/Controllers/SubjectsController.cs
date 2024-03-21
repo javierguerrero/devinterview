@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DevInterview.AdminPanel.Web.Controllers
 {
-    public class RolesController : Controller
+    public class SubjectsController : Controller
     {
-        private readonly ILogger<RolesController> _logger;
+        private readonly ILogger<SubjectsController> _logger;
         private readonly IMediator _mediator;
 
 
@@ -20,7 +20,7 @@ namespace DevInterview.AdminPanel.Web.Controllers
         private static string AuthEmail = "uploadfiles@devinterview.com";
         private static string AuthPassword = "z6273KEr93C!";
 
-        public RolesController(ILogger<RolesController> logger, IMediator mediator)
+        public SubjectsController(ILogger<SubjectsController> logger, IMediator mediator)
         {
             _logger = logger;
             _mediator = mediator;
@@ -32,8 +32,8 @@ namespace DevInterview.AdminPanel.Web.Controllers
 
             if (token != null)
             {
-                var viewModel = new RolesIndexViewModel();
-                viewModel.RoleList = await _mediator.Send(new GetAllRolesQuery());
+                var viewModel = new SubjectsIndexViewModel();
+                viewModel.SubjectList = await _mediator.Send(new GetAllSubjectsQuery());
                 return View(viewModel);
             }
             else
@@ -45,12 +45,12 @@ namespace DevInterview.AdminPanel.Web.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var vm = new CreateRoleViewModel();
+            var vm = new CreateSubjectViewModel();
             return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateRoleViewModel vm, IFormFile Image)
+        public async Task<IActionResult> Create(CreateSubjectViewModel vm, IFormFile Image)
         {
             string urlImage = string.Empty;
 
@@ -64,26 +64,26 @@ namespace DevInterview.AdminPanel.Web.Controllers
                 }
             }
 
-            await _mediator.Send(new CreateRoleCommand(vm.Name, urlImage));
+            await _mediator.Send(new CreateSubjectCommand(vm.Name, urlImage));
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(string roleId)
+        public async Task<IActionResult> Update(string subjectId)
         {
-            var role = await _mediator.Send(new GetRoleQuery(roleId));
-            var viewModel = new UpdateRoleViewModel
+            var subject = await _mediator.Send(new GetSubjectQuery(subjectId));
+            var viewModel = new UpdateSubjectViewModel
             {
-                RoleId = roleId,
-                Name = role.Name,
-                Image = role.Image
+                SubjectId = subjectId,
+                Name = subject.Name,
+                Image = subject.Image
             };
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(UpdateRoleViewModel vm, IFormFile Image)
+        public async Task<IActionResult> Update(UpdateSubjectViewModel vm, IFormFile Image)
         {
             string urlImage = string.Empty;
 
@@ -97,13 +97,13 @@ namespace DevInterview.AdminPanel.Web.Controllers
                 }
             }
 
-            var response = await _mediator.Send(new UpdateRoleCommand(vm.RoleId, vm.Name, urlImage));
+            var response = await _mediator.Send(new UpdateSubjectCommand(vm.SubjectId, vm.Name, urlImage));
             return RedirectToAction("Index");
         }
 
         public async Task<JsonResult> Delete(string id)
         {
-            return Json(await _mediator.Send(new DeleteRoleCommand(id)));
+            return Json(await _mediator.Send(new DeleteSubjectCommand(id)));
         }
 
         private async Task<string> Upload(MemoryStream stream, string filename)

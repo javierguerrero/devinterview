@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace DevInterview.AdminPanel.Infrastructure.DataAccess.FirebaseEntities
 {
     [FirestoreData]
-    public class RoleFirebase
+    public class SubjectFirebase
     {
-        public string RoleId { get; set; }
+        public string SubjectId { get; set; }
 
         [FirestoreProperty("name")]
         public string Name { get; set; }

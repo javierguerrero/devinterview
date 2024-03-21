@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DevInterview.AdminPanel.Application.Responses
 {
-    public class RoleResponse
+    public class SubjectResponse
     {
-        public string RoleId { get; set; }
+        public string SubjectId { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
     }

@@ -2,9 +2,9 @@
 {
     public class QuestionsIndexViewModel
     {
-        public string SelectedRoleId { get; set; }
+        public string SelectedSubjectId { get; set; }
         public string SelectedTopicId { get; set; }
-        public List<RoleViewModel> RoleList { get; set; } = new();
+        public List<SubjectViewModel> SubjectList { get; set; } = new();
         public QuestionViewModel Question { get; set; }
 
     }

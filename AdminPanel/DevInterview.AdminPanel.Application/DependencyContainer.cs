@@ -14,7 +14,7 @@ namespace DevInterview.AdminPanel.Application
         {
             // MediatR
             services.AddMediatR(Assembly.GetExecutingAssembly());
-            services.AddMediatR(typeof(GetAllRolesQuery).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetAllSubjectsQuery).GetTypeInfo().Assembly);
 
             //// Automapper
             //var automapperConfig = new MapperConfiguration(mapperConfig =>

@@ -10,8 +10,8 @@ namespace DevInterview.AdminPanel.Web.Models
 
         public string Description { get; set; }
 
-        public string RoleId { get; set; }
+        public string SubjectId { get; set; }
 
-        public string RoleName { get; set; }
+        public string SubjectName { get; set; }
     }
 }

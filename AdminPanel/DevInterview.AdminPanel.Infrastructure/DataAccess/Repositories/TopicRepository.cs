@@ -37,7 +37,7 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
                         topicFirebaseList.Add(topicFirebase);
                     }
                 }
-                return await FillRoleNames(_mapper.Map<List<Topic>>(topicFirebaseList));
+                return await FillSubjectNames(_mapper.Map<List<Topic>>(topicFirebaseList));
             }
             catch
             {
@@ -45,31 +45,31 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
             }
         }
 
-        private async Task<List<Topic>> FillRoleNames(List<Topic> topics)
+        private async Task<List<Topic>> FillSubjectNames(List<Topic> topics)
         {
             try
             {
-                var roleFirebaseList = new List<RoleFirebase>();
-                Query query = _firebaseContext.Database.Collection("roles");
+                var subjectFirebaseList = new List<SubjectFirebase>();
+                Query query = _firebaseContext.Database.Collection("subjects");
                 QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
 
                 foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
                 {
                     if (documentSnapshot.Exists)
                     {
-                        var roleRaw = documentSnapshot.ToDictionary();
-                        var roleJson = JsonConvert.SerializeObject(roleRaw);
-                        var roleFirebase = JsonConvert.DeserializeObject<RoleFirebase>(roleJson);
-                        roleFirebase.RoleId = documentSnapshot.Id;
-                        roleFirebaseList.Add(roleFirebase);
+                        var subjectRaw = documentSnapshot.ToDictionary();
+                        var subjectJson = JsonConvert.SerializeObject(subjectRaw);
+                        var subjectFirebase = JsonConvert.DeserializeObject<SubjectFirebase>(subjectJson);
+                        subjectFirebase.SubjectId = documentSnapshot.Id;
+                        subjectFirebaseList.Add(subjectFirebase);
                     }
                 }
 
                 topics.ForEach(topic => { 
-                    var found = roleFirebaseList.Single(r => r.RoleId == topic.RoleId);
+                    var found = subjectFirebaseList.SingleOrDefault(r => r.SubjectId == topic.SubjectId);
                     if (found is not null)
                     {
-                        topic.RoleName = found.Name;
+                        topic.SubjectName = found.Name;
                     }
                 });
 
@@ -79,8 +79,6 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
             {
                 throw;
             }
-            //topics.ForEach(topic => { topic.RoleName = "algo"; });
-            
         }
 
         public async Task<List<Topic>> GetTopicsByRole(string roleId)

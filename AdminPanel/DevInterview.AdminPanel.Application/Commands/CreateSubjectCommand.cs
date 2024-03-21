@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace DevInterview.AdminPanel.Application.Commands
 {
-    public record DeleteRoleCommand(string id) : IRequest<bool>;
+    public record CreateSubjectCommand(string name, string image) : IRequest<string>;
 }

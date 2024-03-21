@@ -10,11 +10,11 @@
     <div class="card-body">
         <form asp-action="Create" asp-controller="Topics" method="post">
             <div class="mb-3">
-                <label class="form-label">Role</label>
+                <label class="form-label">Subject</label>
                 <select class="form-control" asp-for="SelectedRoleId">
-                    @foreach (var role in Model.RoleList)
+                    @foreach (var subject in Model.SubjectList)
                     {
-                        <option value="@role.RoleId" data="@role.Name">@role.Name</option>
+                        <option value="@subject.SubjectId" data="@subject.Name">@subject.Name</option>
                     }
                 </select>
             </div>
@@ -29,11 +29,6 @@
                 <span asp-validation-for="Topic.Description" class="text-danger"></span>
             </div>
 
-            
-            
-
-
-
             <div class="row">
                 <div class="col">
                     <button type="submit" class="btn btn-primary">Save</button>
@@ -42,7 +37,6 @@
                     <a asp-action="Index" asp-controller="Topics" class="btn btn-warning">Cancel</a>
                 </div>
             </div>
-
 
         </form>
     </div>

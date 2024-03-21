@@ -1,8 +1,8 @@
 ﻿namespace DevInterview.AdminPanel.Domain.Entities
 {
-    public class Role
+    public class Subject
     {
-        public string RoleId { get; set; }
+        public string SubjectId { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
     }

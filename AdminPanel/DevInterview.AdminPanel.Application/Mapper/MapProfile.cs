@@ -4,7 +4,7 @@
     {
         public MapProfile()
         {
-            //CreateMap<Role, RoleResponse>().ReverseMap();
+            //CreateMap<Subject, RoleResponse>().ReverseMap();
             //CreateMap<Topic, TopicResponse>().ReverseMap();
         }
     }

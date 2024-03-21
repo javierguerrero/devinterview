@@ -11,11 +11,11 @@
     <div class="card-body">
         <div class="row">
             <div class="col">
-                <select id="roleId" class="form-select" asp-for="SelectedRoleId" onchange="FillTopics(this)">
-                    <option value="-1">-- Select a Role --</option>
-                    @foreach (var role in Model.RoleList)
+                <select id="subjectId" class="form-select" asp-for="SelectedSubjectId" onchange="FillTopics(this)">
+                    <option value="-1">-- Select a Subject --</option>
+                    @foreach (var subject in Model.SubjectList)
                     {
-                        <option value="@role.RoleId" data="@role.Name">@role.Name</option>
+                        <option value="@subject.SubjectId" data="@subject.Name">@subject.Name</option>
                     }
                 </select>
 
@@ -93,7 +93,7 @@
     </div>
 </div>
 
-<input type="hidden" id="roleIdHidden" />
+<input type="hidden" id="subjectIdHidden" />
 <input type="hidden" id="topicIdHidden" />
 <input type="hidden" id="questionIdHidden" />
 
@@ -140,16 +140,16 @@
 
     });
 
-    function FillTopics(listRoleCtrl) {
+    function FillTopics(listSubjectCtrl) {
         var topicList = $("#topicId");
         topicList.empty();
         topicList.append('<option value="-1">-- Select a Topic --</option>');
 
-        var selectedRole = listRoleCtrl.options[listRoleCtrl.selectedIndex].value;
-        $("#roleIdHidden").val(selectedRole);
+        var selectedSubject = listSubjectCtrl.options[listSubjectCtrl.selectedIndex].value;
+        $("#subjectIdHidden").val(selectedSubject);
 
-        if (selectedRole != null && selectedRole != '') {
-            $.getJSON("/Topics/GetTopicsByRole", { roleId: selectedRole }, function (topics) {
+        if (selectedSubject != null && selectedSubject != '') {
+            $.getJSON("/Topics/GetTopicsBySubject", { subjectId: selectedSubject }, function (topics) {
                 if (topics != null && !jQuery.isEmptyObject(topics)) {
                     $.each(topics, function (index, topic) {
                         topicList.append($('<option/>', {
@@ -167,7 +167,7 @@
         var dataTable = $("#dataTable tbody");
         dataTable.empty();
 
-        var roleId = document.getElementById("roleIdHidden").value;
+        var subjectId = document.getElementById("subjectIdHidden").value;
         var selectedTopicId = listTopicCtrl.options[listTopicCtrl.selectedIndex].value;
         $("#topicIdHidden").val(selectedTopicId);
 
@@ -175,7 +175,7 @@
         $.getJSON("/Questions/GetQuestionsByTopic", { topicId: selectedTopicId }, function (data) {
             if (data != null && data.length > 0) {
                 $.each(data, function (index, item) {
-                    dataTable.append('<tr><td>' + item.questionText + '</td><td><a class="btn btn-sm btn-outline-dark" href="/Questions/Update?questionId=' + item.id + '&roleId=' + roleId + '">Edit</a> <a class="btn btn-sm btn-outline-danger" onclick="Confirm(\'' + item.id + '\')">Delete</a></td></tr>');
+                    dataTable.append('<tr><td>' + item.questionText + '</td><td><a class="btn btn-sm btn-outline-dark" href="/Questions/Update?questionId=' + item.id + '&subjectId=' + subjectId + '">Edit</a> <a class="btn btn-sm btn-outline-danger" onclick="Confirm(\'' + item.id + '\')">Delete</a></td></tr>');
                 });
             } else {
                 dataTable.append('<tr><td colspan="2">No data available</td></tr>');

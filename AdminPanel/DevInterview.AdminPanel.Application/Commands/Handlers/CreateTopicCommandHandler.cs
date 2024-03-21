@@ -24,7 +24,7 @@ namespace DevInterview.AdminPanel.Application.Commands.Handlers
             {
                 Name = request.name,
                 Description = request.description,
-                RoleId = request.roleId
+                SubjectId = request.roleId
             };
             return await _topicRepository.CreateTopic(topic);
         }

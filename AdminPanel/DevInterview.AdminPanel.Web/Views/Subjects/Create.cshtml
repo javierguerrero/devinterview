@@ -1,7 +1,7 @@
-﻿@model DevInterview.AdminPanel.Web.Models.UpdateRoleViewModel
+﻿@model DevInterview.AdminPanel.Web.Models.CreateSubjectViewModel
 
 @{
-    ViewData["Title"] = "Update Role";
+    ViewData["Title"] = "Create Subject";
 }
 
 <div class="card">
@@ -9,27 +9,26 @@
         <h4>@ViewData["Title"]</h4>
     </div>
     <div class="card-body">
-        <form asp-action="Update" asp-controller="Roles" method="post" enctype="multipart/form-data">
-            <input asp-for="RoleId" type="hidden" class="form-control" value="@Model.RoleId" />
+        <form asp-action="Create" asp-controller="Subjects" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Name</label>
                 <input asp-for="Name" value="@Model.Name" type="text" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label class="form-label">Image</label>
                 <input type="file" name="image" accept="image/*" class="form-control" />
-                <img src="@Model.Image" />
             </div>
 
             <div class="row">
                 <div class="col">
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </div>
                 <div class="col text-end">
-                    <a asp-action="Index" asp-controller="Roles" class="btn btn-warning">Cancel</a>
+                    <a asp-action="Index" asp-controller="Subjects" class="btn btn-warning">Cancel</a>
                 </div>
             </div>
+
         </form>
     </div>
 </div>

@@ -6,7 +6,7 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Mappers
     {
         public MapProfile()
         {
-            //CreateMap<RoleFirebase, Role>().ReverseMap();
+            //CreateMap<RoleFirebase, Subject>().ReverseMap();
             //CreateMap<TopicFirebase, Topic>().ReverseMap();
             //CreateMap<QuestionFirebase, Question>().ReverseMap();
             //CreateMap<AnswerFirebase, Answer>().ReverseMap();

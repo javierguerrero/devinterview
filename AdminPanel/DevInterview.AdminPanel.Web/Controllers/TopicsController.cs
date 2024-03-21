@@ -45,10 +45,10 @@ namespace DevInterview.AdminPanel.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var roles = await _mediator.Send(new GetAllRolesQuery());
+            var roles = await _mediator.Send(new GetAllSubjectsQuery());
             var vm = new CreateTopicViewModel
             {
-                RoleList = _mapper.Map<List<RoleViewModel>>(roles)
+                SubjectList = _mapper.Map<List<SubjectViewModel>>(roles)
             };
             return View(vm);
         }
@@ -64,11 +64,11 @@ namespace DevInterview.AdminPanel.Web.Controllers
         public async Task<IActionResult> Update(string topicId)
         {
             var topic = await _mediator.Send(new GetTopicQuery(topicId));
-            var roles = await _mediator.Send(new GetAllRolesQuery());
+            var roles = await _mediator.Send(new GetAllSubjectsQuery());
 
             var vm = new UpdateTopicViewModel();
             vm.Topic = _mapper.Map<TopicViewModel>(topic);
-            vm.RoleList = _mapper.Map<List<RoleViewModel>>(roles);
+            vm.RoleList = _mapper.Map<List<SubjectViewModel>>(roles);
 
             return View(vm);
         }
@@ -86,16 +86,16 @@ namespace DevInterview.AdminPanel.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetTopicsByRole(string roleId)
+        public async Task<JsonResult> GetTopicsBySubject(string subjectId)
         {
-            var topics = await GetTopics(roleId);
+            var topics = await GetTopics(subjectId);
             return Json(topics);
         }
 
-        private async Task<List<SelectListItem>> GetTopics(string roleId)
+        private async Task<List<SelectListItem>> GetTopics(string subjectId)
         {
             var results = new List<SelectListItem>();
-            var data = await _mediator.Send(new GetTopicsByRoleQuery(roleId));
+            var data = await _mediator.Send(new GetTopicsByRoleQuery(subjectId));
             foreach (var topic in data)
             {
                 results.Add(new SelectListItem

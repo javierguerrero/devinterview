@@ -8,6 +8,6 @@ namespace DevInterview.AdminPanel.Web.Models
 
         public string SelectedRoleId { get; set; }
 
-        public List<RoleViewModel> RoleList { get; set; } = new();
+        public List<SubjectViewModel> SubjectList { get; set; } = new();
     }
 }

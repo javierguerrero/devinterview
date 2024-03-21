@@ -1,8 +1,8 @@
 ﻿namespace DevInterview.AdminPanel.Web.Models
 {
-    public class CreateRoleViewModel
+    public class CreateSubjectViewModel
     {
-        public string RoleId { get; set; }
+        public string SubjectId { get; set; }
         public string Name { get; set; }
     }
 }

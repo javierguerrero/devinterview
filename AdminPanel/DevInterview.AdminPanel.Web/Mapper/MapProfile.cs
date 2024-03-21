@@ -10,15 +10,15 @@ namespace DevInterview.AdminPanel.Web.Mapper
     {
         public MapProfile()
         {
-            CreateMap<RoleFirebase, Role>().ReverseMap();
+            CreateMap<SubjectFirebase, Subject>().ReverseMap();
             CreateMap<TopicFirebase, Topic>().ReverseMap();
             CreateMap<QuestionFirebase, Question>().ReverseMap();
 
-            CreateMap<Role, RoleResponse>().ReverseMap();
+            CreateMap<Subject, SubjectResponse>().ReverseMap();
             CreateMap<Topic, TopicResponse>().ReverseMap();
             CreateMap<Question, QuestionResponse>();
 
-            CreateMap<RoleResponse, RoleViewModel>().ReverseMap();
+            CreateMap<SubjectResponse, SubjectViewModel>().ReverseMap();
             CreateMap<TopicResponse, TopicViewModel>().ReverseMap();
             CreateMap<QuestionResponse, QuestionViewModel>().ReverseMap();
         }

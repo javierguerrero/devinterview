@@ -27,10 +27,10 @@ namespace DevInterview.AdminPanel.Web.Controllers
             if (token != null)
             {
                 
-                var response = await _mediator.Send(new GetAllRolesQuery());
+                var response = await _mediator.Send(new GetAllSubjectsQuery());
                 var vm = new QuestionsIndexViewModel
                 {
-                    RoleList = _mapper.Map<List<RoleViewModel>>(response)
+                    SubjectList = _mapper.Map<List<SubjectViewModel>>(response)
                 };
                 return View(vm);
             }
@@ -49,10 +49,10 @@ namespace DevInterview.AdminPanel.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(string questionId, string roleId)
+        public async Task<IActionResult> Update(string questionId, string subjectId)
         {
             var question = await _mediator.Send(new GetQuestionQuery(questionId));
-            var topics = await _mediator.Send(new GetTopicsByRoleQuery(roleId));
+            var topics = await _mediator.Send(new GetTopicsByRoleQuery(subjectId));
 
             var vm = new UpdateQuestionViewModel
             {
