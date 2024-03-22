@@ -15,7 +15,7 @@
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
             
             <!--#region Roles -->
-            <CollectionView ItemsSource="{Binding Roles}" Margin="0" x:Name="roles">
+            <CollectionView ItemsSource="{Binding Subjects}" Margin="0" x:Name="subjects">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2" />
                 </CollectionView.ItemsLayout>
@@ -33,7 +33,7 @@
                                Margin="5">
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer
-                                            Command="{Binding Path=BindingContext.RoleTapCommand, Source = {x:Reference roles}}"
+                                            Command="{Binding Path=BindingContext.RoleTapCommand, Source = {x:Reference subjects}}"
                                             CommandParameter="{Binding}">
                                     </TapGestureRecognizer>
                                 </Image.GestureRecognizers>

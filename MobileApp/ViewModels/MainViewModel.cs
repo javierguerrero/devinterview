@@ -14,9 +14,9 @@ namespace DevInterview.MobileApp.ViewModels
 
         private readonly INavigation _navigation;
 
-        private List<Role>? _roles;
+        private List<Subject>? _roles;
 
-        public ObservableCollection<Role> Roles { get; set; } = new();
+        public ObservableCollection<Subject> Subjects { get; set; } = new();
 
         [ObservableProperty]
         private bool _isBusy = true;
@@ -27,14 +27,14 @@ namespace DevInterview.MobileApp.ViewModels
             _navigation = navigation;
         }
 
-        public ICommand RoleTapCommand => new Command<Role>(OnTappedRole);
+        public ICommand RoleTapCommand => new Command<Subject>(OnTappedRole);
 
-        public async void OnTappedRole(Role role)
+        public async void OnTappedRole(Subject subject)
         {
             var topicsPage = new TopicsPage();
             topicsPage.BindingContext = new TopicsViewModel(_navigation)
             {
-                RoleId = role.Id
+                SubjectId = subject.Id
             };
             await _navigation.PushAsync(topicsPage);
         }
@@ -46,11 +46,11 @@ namespace DevInterview.MobileApp.ViewModels
             {
                 Task.Run(async () =>
                 {
-                    _roles = await _dataService.GetRoles();
+                    _roles = await _dataService.GetSubjects();
                     App.Current.Dispatcher.Dispatch(() =>
                     {
-                        Roles.Clear();
-                        _roles.ForEach(role => Roles.Add(role));
+                        Subjects.Clear();
+                        _roles.ForEach(role => Subjects.Add(role));
                         IsBusy = false;
                     });
                 });

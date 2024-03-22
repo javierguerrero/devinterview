@@ -14,7 +14,7 @@ namespace DevInterview.MobileApp.ViewModels
         private readonly INavigation _navigation;
         private List<Topic> _topics;
 
-        public string RoleId { get; set; }
+        public string SubjectId { get; set; }
         public ObservableCollection<Topic> Topics { get; set; } = new();
 
         [ObservableProperty]
@@ -45,7 +45,7 @@ namespace DevInterview.MobileApp.ViewModels
             {
                 Task.Run(async () =>
                 {
-                    _topics = await _dataService.GetTopicsByRole(RoleId);
+                    _topics = await _dataService.GetTopicsBySubject(SubjectId);
 
                     App.Current?.Dispatcher.Dispatch(() =>
                     {

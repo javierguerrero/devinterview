@@ -26,15 +26,15 @@ namespace DevInterview.MobileApp.Services
             }
         }
 
-        public async Task<List<Role>> GetRoles()
+        public async Task<List<Subject>> GetSubjects()
         {
             _firestoreDb = await InitFirestore();
 
             try
             {
-                Query query = _firestoreDb.Collection("roles");
+                Query query = _firestoreDb.Collection("subjects");
                 QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
-                var roleList = new List<Role>();
+                var roleList = new List<Subject>();
 
                 foreach (DocumentSnapshot ds in querySnapshot.Documents)
                 {
@@ -42,7 +42,7 @@ namespace DevInterview.MobileApp.Services
                     {
                         Dictionary<string, object> role = ds.ToDictionary();
                         string roleJson = JsonConvert.SerializeObject(role);
-                        var newRole = JsonConvert.DeserializeObject<Role>(roleJson);
+                        var newRole = JsonConvert.DeserializeObject<Subject>(roleJson);
                         newRole.Id = ds.Id;
                         roleList.Add(newRole);
                     }
@@ -57,14 +57,14 @@ namespace DevInterview.MobileApp.Services
             }
         }
 
-        public async Task<List<Topic>> GetTopicsByRole(string roleId)
+        public async Task<List<Topic>> GetTopicsBySubject(string subjectId)
         {
             _firestoreDb = await InitFirestore();
             try
             {
                 Query query = _firestoreDb.Collection("topics");
                 QuerySnapshot qs = await query
-                        .WhereEqualTo("roleId", roleId)
+                        .WhereEqualTo("subjectId", subjectId)
                         .OrderBy("name")
                         .GetSnapshotAsync();
 
