@@ -4,10 +4,12 @@ using DevInterview.AdminPanel.Web.Models;
 using Firebase.Auth;
 using Firebase.Storage;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevInterview.AdminPanel.Web.Controllers
 {
+    [Authorize]
     public class SubjectsController : Controller
     {
         private readonly ILogger<SubjectsController> _logger;
@@ -28,18 +30,9 @@ namespace DevInterview.AdminPanel.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var token = HttpContext.Session.GetString("_UserToken");
-
-            if (token != null)
-            {
-                var viewModel = new SubjectsIndexViewModel();
-                viewModel.SubjectList = await _mediator.Send(new GetAllSubjectsQuery());
-                return View(viewModel);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Home");
-            }
+            var viewModel = new SubjectsIndexViewModel();
+            viewModel.SubjectList = await _mediator.Send(new GetAllSubjectsQuery());
+            return View(viewModel);
         }
 
         [HttpGet]

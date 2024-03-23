@@ -1,11 +1,13 @@
 using DevInterview.AdminPanel.Web.Models;
 using Firebase.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace DevInterview.AdminPanel.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -17,58 +19,9 @@ namespace DevInterview.AdminPanel.Web.Controllers
             _authentication = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAMQnAATQawfwiQJeOCK9n07MmkIOQ_5MU"));
         }
 
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel login)
-        {
-            try
-            {
-                //log in an existing user
-                var fbAuthLink = await _authentication.SignInWithEmailAndPasswordAsync(login.Email, login.Password);
-                string token = fbAuthLink.FirebaseToken;
-
-                //save the token to a session variable
-                if (token != null)
-                {
-                    HttpContext.Session.SetString("_UserToken", token);
-
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (FirebaseAuthException ex)
-            {
-                var firebaseEx = JsonConvert.DeserializeObject<FirebaseErrorViewModel>(ex.ResponseData);
-                ModelState.AddModelError(String.Empty, firebaseEx.error.message);
-                return View(login);
-            }
-
-            return View();
-        }
-
-        public IActionResult LogOut()
-        {
-            HttpContext.Session.Remove("_UserToken");
-            return RedirectToAction("Login");
-        }
-
         public IActionResult Index()
         {
-            var token = HttpContext.Session.GetString("_UserToken");
-
-            if (token != null)
-            {
-                return View();
-            }
-            else
-            {
-                return View("Login");
-            }
-
-            //return View();
+            return View();
         }
 
         public IActionResult Privacy()

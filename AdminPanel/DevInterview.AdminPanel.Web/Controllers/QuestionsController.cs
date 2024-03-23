@@ -3,10 +3,12 @@ using DevInterview.AdminPanel.Application.Commands;
 using DevInterview.AdminPanel.Application.Queries;
 using DevInterview.AdminPanel.Web.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevInterview.AdminPanel.Web.Controllers
 {
+    [Authorize]
     public class QuestionsController : Controller
     {
         private readonly ILogger<QuestionsController> _logger;
@@ -22,22 +24,12 @@ namespace DevInterview.AdminPanel.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var token = HttpContext.Session.GetString("_UserToken");
-
-            if (token != null)
+            var response = await _mediator.Send(new GetAllSubjectsQuery());
+            var vm = new QuestionsIndexViewModel
             {
-                
-                var response = await _mediator.Send(new GetAllSubjectsQuery());
-                var vm = new QuestionsIndexViewModel
-                {
-                    SubjectList = _mapper.Map<List<SubjectViewModel>>(response)
-                };
-                return View(vm);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Home");
-            }
+                SubjectList = _mapper.Map<List<SubjectViewModel>>(response)
+            };
+            return View(vm);
         }
 
         [HttpPost]

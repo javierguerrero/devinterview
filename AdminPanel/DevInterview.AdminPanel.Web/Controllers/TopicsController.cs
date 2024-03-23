@@ -3,12 +3,14 @@ using DevInterview.AdminPanel.Application.Commands;
 using DevInterview.AdminPanel.Application.Queries;
 using DevInterview.AdminPanel.Web.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using static Google.Rpc.Context.AttributeContext.Types;
 
 namespace DevInterview.AdminPanel.Web.Controllers
 {
+    [Authorize]
     public class TopicsController : Controller
     {
         private readonly ILogger<TopicsController> _logger;
@@ -24,22 +26,13 @@ namespace DevInterview.AdminPanel.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var token = HttpContext.Session.GetString("_UserToken");
-
-            if (token != null)
+            var topics = await _mediator.Send(new GetAllTopicsQuery());
+            var vm = new TopicsIndexViewModel
             {
-                var topics = await _mediator.Send(new GetAllTopicsQuery());
-                var vm = new TopicsIndexViewModel
-                {
-                    TopicList = _mapper.Map<List<TopicViewModel>>(topics)
-                };
+                TopicList = _mapper.Map<List<TopicViewModel>>(topics)
+            };
 
-                return View(vm);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Home");
-            }
+            return View(vm);
         }
 
         [HttpGet]

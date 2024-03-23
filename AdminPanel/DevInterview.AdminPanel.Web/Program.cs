@@ -2,6 +2,7 @@ using AutoMapper;
 using DevInterview.AdminPanel.Application;
 using DevInterview.AdminPanel.Infrastructure;
 using DevInterview.AdminPanel.Web.Mapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -31,6 +32,13 @@ builder.Services.AddSession(options =>
 });
 
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => {
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Account/LogOut";
+    });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -53,6 +61,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Login}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
