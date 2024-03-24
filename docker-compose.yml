@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  sqldb-catalog:
+    image: mcr.microsoft.com/mssql/server
+
+  svc-catalog:
+    image: ${DOCKER_REGISTRY-}svc-catalog
+    build:
+      context: .
+      dockerfile: Catalog/DevInterview.Catalog.Api/Dockerfile
+
+
+
