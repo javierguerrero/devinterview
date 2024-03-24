@@ -21,7 +21,16 @@ namespace DevInterview.AdminPanel.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                // Return error view or redirect to error page
+                return View("Error");
+            }
         }
 
         public IActionResult Privacy()
