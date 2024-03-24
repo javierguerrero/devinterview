@@ -5,6 +5,7 @@ using DevInterview.AdminPanel.Web.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static Google.Rpc.Context.AttributeContext.Types;
 
 namespace DevInterview.AdminPanel.Web.Controllers
 {
@@ -24,18 +25,30 @@ namespace DevInterview.AdminPanel.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var response = await _mediator.Send(new GetAllSubjectsQuery());
+            var questions = await _mediator.Send(new GetAllQuestionsQuery());
             var vm = new QuestionsIndexViewModel
             {
-                SubjectList = _mapper.Map<List<SubjectViewModel>>(response)
+                QuestionList = _mapper.Map<List<QuestionViewModel>>(questions)
+            };
+
+            return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var roles = await _mediator.Send(new GetAllSubjectsQuery());
+            var vm = new CreateQuestionViewModel
+            {
+                SubjectList = _mapper.Map<List<SubjectViewModel>>(roles)
             };
             return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string questionText, string answerText, string topicId)
+        public async Task<IActionResult> Create(CreateQuestionViewModel vm)
         {
-            await _mediator.Send(new CreateQuestionCommand(questionText, answerText, topicId));
+            await _mediator.Send(new CreateQuestionCommand(vm.Question.QuestionText, vm.Question.AnswerText, vm.SelectedTopicId));
 
             return RedirectToAction("Index");
         }

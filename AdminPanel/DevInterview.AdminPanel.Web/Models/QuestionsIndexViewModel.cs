@@ -7,5 +7,6 @@
         public List<SubjectViewModel> SubjectList { get; set; } = new();
         public QuestionViewModel Question { get; set; }
 
+        public List<QuestionViewModel> QuestionList { get; set; } = new();
     }
 }

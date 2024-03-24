@@ -10,66 +10,36 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col">
-                <select id="subjectId" class="form-select" asp-for="SelectedSubjectId" onchange="FillTopics(this)">
-                    <option value="-1">-- Select a Subject --</option>
-                    @foreach (var subject in Model.SubjectList)
-                    {
-                        <option value="@subject.SubjectId" data="@subject.Name">@subject.Name</option>
-                    }
-                </select>
-
-            </div>
-            <div class="col">
-                <select id="topicId" class="form-select" asp-for="SelectedTopicId" onchange="FillQuestions(this)">
-                    <option value="-1">-- Select a Topic --</option>
-                </select>
-            </div>
-            <div class="col">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQuestionModal">Add Question</button>
+            <div class="col text-end">
+                <a asp-action="Create" asp-controller="Questions" class="btn btn-primary">Add Question</a>
             </div>
         </div>
+
         <hr />
-        <table id="dataTable" class='table table-bordered'>
+
+        <table id="data" class='table table-bordered display'>
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Actions</th>
+                    <th>Question</th>
+                    <th>Topic</th>
+                    <th width="130">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Los datos se llenarán aquí dinámicamente -->
+                @foreach (var question in Model.QuestionList)
+                {
+                    <tr>
+                        <td>@question.QuestionText</td>
+                        <td>@question.TopicId</td>
+                        <td>
+                            <a asp-action="Update" asp-controller="Questions" asp-route-questionId="@question.Id" class="btn btn-sm btn-outline-dark">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" onclick="Confirm('@question.Id')">Delete</a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
-    </div>
-</div>
 
-<div class="modal fade" id="addQuestionModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Add Question</h3>
-                <button type="button" class="close" data-bs-dismiss="modal">
-                    <span aria-hidden="true">X</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="saveForm">
-                    <div class="mb-3">
-                        <label class="form-label">Question</label>
-                        <input asp-for="Question.QuestionText" id="questionText" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Answer</label>
-                        <textarea asp-for="Question.AnswerText" id="answerText" class="form-control"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btnCancel" data-bs-dismiss="modal">Cancel</button>
-                <button id="btnSave" class="btn btn-block btn-success">Save</button>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -93,33 +63,12 @@
     </div>
 </div>
 
-<input type="hidden" id="subjectIdHidden" />
-<input type="hidden" id="topicIdHidden" />
 <input type="hidden" id="questionIdHidden" />
 
 <script>
     $(document).ready(function () {
-        $("#btnSave").click(function () {
-            var questionText = document.getElementById("questionText");
-            var answerText = document.getElementById("answerText");
-            var topicId = document.getElementById("topicIdHidden");
 
-            var formData = new FormData();
-            formData.append("questionText", questionText.value);
-            formData.append("answerText", answerText.value);
-            formData.append("topicId", topicId.value);
-
-            $.ajax({
-                type: "POST",
-                url: "/Questions/Create",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function () {
-                    window.location.href = "/Questions/Index"
-                }
-            });
-        });
+        let table = new DataTable('#data');
 
         $("#btnDelete").click(function () {
             var id = $("#questionIdHidden").val();
@@ -139,50 +88,6 @@
         });
 
     });
-
-    function FillTopics(listSubjectCtrl) {
-        debugger
-        var topicList = $("#topicId");
-        topicList.empty();
-        topicList.append('<option value="-1">-- Select a Topic --</option>');
-
-        var selectedSubject = listSubjectCtrl.options[listSubjectCtrl.selectedIndex].value;
-        $("#subjectIdHidden").val(selectedSubject);
-
-        if (selectedSubject != null && selectedSubject != '') {
-            $.getJSON("/Topics/GetTopicsBySubject", { subjectId: selectedSubject }, function (topics) {
-                if (topics != null && !jQuery.isEmptyObject(topics)) {
-                    $.each(topics, function (index, topic) {
-                        topicList.append($('<option/>', {
-                            value: topic.value,
-                            text: topic.text
-                        }));
-                    });
-                }
-            });
-        }
-        return;
-    }
-
-    function FillQuestions(listTopicCtrl) {
-        var dataTable = $("#dataTable tbody");
-        dataTable.empty();
-
-        var subjectId = document.getElementById("subjectIdHidden").value;
-        var selectedTopicId = listTopicCtrl.options[listTopicCtrl.selectedIndex].value;
-        $("#topicIdHidden").val(selectedTopicId);
-
-
-        $.getJSON("/Questions/GetQuestionsByTopic", { topicId: selectedTopicId }, function (data) {
-            if (data != null && data.length > 0) {
-                $.each(data, function (index, item) {
-                    dataTable.append('<tr><td>' + item.questionText + '</td><td><a class="btn btn-sm btn-outline-dark" href="/Questions/Update?questionId=' + item.id + '&subjectId=' + subjectId + '">Edit</a> <a class="btn btn-sm btn-outline-danger" onclick="Confirm(\'' + item.id + '\')">Delete</a></td></tr>');
-                });
-            } else {
-                dataTable.append('<tr><td colspan="2">No data available</td></tr>');
-            }
-        });
-    }
 
     function Confirm (id) {
         $("#questionIdHidden").val(id);
