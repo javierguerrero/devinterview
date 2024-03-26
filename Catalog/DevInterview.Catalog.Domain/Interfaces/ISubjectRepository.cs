@@ -4,14 +4,14 @@ namespace DevInterview.Catalog.Domain.Interfaces
 {
     public interface ISubjectRepository
     {
-        Task<List<Subject>> GetAllSubjects();
+        Task<List<Subject>> GetAllAsync();
 
-        Task<Subject> GetSubject(int id);
+        Task<Subject> GetAsync(int id);
 
-        Task<int> CreateSubject(Subject subject);
+        Task<Subject> CreateAsync(Subject subject);
 
-        Task<int> UpdateSubject(Subject subject);
+        Task<int> UpdateAsync(Subject subject);
 
-        Task<bool> DeleteSubject(int id);
+        Task<bool> DeleteAsync(int id);
     }
 }

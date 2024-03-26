@@ -18,7 +18,7 @@ namespace DevInterview.Catalog.Application.Queries.Handlers
 
         public async Task<IEnumerable<SubjectResponse>> Handle(GetAllSubjectsQuery request, CancellationToken cancellationToken)
         {
-            var subjects = await _roleRepository.GetAllSubjects();
+            var subjects = await _roleRepository.GetAllAsync();
             return _mapper.Map<IEnumerable<SubjectResponse>>(subjects);
         }
     }

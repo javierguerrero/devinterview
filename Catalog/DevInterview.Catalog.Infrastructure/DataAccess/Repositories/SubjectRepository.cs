@@ -1,11 +1,6 @@
 ﻿using DevInterview.Catalog.Domain.Entities;
 using DevInterview.Catalog.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevInterview.Catalog.Infrastructure.DataAccess.Repositories
 {
@@ -18,29 +13,43 @@ namespace DevInterview.Catalog.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public Task<int> CreateSubject(Subject subject)
+        public async Task<Subject> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Subjects.SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<bool> DeleteSubject(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<Subject>> GetAllSubjects()
+        public async Task<List<Subject>> GetAllAsync()
         {
             return await _context.Subjects.ToListAsync();
         }
 
-        public Task<Subject> GetSubject(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var subject = await _context.Subjects.SingleOrDefaultAsync(s => s.Id == id);
+
+            if (subject is not null)
+            {
+                _context.Subjects.Remove(subject);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
 
-        public Task<int> UpdateSubject(Subject subject)
+        public async Task<Subject> CreateAsync(Subject subject)
         {
-            throw new NotImplementedException();
+            await _context.AddAsync(subject);
+            await _context.SaveChangesAsync();
+            return subject;
+        }
+
+        public async Task<int> UpdateAsync(Subject subject)
+        {
+            var entity = await _context.Subjects.SingleAsync(s => s.Id == subject.Id);
+            _context.Entry(entity).CurrentValues.SetValues(subject);
+            await _context.SaveChangesAsync();
+            return subject.Id;
         }
     }
 }

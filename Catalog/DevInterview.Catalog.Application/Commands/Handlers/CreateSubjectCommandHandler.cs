@@ -4,7 +4,7 @@ using MediatR;
 
 namespace DevInterview.Catalog.Application.Commands.Handlers
 {
-    public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommand, int>
+    public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommand, Subject>
     {
         private readonly ISubjectRepository _roleRepository;
 
@@ -13,10 +13,10 @@ namespace DevInterview.Catalog.Application.Commands.Handlers
             _roleRepository = roleRepository;
         }
 
-        public async Task<int> Handle(CreateSubjectCommand request, CancellationToken cancellationToken)
+        public async Task<Subject> Handle(CreateSubjectCommand request, CancellationToken cancellationToken)
         {
-            var role = new Subject() { Name = request.name, Image = request.image };
-            return await _roleRepository.CreateSubject(role);
+            var subject = new Subject() { Name = request.name, Image = request.image };
+            return await _roleRepository.CreateAsync(subject);
         }
     }
 }

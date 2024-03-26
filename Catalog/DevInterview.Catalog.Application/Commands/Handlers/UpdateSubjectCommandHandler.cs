@@ -25,7 +25,7 @@ namespace DevInterview.Catalog.Application.Commands.Handlers
                 Name = request.name,
                 Image = request.image
             };
-            return await _roleRepository.UpdateSubject(role);
+            return await _roleRepository.UpdateAsync(role);
         }
     }
 }

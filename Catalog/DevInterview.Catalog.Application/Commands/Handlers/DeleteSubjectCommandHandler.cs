@@ -14,7 +14,7 @@ namespace DevInterview.Catalog.Application.Commands.Handlers
 
         public async Task<bool> Handle(DeleteSubjectCommand request, CancellationToken cancellationToken)
         {
-            return await _roleRepository.DeleteSubject(request.id);
+            return await _roleRepository.DeleteAsync(request.id);
         }
     }
 }
