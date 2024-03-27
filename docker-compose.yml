@@ -1,8 +1,17 @@
 version: '3.4'
 
 services:
+  sqldb-identity:
+    image: mcr.microsoft.com/mssql/server
+
   sqldb-catalog:
     image: mcr.microsoft.com/mssql/server
+
+  svc-identity:
+    image: ${DOCKER_REGISTRY-}svc-identity
+    build:
+      context: .
+      dockerfile: Identity/DevInterview.Identity.Api/Dockerfile
 
   svc-catalog:
     image: ${DOCKER_REGISTRY-}svc-catalog
