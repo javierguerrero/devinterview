@@ -10,7 +10,7 @@ namespace DevInterview.Catalog.Domain.Interfaces
 
         Task<Question> GetQuestion(int id);
 
-        Task<int> CreateQuestion(Question question);
+        Task<Question> CreateQuestion(Question question);
 
         Task<int> UpdateQuestion(Question question);
 

@@ -1,43 +1,60 @@
 ﻿using DevInterview.Catalog.Domain.Entities;
 using DevInterview.Catalog.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevInterview.Catalog.Infrastructure.DataAccess.Repositories
 {
     public class TopicRepository : ITopicRepository
     {
-        public Task<int> CreateTopic(Topic topic)
+        private readonly CatalogContext _context;
+
+        public TopicRepository(CatalogContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<bool> DeleteTopic(int id)
+        public async Task<List<Topic>> GetAllTopics()
         {
-            throw new NotImplementedException();
+            return await _context.Topics.ToListAsync();
         }
 
-        public Task<List<Topic>> GetAllTopics()
+        public async Task<Topic> GetTopic(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Topics.SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<Topic> GetTopic(int id)
+        public async Task<Topic> CreateTopic(Topic topic)
         {
-            throw new NotImplementedException();
+            await _context.AddAsync(topic);
+            await _context.SaveChangesAsync();
+            return topic;
         }
 
-        public Task<List<Topic>> GetTopicsBySubject(int subjectId)
+        public async Task<int> UpdateTopic(Topic topic)
         {
-            throw new NotImplementedException();
+            var entity = await _context.Topics.SingleAsync(t => t.Id == topic.Id);
+            _context.Entry(entity).CurrentValues.SetValues(topic);
+            await _context.SaveChangesAsync();
+            return topic.Id;
         }
 
-        public Task<int> UpdateTopic(Topic topic)
+        public async Task<bool> DeleteTopic(int id)
         {
-            throw new NotImplementedException();
+            var topic = await _context.Topics.SingleOrDefaultAsync(t => t.Id == id);
+
+            if (topic is not null)
+            {
+                _context.Topics.Remove(topic);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<List<Topic>> GetTopicsBySubject(int subjectId)
+        {
+            return await _context.Topics.Where(t => t.SubjectId == subjectId).ToListAsync();
         }
     }
 }

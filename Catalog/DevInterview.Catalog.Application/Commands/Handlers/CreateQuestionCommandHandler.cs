@@ -4,7 +4,7 @@ using MediatR;
 
 namespace DevInterview.Catalog.Application.Commands.Handlers
 {
-    public class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionCommand, int>
+    public class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionCommand, Question>
     {
         private readonly IQuestionRepository _questionRepository;
 
@@ -13,7 +13,7 @@ namespace DevInterview.Catalog.Application.Commands.Handlers
             _questionRepository = questionRepository;
         }
 
-        public async Task<int> Handle(CreateQuestionCommand request, CancellationToken cancellationToken)
+        public async Task<Question> Handle(CreateQuestionCommand request, CancellationToken cancellationToken)
         {
             var question = new Question() { 
                 QuestionText = request.questionText, 

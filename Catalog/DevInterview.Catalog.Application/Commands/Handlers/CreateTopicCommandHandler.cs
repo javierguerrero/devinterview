@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DevInterview.Catalog.Application.Commands.Handlers
 {
-    public class CreateTopicCommandHandler : IRequestHandler<CreateTopicCommand, int>
+    public class CreateTopicCommandHandler : IRequestHandler<CreateTopicCommand, Topic>
     {
         private readonly ITopicRepository _topicRepository;
 
@@ -18,7 +18,7 @@ namespace DevInterview.Catalog.Application.Commands.Handlers
             _topicRepository = topicRepository;
         }
 
-        public async Task<int> Handle(CreateTopicCommand request, CancellationToken cancellationToken)
+        public async Task<Topic> Handle(CreateTopicCommand request, CancellationToken cancellationToken)
         {
             var topic = new Topic()
             {

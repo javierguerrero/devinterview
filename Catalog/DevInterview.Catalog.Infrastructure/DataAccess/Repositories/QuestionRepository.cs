@@ -1,43 +1,60 @@
 ﻿using DevInterview.Catalog.Domain.Entities;
 using DevInterview.Catalog.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevInterview.Catalog.Infrastructure.DataAccess.Repositories
 {
     public class QuestionRepository : IQuestionRepository
     {
-        public Task<int> CreateQuestion(Question question)
+        private readonly CatalogContext _context;
+
+        public QuestionRepository(CatalogContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<bool> DeleteQuestion(int id)
+        public async Task<List<Question>> GetAllQuestions()
         {
-            throw new NotImplementedException();
+            return await _context.Questions.ToListAsync();
         }
 
-        public Task<List<Question>> GetAllQuestions()
+        public async Task<Question> GetQuestion(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Questions.SingleOrDefaultAsync(q => q.Id == id);
         }
 
-        public Task<Question> GetQuestion(int id)
+        public async Task<Question> CreateQuestion(Question question)
         {
-            throw new NotImplementedException();
+            await _context.AddAsync(question);
+            await _context.SaveChangesAsync();
+            return question;
         }
 
-        public Task<List<Question>> GetQuestionsByTopic(int topicId)
+        public async Task<int> UpdateQuestion(Question question)
         {
-            throw new NotImplementedException();
+            var entity = await _context.Questions.SingleAsync(q => q.Id == question.Id);
+            _context.Entry(entity).CurrentValues.SetValues(question);
+            await _context.SaveChangesAsync();
+            return question.Id;
         }
 
-        public Task<int> UpdateQuestion(Question question)
+        public async Task<bool> DeleteQuestion(int id)
         {
-            throw new NotImplementedException();
+            var question = await _context.Questions.SingleOrDefaultAsync(q => q.Id == id);
+
+            if (question is not null)
+            {
+                _context.Questions.Remove(question);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<List<Question>> GetQuestionsByTopic(int topicId)
+        {
+            return await _context.Questions.Where(t => t.TopicId == topicId).ToListAsync();
         }
     }
 }

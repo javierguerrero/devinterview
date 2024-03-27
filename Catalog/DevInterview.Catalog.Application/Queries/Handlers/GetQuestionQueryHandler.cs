@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DDevInterview.Catalog.Application.Queries;
 using DevInterview.Catalog.Application.Responses;
 using DevInterview.Catalog.Domain.Interfaces;
 using MediatR;

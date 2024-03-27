@@ -13,14 +13,14 @@ namespace DevInterview.Catalog.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<Subject> GetAsync(int id)
-        {
-            return await _context.Subjects.SingleOrDefaultAsync(x => x.Id == id);
-        }
-
         public async Task<List<Subject>> GetAllAsync()
         {
             return await _context.Subjects.ToListAsync();
+        }
+
+        public async Task<Subject> GetAsync(int id)
+        {
+            return await _context.Subjects.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<bool> DeleteAsync(int id)
