@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevInterview.Identity.Api.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20240327024356_init")]
+    [Migration("20240401161049_init")]
     partial class init
     {
         /// <inheritdoc />

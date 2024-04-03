@@ -32,7 +32,7 @@ services:
       - "ConnectionStrings:IdentityDB:User=sa"
       - "ConnectionStrings:IdentityDB:Password=.123Pass456."
     ports:
-      - "9010:80"
+      - "9010:8080"
     depends_on:
       - sqldb-identity
 
@@ -45,6 +45,6 @@ services:
       - "ConnectionStrings:CatalogDB:User=sa"
       - "ConnectionStrings:CatalogDB:Password=.123Pass456."
     ports:
-      - "9020:80"
+      - "9020:8080"
     depends_on:
       - sqldb-catalog

@@ -10,6 +10,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Catalog/DevInterview.Catalog.Api/DevInterview.Catalog.Api.csproj", "Catalog/DevInterview.Catalog.Api/"]
+COPY ["Catalog/DevInterview.Catalog.Application/DevInterview.Catalog.Application.csproj", "Catalog/DevInterview.Catalog.Application/"]
+COPY ["Catalog/DevInterview.Catalog.Domain/DevInterview.Catalog.Domain.csproj", "Catalog/DevInterview.Catalog.Domain/"]
+COPY ["Catalog/DevInterview.Catalog.Infrastructure/DevInterview.Catalog.Infrastructure.csproj", "Catalog/DevInterview.Catalog.Infrastructure/"]
 RUN dotnet restore "./Catalog/DevInterview.Catalog.Api/./DevInterview.Catalog.Api.csproj"
 COPY . .
 WORKDIR "/src/Catalog/DevInterview.Catalog.Api"
