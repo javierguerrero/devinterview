@@ -10,14 +10,14 @@ namespace DevInterview.Identity.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuthenticateController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
-        private readonly ILogger<AuthenticateController> _logger;
+        private readonly ILogger<AuthController> _logger;
 
-        public AuthenticateController(
+        public AuthController(
             UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IConfiguration configuration)
