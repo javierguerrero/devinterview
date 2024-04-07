@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
@@ -8,17 +9,21 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
-builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
 // Add services to the container.
+builder.Services.AddCors(options => {
+    options.AddPolicy("CORSPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
+
+// Ocelot
+builder.Configuration.AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", optional: false, reloadOnChange: true);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddOcelot();
-
-
 
 //configurar la autorización del token JWT
 var privateKey = configuration.GetValue<string>("Authentication:JWT:Key");
@@ -63,3 +68,4 @@ app.UseOcelot().Wait();
 app.Run();
 
 //https://arbems.com/api-gateway-en-net-6-con-ocelot/
+//https://www.c-sharpcorner.com/article/microservices-async-communication-using-ocelot-gateway-rabbitmq-docker-and-an/

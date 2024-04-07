@@ -23,6 +23,16 @@ services:
       SA_PASSWORD: ".123Pass456."
       ACCEPT_EULA: "Y"
 
+  gw-web:
+    container_name: gw-web
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - svc-identity
+      - svc-catalog
+    ports:
+      - "8010:8080"
+
   svc-identity:
     container_name: svc-identity
     environment:
@@ -31,8 +41,6 @@ services:
       - "ConnectionStrings:IdentityDB:Catalogue=Identity"
       - "ConnectionStrings:IdentityDB:User=sa"
       - "ConnectionStrings:IdentityDB:Password=.123Pass456."
-    ports:
-      - "9010:8080"
     depends_on:
       - sqldb-identity
 
@@ -44,7 +52,5 @@ services:
       - "ConnectionStrings:CatalogDB:Catalogue=Catalog"
       - "ConnectionStrings:CatalogDB:User=sa"
       - "ConnectionStrings:CatalogDB:Password=.123Pass456."
-    ports:
-      - "9020:8080"
     depends_on:
       - sqldb-catalog

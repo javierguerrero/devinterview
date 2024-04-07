@@ -1,6 +1,0 @@
-@DevInterview.Mobile.ApiGateway_HostAddress = http://localhost:5243
-
-GET {{DevInterview.Mobile.ApiGateway_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

@@ -7,6 +7,12 @@ services:
   sqldb-catalog:
     image: mcr.microsoft.com/mssql/server
 
+  gw-web:
+    image: ${DOCKER_REGISTRY-}gw-web
+    build:
+      context: .
+      dockerfile: WebApiGateway/Dockerfile
+
   svc-identity:
     image: ${DOCKER_REGISTRY-}svc-identity
     build:
