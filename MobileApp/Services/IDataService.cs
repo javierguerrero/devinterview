@@ -6,7 +6,7 @@ namespace DevInterview.MobileApp.Services
     {
         Task<List<Subject>> GetSubjects();
 
-        Task<List<Topic>> GetTopicsBySubject(string roleId);
+        Task<List<Topic>> GetTopicsBySubject(int subjectId);
 
         Task<List<Question>> GetQuestionsByTopic(string topicId);
     }

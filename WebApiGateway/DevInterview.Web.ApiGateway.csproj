@@ -25,9 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="ocelot.Local.Development.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Update="ocelot.Local.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -14,7 +14,7 @@ namespace DevInterview.MobileApp.ViewModels
         private readonly INavigation _navigation;
         private List<Topic> _topics;
 
-        public string SubjectId { get; set; }
+        public int SubjectId { get; set; }
         public ObservableCollection<Topic> Topics { get; set; } = new();
 
         [ObservableProperty]

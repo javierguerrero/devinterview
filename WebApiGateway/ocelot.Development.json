@@ -20,10 +20,10 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/Subjects/GetAllSubjects"
+      "DownstreamPathTemplate": "/Subjects"
     },
     {
-      "UpstreamPathTemplate": "/api/topics",
+      "UpstreamPathTemplate": "/api/subjects/{subjectId}/topics",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamHostAndPorts": [
         {
@@ -31,10 +31,10 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/Topics/GetAllTopics"
+      "DownstreamPathTemplate": "/Subjects/{subjectId}/topics"
     },
     {
-      "UpstreamPathTemplate": "/api/questions",
+      "UpstreamPathTemplate": "/api/topics/{topicId}/questions",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamHostAndPorts": [
         {
@@ -42,7 +42,7 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/Questions/GetAllQuestions"
+      "DownstreamPathTemplate": "/Topics/{topicId}/questions"
     }
   ],
   "GlobalConfiguration": {

@@ -20,14 +20,12 @@ namespace DevInterview.Catalog.Api.Controllers
         }
 
         [HttpGet]
-        [Route("[action]")]
         public async Task<IActionResult> GetAllSubjects()
         {
             return Ok(await _mediator.Send(new GetAllSubjectsQuery()));
         }
 
-        [HttpGet]
-        [Route("[action]")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetSubject(int id)
         {
             var response = await _mediator.Send(new GetSubjectQuery(id));
@@ -81,6 +79,17 @@ namespace DevInterview.Catalog.Api.Controllers
         {
             //TODO: Delete subjects
             return Ok();
+        }
+
+        [HttpGet("{subjectId}/topics")]
+        public async Task<IActionResult> GetTopicsBySubjectId(int subjectId)
+        {
+            var response = await _mediator.Send(new GetTopicsBySubjectQuery(subjectId));
+            if (response is null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
         }
     }
 }

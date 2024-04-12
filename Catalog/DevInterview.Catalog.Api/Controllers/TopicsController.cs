@@ -20,14 +20,12 @@ namespace DevInterview.Catalog.Api.Controllers
         }
 
         [HttpGet]
-        [Route("[action]")]
         public async Task<IActionResult> GetAllTopics()
         {
             return Ok(await _mediator.Send(new GetAllTopicsQuery()));
         }
 
-        [HttpGet]
-        [Route("[action]")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetTopic(int id)
         {
             var response = await _mediator.Send(new GetTopicQuery(id));
@@ -73,6 +71,12 @@ namespace DevInterview.Catalog.Api.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpGet("{topicId}/questions")]
+        public async Task<IActionResult> GetQuestionsByTopic(int topicId)
+        {
+            return Ok(await _mediator.Send(new GetQuestionsByTopicQuery(topicId)));
         }
     }
 }
