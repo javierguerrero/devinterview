@@ -47,10 +47,10 @@ namespace DevInterview.MobileApp.Services
             return topics;
         }
 
-        public async Task<List<Question>> GetQuestionsByTopic(string topicId)
+        public async Task<List<Question>> GetQuestionsByTopic(int topicId)
         {
             var questions = new List<Question>();
-            var url = $"{baseUrl}/api/questions";
+            var url = $"{baseUrl}/api/topics/{topicId}/questions";
             var response = await _httpClient.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
