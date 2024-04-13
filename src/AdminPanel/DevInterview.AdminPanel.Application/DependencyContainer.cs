@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using DevInterview.AdminPanel.Application.HttpCommunications;
 using DevInterview.AdminPanel.Application.Mapper;
 using DevInterview.AdminPanel.Application.Queries;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Refit;
 using System.Reflection;
 
 namespace DevInterview.AdminPanel.Application
@@ -16,14 +18,9 @@ namespace DevInterview.AdminPanel.Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddMediatR(typeof(GetAllSubjectsQuery).GetTypeInfo().Assembly);
 
-            //// Automapper
-            //var automapperConfig = new MapperConfiguration(mapperConfig =>
-            //{
-            //    mapperConfig.AddMaps(typeof(AdminPanelProfile).Assembly);
-            //});
-            //IMapper mapper = automapperConfig.CreateMapper();
-            //services.AddSingleton(mapper);
-
+            // Api Gateway
+            services.AddRefitClient<IWebApiGatewayCommunication>()
+                    .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration.GetSection("Communication:External:WebApiGateway").Value));
 
             return services;
         }

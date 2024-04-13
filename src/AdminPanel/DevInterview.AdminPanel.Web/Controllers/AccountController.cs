@@ -1,11 +1,9 @@
+using DevInterview.AdminPanel.Application.Commands;
 using DevInterview.AdminPanel.Web.Models;
-using Firebase.Auth;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using MediatR;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Diagnostics;
 using System.Security.Claims;
 
 namespace DevInterview.AdminPanel.Web.Controllers
@@ -13,12 +11,12 @@ namespace DevInterview.AdminPanel.Web.Controllers
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
-        private FirebaseAuthProvider _authentication;
+        private readonly IMediator _mediator;
 
-        public AccountController(ILogger<AccountController> logger)
+        public AccountController(ILogger<AccountController> logger, IMediator mediator)
         {
             _logger = logger;
-            _authentication = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAMQnAATQawfwiQJeOCK9n07MmkIOQ_5MU"));
+            _mediator = mediator;
         }
 
         public ActionResult Login()
@@ -27,22 +25,18 @@ namespace DevInterview.AdminPanel.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel login)
+        public async Task<IActionResult> Login(LoginViewModel vm)
         {
             try
             {
-                //log in an existing user
-                var fbAuthLink = await _authentication.SignInWithEmailAndPasswordAsync(login.Email, login.Password);
-                string token = fbAuthLink.FirebaseToken;
+                var response = await _mediator.Send(new LoginCommand(vm.Username, vm.Password));
 
                 //save the token to a session variable
-                if (token != null)
+                if (response.Token != null)
                 {
-                    //HttpContext.Session.SetString("_UserToken", token);
-
                     var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, login.Email),
+                    new Claim(ClaimTypes.Name, vm.Username),
                 };
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var authProperties = new AuthenticationProperties
@@ -53,11 +47,10 @@ namespace DevInterview.AdminPanel.Web.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-            catch (FirebaseAuthException ex)
+            catch (Exception ex)
             {
-                var firebaseEx = JsonConvert.DeserializeObject<FirebaseErrorViewModel>(ex.ResponseData);
-                ModelState.AddModelError(String.Empty, firebaseEx.error.message);
-                return View(login);
+                ModelState.AddModelError(String.Empty, ex.Message);
+                return View(vm);
             }
 
             return View();

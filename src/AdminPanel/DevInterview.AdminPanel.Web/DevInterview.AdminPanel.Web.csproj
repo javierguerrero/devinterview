@@ -16,10 +16,4 @@
     <ProjectReference Include="..\DevInterview.AdminPanel.Infrastructure\DevInterview.AdminPanel.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="devinterview-2aedb-ac38be834adb.json">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </Content>
-  </ItemGroup>
-
 </Project>
