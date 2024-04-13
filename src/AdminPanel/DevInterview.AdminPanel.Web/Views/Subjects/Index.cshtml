@@ -1,0 +1,88 @@
+﻿@model DevInterview.AdminPanel.Web.Models.SubjectsIndexViewModel
+@{
+    ViewData["Title"] = "Subjects";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>@ViewData["Title"]</h4>
+    </div>
+    <div class="card-body">
+        <div class="col text-end">
+            <a asp-action="Create" asp-controller="Subjects" class="btn btn-primary">Add Subject</a>
+        </div>
+        <hr />
+        <table class='table table-bordered'>
+            <thead>
+                <tr>
+                    <th class="visually-hidden">Id</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model.SubjectList)
+                {
+                    <tr>
+                        <td class="visually-hidden">@role.SubjectId</td>
+                        <td>@role.Name</td>
+                        <td><img width="100" src="@role.Image" /></td>
+                        <td>
+                            <a asp-action="Update" asp-controller="Subjects" asp-route-subjectId="@role.SubjectId" class="btn btn-sm btn-outline-dark">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" onclick="Confirm('@role.SubjectId')">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteSubjectModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Subject</h3>
+                <button type="button" class="close" data-bs-dismiss="modal">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this <strong>Subject</strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnCancel" data-bs-dismiss="modal">Cancel</button>
+                <button id="btnDelete" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="subjectId" />
+
+<script>
+    $(document).ready(function () {
+        $("#btnDelete").click(function () {
+            var id = $("#subjectId").val();
+            $.ajax({
+                type: "POST",
+                url: "/Subjects/Delete",
+                data: { id: id },
+                success: function (result) {
+                    if (result) {
+                        $("#subjectId").val(null);
+                        window.location.href = "/Subjects/Index";
+                    } else {
+                        alert("Opps something wrong");
+                    }
+                }
+            });
+        });
+    });
+
+    var Confirm = function (id) {
+        $("#subjectId").val(id);
+        $("#deleteSubjectModal").modal('show');
+    }
+</script>

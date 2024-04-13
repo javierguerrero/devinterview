@@ -1,0 +1,51 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/login",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7104
+        }
+      ],
+      "DownstreamPathTemplate": "/Auth/login"
+    },
+    {
+      "UpstreamPathTemplate": "/api/subjects",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7020
+        }
+      ],
+      "DownstreamPathTemplate": "/Subjects/GetAllSubjects"
+    },
+    {
+      "UpstreamPathTemplate": "/api/topics",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7020
+        }
+      ],
+      "DownstreamPathTemplate": "/Topics/GetAllTopics"
+    },
+    {
+      "UpstreamPathTemplate": "/api/questions",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7020
+        }
+      ],
+      "DownstreamPathTemplate": "/Questions/GetAllQuestions"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7215"
+  }
+}

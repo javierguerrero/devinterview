@@ -1,0 +1,35 @@
+﻿@model DevInterview.AdminPanel.Web.Models.UpdateSubjectViewModel
+
+@{
+    ViewData["Title"] = "Update Subject";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>@ViewData["Title"]</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Update" asp-controller="Subjects" method="post" enctype="multipart/form-data">
+            <input asp-for="SubjectId" type="hidden" class="form-control" value="@Model.SubjectId" />
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input asp-for="Name" value="@Model.Name" type="text" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Image</label>
+                <input type="file" name="image" accept="image/*" class="form-control" />
+                <img src="@Model.Image" />
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+                <div class="col text-end">
+                    <a asp-action="Index" asp-controller="Subjects" class="btn btn-warning">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

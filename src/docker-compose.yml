@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  sqldb-identity:
+    image: mcr.microsoft.com/mssql/server
+
+  sqldb-catalog:
+    image: mcr.microsoft.com/mssql/server
+
+  gw-web:
+    image: ${DOCKER_REGISTRY-}gw-web
+    build:
+      context: .
+      dockerfile: WebApiGateway/Dockerfile
+
+  svc-identity:
+    image: ${DOCKER_REGISTRY-}svc-identity
+    build:
+      context: .
+      dockerfile: Identity/DevInterview.Identity.Api/Dockerfile
+
+  svc-catalog:
+    image: ${DOCKER_REGISTRY-}svc-catalog
+    build:
+      context: .
+      dockerfile: Catalog/DevInterview.Catalog.Api/Dockerfile
+
+
+

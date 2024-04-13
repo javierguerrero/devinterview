@@ -1,0 +1,56 @@
+version: '3.4'
+
+services:
+  sqldb-identity:
+    container_name: sqldb-identity
+    restart: always
+    volumes:
+      - /c/data/docker/devinterview/sqlserver/identity:/var/opt/mssql/data
+    ports:
+      - "1417:1433"
+    environment:
+      SA_PASSWORD: ".123Pass456."
+      ACCEPT_EULA: "Y"
+
+  sqldb-catalog:
+    container_name: sqldb-catalog
+    restart: always
+    volumes:
+      - /c/data/docker/devinterview/sqlserver/catalog:/var/opt/mssql/data
+    ports:
+      - "1418:1433"
+    environment:
+      SA_PASSWORD: ".123Pass456."
+      ACCEPT_EULA: "Y"
+
+  gw-web:
+    container_name: gw-web
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - svc-identity
+      - svc-catalog
+    ports:
+      - "8010:8080"
+
+  svc-identity:
+    container_name: svc-identity
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:IdentityDB:HostName=sqldb-identity"
+      - "ConnectionStrings:IdentityDB:Catalogue=Identity"
+      - "ConnectionStrings:IdentityDB:User=sa"
+      - "ConnectionStrings:IdentityDB:Password=.123Pass456."
+    depends_on:
+      - sqldb-identity
+
+  svc-catalog:
+    container_name: svc-catalog
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:CatalogDB:HostName=sqldb-catalog"
+      - "ConnectionStrings:CatalogDB:Catalogue=Catalog"
+      - "ConnectionStrings:CatalogDB:User=sa"
+      - "ConnectionStrings:CatalogDB:Password=.123Pass456."
+    depends_on:
+      - sqldb-catalog
