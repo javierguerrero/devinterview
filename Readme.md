@@ -1,3 +1,51 @@
+# DevInterview - Software Guidebook
+
+## Introduction
+
+This software guidebook provides an overview of the **DevInterview** platform. It includes a summary of the following:
+
+- The requirements, constraints and principles behind the solution.
+- The software architecture, including the high-level technology choices and structure of the software.
+- The infrastructure architecture and how the software is deployed.
+- Operational and support aspects of the application.
+
+URL: https://practical-conversations.azurewebsites.net/
+
+
+## Context
+abc 
+
+## Functional Overview
+abc 
+
+## Quality Attributes
+abc 
+
+## Constraints
+abc 
+
+## Principles
+abc 
+
+## Software Architecture
+abc 
+
+## Infrastructure Architecture
+abc 
+
+## Deployment
+abc 
+
+
+## Development
+
+
+
+
+
+
+
+
 Admin Panel: An admin panel serves as a user-friendly control center to maintain various aspects of your web application like managing and organising content, tracking website analytics, managing user accounts, and performing various other tasks.
 
 
