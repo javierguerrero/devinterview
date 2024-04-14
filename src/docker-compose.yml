@@ -7,8 +7,14 @@ services:
   sqldb-catalog:
     image: mcr.microsoft.com/mssql/server
 
-  gw-web:
-    image: ${DOCKER_REGISTRY-}gw-web
+  app-admin:
+    image: ${DOCKER_REGISTRY-}app-admin
+    build:
+      context: .
+      dockerfile: AdminPanel/DevInterview.AdminPanel.Web/Dockerfile
+
+  agw-web:
+    image: ${DOCKER_REGISTRY-}agw-web
     build:
       context: .
       dockerfile: WebApiGateway/Dockerfile
