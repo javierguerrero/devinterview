@@ -1,26 +1,35 @@
 ﻿using AutoMapper;
+using DevInterview.AdminPanel.Application.HttpCommunications;
 using DevInterview.AdminPanel.Application.Responses;
-using DevInterview.AdminPanel.Domain.Interfaces;
-using DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories;
 using MediatR;
 
 namespace DevInterview.AdminPanel.Application.Queries.Handlers
 {
     public class GetAllSubjectsQueryHandler : IRequestHandler<GetAllSubjectsQuery, IEnumerable<SubjectResponse>>
     {
-        private readonly ISubjectRepository _roleRepository;
-        private readonly IMapper _mapper;
+        private readonly IWebApiGatewayCommunication _webApiGatewayCommunication;
 
-        public GetAllSubjectsQueryHandler(ISubjectRepository roleRepository, IMapper mapper)
+        public GetAllSubjectsQueryHandler(IWebApiGatewayCommunication webApiGatewayCommunication)
         {
-            _roleRepository = roleRepository;
-            _mapper = mapper;
+            _webApiGatewayCommunication = webApiGatewayCommunication;
         }
 
         public async Task<IEnumerable<SubjectResponse>> Handle(GetAllSubjectsQuery request, CancellationToken cancellationToken)
         {
-            var roles = await _roleRepository.GetAllSubjects();
-            return _mapper.Map<IEnumerable<SubjectResponse>>(roles);
+            var roles = new List<SubjectResponse>();
+
+            var response = await _webApiGatewayCommunication.GetSubjets();
+
+            foreach (var item in response)
+            {
+                roles.Add(new SubjectResponse
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Image = item.Image
+                });
+            }
+            return roles;
         }
     }
 }
