@@ -17,10 +17,21 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7020
+          "Port": 5258
         }
       ],
-      "DownstreamPathTemplate": "/Subjects/GetAllSubjects"
+      "DownstreamPathTemplate": "/Subjects"
+    },
+    {
+      "UpstreamPathTemplate": "/api/subjects/{id}",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5258
+        }
+      ],
+      "DownstreamPathTemplate": "/Subjects/{id}"
     },
     {
       "UpstreamPathTemplate": "/api/topics",
@@ -28,7 +39,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7020
+          "Port": 5258
         }
       ],
       "DownstreamPathTemplate": "/Topics/GetAllTopics"
@@ -39,13 +50,13 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7020
+          "Port": 5258
         }
       ],
       "DownstreamPathTemplate": "/Questions/GetAllQuestions"
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:7215"
+    "BaseUrl": "http://localhost:5243"
   }
 }

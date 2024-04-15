@@ -1,25 +1,28 @@
-﻿using DevInterview.AdminPanel.Domain.Interfaces;
+﻿using DevInterview.AdminPanel.Application.HttpCommunications;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevInterview.AdminPanel.Application.Commands.Handlers
 {
     public class DeleteSubjectCommandHandler : IRequestHandler<DeleteSubjectCommand, bool>
     {
-        private readonly ISubjectRepository _roleRepository;
+        private readonly IWebApiGatewayCommunication _webApiGatewayCommunication;
 
-        public DeleteSubjectCommandHandler(ISubjectRepository roleRepository)
+        public DeleteSubjectCommandHandler(IWebApiGatewayCommunication webApiGatewayCommunication)
         {
-            _roleRepository = roleRepository;
+            _webApiGatewayCommunication = webApiGatewayCommunication;
         }
 
         public async Task<bool> Handle(DeleteSubjectCommand request, CancellationToken cancellationToken)
         {
-            return await _roleRepository.DeleteSubject(request.id);
+            try
+            {
+                await _webApiGatewayCommunication.DeleteSubject(request.id);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

@@ -94,7 +94,7 @@ namespace DevInterview.AdminPanel.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<JsonResult> Delete(string id)
+        public async Task<JsonResult> Delete(int id)
         {
             return Json(await _mediator.Send(new DeleteSubjectCommand(id)));
         }

@@ -4,12 +4,17 @@ using Refit;
 
 namespace DevInterview.AdminPanel.Application.HttpCommunications
 {
+    //https://code-maze.com/using-refit-to-consume-apis-in-csharp/
+
     public interface IWebApiGatewayCommunication
     {
         [Post("/api/login")]
         Task<LoginWebApiGatewayCommunicationResponse> Login([Body] LoginWebApiGatewayCommunicationRequest request);
 
         [Get("/api/subjects")]
-        Task<List<SubjectWebApiGatewayCommunicationResponse>> GetSubjets();
+        Task<List<SubjectWebApiGatewayCommunicationResponse>> GetSubjects();
+
+        [Delete("/api/subjects/{id}")]
+        Task DeleteSubject(int id);
     }
 }
