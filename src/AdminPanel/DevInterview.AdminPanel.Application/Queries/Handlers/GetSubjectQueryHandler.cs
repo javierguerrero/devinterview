@@ -1,25 +1,28 @@
-﻿using AutoMapper;
+﻿using DevInterview.AdminPanel.Application.HttpCommunications;
 using DevInterview.AdminPanel.Application.Responses;
-using DevInterview.AdminPanel.Domain.Interfaces;
 using MediatR;
 
 namespace DevInterview.AdminPanel.Application.Queries.Handlers
 {
     public class GetSubjectQueryHandler : IRequestHandler<GetSubjectQuery, SubjectResponse>
     {
-        private readonly ISubjectRepository _roleRepository;
-        private readonly IMapper _mapper;
+        private readonly IWebApiGatewayCommunication _webApiGatewayCommunication;
 
-        public GetSubjectQueryHandler(ISubjectRepository roleRepository, IMapper mapper)
+        public GetSubjectQueryHandler(IWebApiGatewayCommunication webApiGatewayCommunication)
         {
-            _roleRepository = roleRepository;
-            _mapper = mapper;
+            _webApiGatewayCommunication = webApiGatewayCommunication;
         }
 
         public async Task<SubjectResponse> Handle(GetSubjectQuery request, CancellationToken cancellationToken)
         {
-            var role = await _roleRepository.GetSubject(request.roleId);
-            return _mapper.Map<SubjectResponse>(role);
+            var response = await _webApiGatewayCommunication.GetSubject(request.subjectId);
+            var subject = new SubjectResponse
+            {
+                Id = response.Id,
+                Name = response.Name,
+                Image = response.Image
+            };
+            return subject;
         }
     }
 }

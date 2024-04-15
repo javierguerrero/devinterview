@@ -1,31 +1,35 @@
-﻿using AutoMapper;
-using DevInterview.AdminPanel.Domain.Entities;
-using DevInterview.AdminPanel.Domain.Interfaces;
+﻿using DevInterview.AdminPanel.Application.HttpCommunications;
+using DevInterview.AdminPanel.Application.HttpCommunications.Requests;
 using MediatR;
 
 namespace DevInterview.AdminPanel.Application.Commands.Handlers
 {
     public class UpdateSubjectCommandHandler : IRequestHandler<UpdateSubjectCommand, string>
     {
-        private readonly ISubjectRepository _roleRepository;
-        private readonly IMapper _mapper;
+        private readonly IWebApiGatewayCommunication _webApiGatewayCommunication;
 
-        public UpdateSubjectCommandHandler(ISubjectRepository roleRepository, IMapper mapper)
+        public UpdateSubjectCommandHandler(IWebApiGatewayCommunication webApiGatewayCommunication)
         {
-            _roleRepository = roleRepository;
-            _mapper = mapper;
+            _webApiGatewayCommunication = webApiGatewayCommunication;
         }
 
         public async Task<string> Handle(UpdateSubjectCommand request, CancellationToken cancellationToken)
         {
-
-            var role = new Subject
+            try
             {
-                SubjectId = request.roleId,
-                Name = request.name,
-                Image = request.image
-            };
-            return await _roleRepository.UpdateSubject(role);
+                await _webApiGatewayCommunication.UpdateSubject(request.subjectId, new SubjectWebApiGatewayCommunicationRequest
+                {
+                    Id = request.subjectId,
+                    Name = request.name,
+                    Image = request.image
+                });
+
+                return request.subjectId.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

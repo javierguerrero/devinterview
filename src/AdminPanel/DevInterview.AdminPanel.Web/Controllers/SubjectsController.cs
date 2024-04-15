@@ -63,7 +63,7 @@ namespace DevInterview.AdminPanel.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(string subjectId)
+        public async Task<IActionResult> Update(int subjectId)
         {
             var subject = await _mediator.Send(new GetSubjectQuery(subjectId));
             var viewModel = new UpdateSubjectViewModel

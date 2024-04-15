@@ -2,5 +2,5 @@
 
 namespace DevInterview.AdminPanel.Application.Commands
 {
-    public record UpdateSubjectCommand(string roleId, string name, string image) : IRequest<string>;
+    public record UpdateSubjectCommand(int subjectId, string name, string image) : IRequest<string>;
 }

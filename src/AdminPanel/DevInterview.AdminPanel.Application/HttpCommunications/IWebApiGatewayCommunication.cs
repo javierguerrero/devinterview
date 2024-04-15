@@ -12,12 +12,18 @@ namespace DevInterview.AdminPanel.Application.HttpCommunications
         Task<LoginWebApiGatewayCommunicationResponse> Login([Body] LoginWebApiGatewayCommunicationRequest request);
 
         [Get("/api/subjects")]
-        Task<List<SubjectWebApiGatewayCommunicationResponse>> GetSubjects();
+        Task<List<SubjectWebApiGatewayCommunicationResponse>> GetAllSubjects();
 
-        [Delete("/api/subjects/{id}")]
-        Task DeleteSubject(int id);
+        [Get("/api/subjects/{id}")]
+        Task<SubjectWebApiGatewayCommunicationResponse> GetSubject(int id);
 
         [Post("/api/subjects")]
         Task<SubjectWebApiGatewayCommunicationResponse> CreateSubject([Body] SubjectWebApiGatewayCommunicationRequest request);
+
+        [Put("/api/subjects/{id}")]
+        Task UpdateSubject(int id, [Body] SubjectWebApiGatewayCommunicationRequest request);
+
+        [Delete("/api/subjects/{id}")]
+        Task DeleteSubject(int id);
     }
 }

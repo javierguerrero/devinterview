@@ -18,7 +18,7 @@ namespace DevInterview.AdminPanel.Application.Queries.Handlers
         {
             var roles = new List<SubjectResponse>();
 
-            var response = await _webApiGatewayCommunication.GetSubjects();
+            var response = await _webApiGatewayCommunication.GetAllSubjects();
 
             foreach (var item in response)
             {
