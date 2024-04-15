@@ -16,5 +16,8 @@ namespace DevInterview.AdminPanel.Application.HttpCommunications
 
         [Delete("/api/subjects/{id}")]
         Task DeleteSubject(int id);
+
+        [Post("/api/subjects")]
+        Task<SubjectWebApiGatewayCommunicationResponse> CreateSubject([Body] SubjectWebApiGatewayCommunicationRequest request);
     }
 }

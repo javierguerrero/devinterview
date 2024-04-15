@@ -23,6 +23,17 @@
       "DownstreamPathTemplate": "/Subjects"
     },
     {
+      "UpstreamPathTemplate": "/api/subjects",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5258
+        }
+      ],
+      "DownstreamPathTemplate": "/Subjects"
+    },
+    {
       "UpstreamPathTemplate": "/api/subjects/{id}",
       "UpstreamHttpMethod": [ "Delete" ],
       "DownstreamHostAndPorts": [

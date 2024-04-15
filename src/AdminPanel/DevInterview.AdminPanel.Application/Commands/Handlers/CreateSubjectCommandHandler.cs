@@ -1,22 +1,34 @@
-﻿using DevInterview.AdminPanel.Domain.Entities;
-using DevInterview.AdminPanel.Domain.Interfaces;
+﻿using DevInterview.AdminPanel.Application.HttpCommunications;
+using DevInterview.AdminPanel.Application.HttpCommunications.Requests;
 using MediatR;
 
 namespace DevInterview.AdminPanel.Application.Commands.Handlers
 {
     public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommand, string>
     {
-        private readonly ISubjectRepository _roleRepository;
+        private readonly IWebApiGatewayCommunication _webApiGatewayCommunication;
 
-        public CreateSubjectCommandHandler(ISubjectRepository roleRepository)
+        public CreateSubjectCommandHandler(IWebApiGatewayCommunication webApiGatewayCommunication)
         {
-            _roleRepository = roleRepository;
+            _webApiGatewayCommunication = webApiGatewayCommunication;
         }
 
         public async Task<string> Handle(CreateSubjectCommand request, CancellationToken cancellationToken)
         {
-            var role = new Subject() { Name = request.name, Image = request.image };
-            return await _roleRepository.CreateSubject(role);
+            try
+            {
+                var response = await _webApiGatewayCommunication.CreateSubject(new SubjectWebApiGatewayCommunicationRequest
+                {
+                    Name = request.name,
+                    Image = request.image
+                });
+
+                return response.Id.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
