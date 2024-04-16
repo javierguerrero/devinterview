@@ -12,7 +12,6 @@ namespace DevInterview.AdminPanel.Infrastructure
         {
             // Dependencies
             services.AddScoped(typeof(IFirebaseContext), typeof(FirebaseContext));
-            services.AddScoped(typeof(ISubjectRepository), typeof(SubjectRepository));
             services.AddScoped(typeof(ITopicRepository), typeof(TopicRepository));
             services.AddScoped(typeof(IQuestionRepository), typeof(QuestionRepository));
 

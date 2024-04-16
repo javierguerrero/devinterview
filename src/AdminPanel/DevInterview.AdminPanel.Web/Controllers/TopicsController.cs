@@ -94,7 +94,7 @@ namespace DevInterview.AdminPanel.Web.Controllers
                 results.Add(new SelectListItem
                 {
                     Text = topic.Name,
-                    Value = topic.TopicId
+                    Value = topic.Id.ToString()
                 });
             }
 

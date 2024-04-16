@@ -10,7 +10,6 @@ namespace DevInterview.AdminPanel.Web.Mapper
     {
         public MapProfile()
         {
-            CreateMap<SubjectFirebase, Subject>().ReverseMap();
             CreateMap<TopicFirebase, Topic>().ReverseMap();
             CreateMap<QuestionFirebase, Question>().ReverseMap();
 

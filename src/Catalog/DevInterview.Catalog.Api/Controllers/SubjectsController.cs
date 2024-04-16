@@ -73,14 +73,6 @@ namespace DevInterview.Catalog.Api.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("Delete")]
-        public async Task<IActionResult> DeleteMultiple([FromQuery] int[] ids)
-        {
-            //TODO: Delete subjects
-            return Ok();
-        }
-
         [HttpGet("{subjectId}/topics")]
         public async Task<IActionResult> GetTopicsBySubjectId(int subjectId)
         {

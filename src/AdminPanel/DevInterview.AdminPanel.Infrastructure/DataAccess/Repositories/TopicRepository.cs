@@ -49,31 +49,7 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
         {
             try
             {
-                var subjectFirebaseList = new List<SubjectFirebase>();
-                Query query = _firebaseContext.Database.Collection("subjects");
-                QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
-
-                foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
-                {
-                    if (documentSnapshot.Exists)
-                    {
-                        var subjectRaw = documentSnapshot.ToDictionary();
-                        var subjectJson = JsonConvert.SerializeObject(subjectRaw);
-                        var subjectFirebase = JsonConvert.DeserializeObject<SubjectFirebase>(subjectJson);
-                        subjectFirebase.SubjectId = documentSnapshot.Id;
-                        subjectFirebaseList.Add(subjectFirebase);
-                    }
-                }
-
-                topics.ForEach(topic => { 
-                    var found = subjectFirebaseList.SingleOrDefault(r => r.SubjectId == topic.SubjectId);
-                    if (found is not null)
-                    {
-                        topic.SubjectName = found.Name;
-                    }
-                });
-
-                return topics;
+                 return topics;
             }
             catch
             {

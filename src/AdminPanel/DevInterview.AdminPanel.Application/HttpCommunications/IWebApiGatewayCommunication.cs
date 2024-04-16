@@ -8,8 +8,12 @@ namespace DevInterview.AdminPanel.Application.HttpCommunications
 
     public interface IWebApiGatewayCommunication
     {
+        #region auth
         [Post("/api/login")]
         Task<LoginWebApiGatewayCommunicationResponse> Login([Body] LoginWebApiGatewayCommunicationRequest request);
+        #endregion
+
+        #region subjects
 
         [Get("/api/subjects")]
         Task<List<SubjectWebApiGatewayCommunicationResponse>> GetAllSubjects();
@@ -25,5 +29,13 @@ namespace DevInterview.AdminPanel.Application.HttpCommunications
 
         [Delete("/api/subjects/{id}")]
         Task DeleteSubject(int id);
+
+        #endregion
+
+
+        #region topics
+        [Get("/api/topics")]
+        Task<List<TopicWebApiGatewayCommunicationResponse>> GetAllTopics();
+        #endregion
     }
 }
