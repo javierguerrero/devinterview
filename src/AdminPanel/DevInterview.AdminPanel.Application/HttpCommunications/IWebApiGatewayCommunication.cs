@@ -32,13 +32,15 @@ namespace DevInterview.AdminPanel.Application.HttpCommunications
 
         #endregion
 
-
         #region topics
         [Get("/api/topics")]
         Task<List<TopicWebApiGatewayCommunicationResponse>> GetAllTopics();
 
         [Get("/api/topics/{id}")]
         Task<TopicWebApiGatewayCommunicationResponse> GetTopic(int id);
+
+        [Post("/api/topics")]
+        Task<TopicWebApiGatewayCommunicationResponse> CreateTopic([Body] TopicWebApiGatewayCommunicationRequest request);
 
         [Put("/api/topics/{id}")]
         Task UpdateTopic(int id, [Body] TopicWebApiGatewayCommunicationRequest request);

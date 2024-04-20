@@ -1,32 +1,35 @@
-﻿using DevInterview.AdminPanel.Domain.Entities;
-using DevInterview.AdminPanel.Domain.Interfaces;
+﻿using DevInterview.AdminPanel.Application.HttpCommunications;
+using DevInterview.AdminPanel.Application.HttpCommunications.Requests;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevInterview.AdminPanel.Application.Commands.Handlers
 {
     public class CreateTopicCommandHandler : IRequestHandler<CreateTopicCommand, string>
     {
-        private readonly ITopicRepository _topicRepository;
+        private readonly IWebApiGatewayCommunication _webApiGatewayCommunication;
 
-        public CreateTopicCommandHandler(ITopicRepository topicRepository)
+        public CreateTopicCommandHandler(IWebApiGatewayCommunication webApiGatewayCommunication)
         {
-            _topicRepository = topicRepository;
+            _webApiGatewayCommunication = webApiGatewayCommunication;
         }
 
         public async Task<string> Handle(CreateTopicCommand request, CancellationToken cancellationToken)
         {
-            var topic = new Topic()
+            try
             {
-                Name = request.name,
-                Description = request.description,
-                SubjectId = request.roleId
-            };
-            return await _topicRepository.CreateTopic(topic);
+                var response = await _webApiGatewayCommunication.CreateTopic(new TopicWebApiGatewayCommunicationRequest
+                {
+                    Name = request.name,
+                    Description = request.description,
+                    SubjectId = request.subjectId
+                });
+
+                return response.Id.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

@@ -11,7 +11,7 @@
         <form asp-action="Create" asp-controller="Topics" method="post">
             <div class="mb-3">
                 <label class="form-label">Subject</label>
-                <select class="form-control" asp-for="SelectedRoleId">
+                <select class="form-control" asp-for="SelectedSubjectId">
                     @foreach (var subject in Model.SubjectList)
                     {
                         <option value="@subject.Id" data="@subject.Name">@subject.Name</option>

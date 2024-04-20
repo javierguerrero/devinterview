@@ -38,10 +38,10 @@ namespace DevInterview.AdminPanel.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var roles = await _mediator.Send(new GetAllSubjectsQuery());
+            var subjects = await _mediator.Send(new GetAllSubjectsQuery());
             var vm = new CreateTopicViewModel
             {
-                SubjectList = _mapper.Map<List<SubjectViewModel>>(roles)
+                SubjectList = _mapper.Map<List<SubjectViewModel>>(subjects)
             };
             return View(vm);
         }
@@ -49,7 +49,7 @@ namespace DevInterview.AdminPanel.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateTopicViewModel vm)
         {
-            await _mediator.Send(new CreateTopicCommand(vm.Topic.Name, vm.Topic.Description, vm.SelectedRoleId));
+            await _mediator.Send(new CreateTopicCommand(vm.Topic.Name, vm.Topic.Description, vm.SelectedSubjectId));
             return RedirectToAction("Index");
         }
 

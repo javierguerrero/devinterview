@@ -100,6 +100,17 @@
       "DownstreamPathTemplate": "/Topics/{id}"
     },
     {
+      "UpstreamPathTemplate": "/api/topics",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "svc-catalog",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/Topics"
+    },
+    {
       "UpstreamPathTemplate": "/api/topics/{id}",
       "UpstreamHttpMethod": [ "Put" ],
       "DownstreamHostAndPorts": [

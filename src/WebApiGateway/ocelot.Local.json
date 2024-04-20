@@ -89,6 +89,17 @@
       "DownstreamPathTemplate": "/Topics/{id}"
     },
     {
+      "UpstreamPathTemplate": "/api/topics",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5258
+        }
+      ],
+      "DownstreamPathTemplate": "/Topics"
+    },
+    {
       "UpstreamPathTemplate": "/api/topics/{id}",
       "UpstreamHttpMethod": [ "Put" ],
       "DownstreamHostAndPorts": [

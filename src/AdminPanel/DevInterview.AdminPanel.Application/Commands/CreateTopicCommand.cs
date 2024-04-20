@@ -2,5 +2,5 @@
 
 namespace DevInterview.AdminPanel.Application.Commands
 {
-    public record CreateTopicCommand(string name, string description, string roleId) : IRequest<string>;
+    public record CreateTopicCommand(string name, string description, int subjectId) : IRequest<string>;
 }
