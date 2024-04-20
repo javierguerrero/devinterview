@@ -20,7 +20,6 @@ namespace DevInterview.Catalog.Api.Controllers
         }
 
         [HttpGet]
-        [Route("[action]")]
         public async Task<IActionResult> GetAllQuestions()
         {
             return Ok(await _mediator.Send(new GetAllQuestionsQuery()));

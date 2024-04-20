@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevInterview.AdminPanel.Application.Responses
+namespace DevInterview.AdminPanel.Application.HttpCommunications.Responses
 {
-    public class QuestionResponse
+    public class QuestionWebApiGatewayCommunicationResponse
     {
         public int Id { get; set; }
         public string QuestionText { get; set; }

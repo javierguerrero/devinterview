@@ -109,6 +109,17 @@
         }
       ],
       "DownstreamPathTemplate": "/Topics/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/questions",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5258
+        }
+      ],
+      "DownstreamPathTemplate": "/Questions"
     }
   ],
   "GlobalConfiguration": {
