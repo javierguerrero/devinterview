@@ -21,7 +21,7 @@ namespace DevInterview.AdminPanel.Application.Commands.Handlers
 
             var topic = new Topic
             {
-                TopicId = request.topicId,
+                Id = request.topicId,
                 Name = request.name,
                 Description = request.description,
                 SubjectId = request.roleId,

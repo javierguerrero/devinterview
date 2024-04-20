@@ -141,7 +141,7 @@ namespace DevInterview.AdminPanel.Infrastructure.DataAccess.Repositories
         {
             try
             {
-                DocumentReference docRef = _firebaseContext.Database.Collection("topics").Document(topic.TopicId);
+                DocumentReference docRef = _firebaseContext.Database.Collection("topics").Document(topic.Id.ToString());
                 var roleFirebase = _mapper.Map<TopicFirebase>(topic);
                 await docRef.SetAsync(roleFirebase, SetOptions.Overwrite);
                 return docRef.Id;

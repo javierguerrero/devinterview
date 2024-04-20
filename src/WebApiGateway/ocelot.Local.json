@@ -76,6 +76,17 @@
         }
       ],
       "DownstreamPathTemplate": "/topics"
+    },
+    {
+      "UpstreamPathTemplate": "/api/topics/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5258
+        }
+      ],
+      "DownstreamPathTemplate": "/Topics/{id}"
     }
   ],
   "GlobalConfiguration": {

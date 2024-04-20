@@ -69,11 +69,11 @@ namespace DevInterview.AdminPanel.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateTopicViewModel vm)
         {
-            await _mediator.Send(new UpdateTopicCommand(vm.Topic.TopicId, vm.Topic.Name, vm.Topic.Description, vm.SelectedRoleId));
+            await _mediator.Send(new UpdateTopicCommand(vm.Topic.Id, vm.Topic.Name, vm.Topic.Description, vm.SelectedRoleId));
             return RedirectToAction("Index");
         }
 
-        public async Task<JsonResult> Delete(string id)
+        public async Task<JsonResult> Delete(int id)
         {
             return Json(await _mediator.Send(new DeleteTopicCommand(id)));
         }

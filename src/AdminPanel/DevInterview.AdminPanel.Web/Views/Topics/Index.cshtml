@@ -34,8 +34,8 @@
                         <td>@topic.Description</td>
                         <td>@topic.SubjectName</td>
                         <td>
-                            <a asp-action="Update" asp-controller="Topics" asp-route-topicId="@topic.TopicId" class="btn btn-sm btn-outline-dark">Edit</a>
-                            <a class="btn btn-sm btn-outline-danger" onclick="Confirm('@topic.TopicId')">Delete</a>
+                            <a asp-action="Update" asp-controller="Topics" asp-route-topicId="@topic.Id" class="btn btn-sm btn-outline-dark">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" onclick="Confirm('@topic.Id')">Delete</a>
                         </td>
                     </tr>
                 }

@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace DevInterview.AdminPanel.Application.Commands
 {
-    public record DeleteTopicCommand(string id) : IRequest<bool>;
+    public record DeleteTopicCommand(int id) : IRequest<bool>;
 }

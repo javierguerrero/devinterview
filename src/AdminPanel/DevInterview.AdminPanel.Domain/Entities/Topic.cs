@@ -8,7 +8,7 @@ namespace DevInterview.AdminPanel.Domain.Entities
 {
     public class Topic
     {
-        public string TopicId { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string SubjectId { get; set; }

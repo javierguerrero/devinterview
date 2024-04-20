@@ -4,7 +4,7 @@ namespace DevInterview.AdminPanel.Web.Models
 {
     public class TopicViewModel
     {
-        public string? TopicId { get; set; }
+        public int? Id { get; set; }
 
         public string Name { get; set; }
 

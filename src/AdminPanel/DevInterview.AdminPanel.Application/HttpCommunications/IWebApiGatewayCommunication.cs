@@ -36,6 +36,9 @@ namespace DevInterview.AdminPanel.Application.HttpCommunications
         #region topics
         [Get("/api/topics")]
         Task<List<TopicWebApiGatewayCommunicationResponse>> GetAllTopics();
+
+        [Delete("/api/topics/{id}")]
+        Task DeleteTopic(int id);
         #endregion
     }
 }

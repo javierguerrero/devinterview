@@ -87,6 +87,17 @@
         }
       ],
       "DownstreamPathTemplate": "/Topics/{topicId}/questions"
+    },
+    {
+      "UpstreamPathTemplate": "/api/topics/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "svc-catalog",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/Topics/{id}"
     }
   ],
   "GlobalConfiguration": {

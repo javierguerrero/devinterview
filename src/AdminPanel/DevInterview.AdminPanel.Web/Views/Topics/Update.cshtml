@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">
         <form asp-action="Update" asp-controller="Topics" method="post">
-            <input asp-for="Topic.TopicId" type="hidden" class="form-control" value="@Model.Topic.TopicId" />
+            <input asp-for="Topic.Id" type="hidden" class="form-control" value="@Model.Topic.Id" />
             <div class="mb-3">
                 <label class="form-label">Role</label>
                 <select class="form-control" asp-for="SelectedRoleId">

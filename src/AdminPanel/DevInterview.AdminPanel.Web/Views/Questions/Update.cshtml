@@ -15,7 +15,7 @@
                 <select class="form-control" asp-for="SelectedTopicId">
                     @foreach (var item in Model.TopicList)
                     {
-                        <option value="@item.TopicId" data="@item.Name">@item.Name</option>
+                        <option value="@item.Id" data="@item.Name">@item.Name</option>
                     }
                 </select>
             </div>
