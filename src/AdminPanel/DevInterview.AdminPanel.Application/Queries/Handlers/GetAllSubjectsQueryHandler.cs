@@ -16,20 +16,20 @@ namespace DevInterview.AdminPanel.Application.Queries.Handlers
 
         public async Task<IEnumerable<SubjectResponse>> Handle(GetAllSubjectsQuery request, CancellationToken cancellationToken)
         {
-            var roles = new List<SubjectResponse>();
+            var subjects = new List<SubjectResponse>();
 
             var response = await _webApiGatewayCommunication.GetAllSubjects();
 
             foreach (var item in response)
             {
-                roles.Add(new SubjectResponse
+                subjects.Add(new SubjectResponse
                 {
                     Id = item.Id,
                     Name = item.Name,
                     Image = item.Image
                 });
             }
-            return roles;
+            return subjects;
         }
     }
 }

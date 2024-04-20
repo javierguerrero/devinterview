@@ -54,14 +54,14 @@ namespace DevInterview.AdminPanel.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(string topicId)
+        public async Task<IActionResult> Update(int topicId)
         {
             var topic = await _mediator.Send(new GetTopicQuery(topicId));
-            var roles = await _mediator.Send(new GetAllSubjectsQuery());
+            var subjects = await _mediator.Send(new GetAllSubjectsQuery());
 
             var vm = new UpdateTopicViewModel();
             vm.Topic = _mapper.Map<TopicViewModel>(topic);
-            vm.RoleList = _mapper.Map<List<SubjectViewModel>>(roles);
+            vm.SubjectList = _mapper.Map<List<SubjectViewModel>>(subjects);
 
             return View(vm);
         }
@@ -69,7 +69,7 @@ namespace DevInterview.AdminPanel.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateTopicViewModel vm)
         {
-            await _mediator.Send(new UpdateTopicCommand(vm.Topic.Id, vm.Topic.Name, vm.Topic.Description, vm.SelectedRoleId));
+            await _mediator.Send(new UpdateTopicCommand(vm.Topic.Id, vm.Topic.Name, vm.Topic.Description, vm.SelectedSubjectId));
             return RedirectToAction("Index");
         }
 

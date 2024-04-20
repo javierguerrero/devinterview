@@ -14,7 +14,7 @@
                 <select class="form-control" asp-for="SelectedRoleId">
                     @foreach (var subject in Model.SubjectList)
                     {
-                        <option value="@subject.SubjectId" data="@subject.Name">@subject.Name</option>
+                        <option value="@subject.Id" data="@subject.Name">@subject.Name</option>
                     }
                 </select>
             </div>

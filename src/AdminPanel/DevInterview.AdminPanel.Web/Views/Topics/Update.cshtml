@@ -11,11 +11,11 @@
         <form asp-action="Update" asp-controller="Topics" method="post">
             <input asp-for="Topic.Id" type="hidden" class="form-control" value="@Model.Topic.Id" />
             <div class="mb-3">
-                <label class="form-label">Role</label>
-                <select class="form-control" asp-for="SelectedRoleId">
-                    @foreach (var item in Model.RoleList)
+                <label class="form-label">Subject</label>
+                <select class="form-control" asp-for="SelectedSubjectId">
+                    @foreach (var item in Model.SubjectList)
                     {
-                        <option value="@item.SubjectId" data="@item.Name">@item.Name</option>
+                        <option value="@item.Id" data="@item.Name">@item.Name</option>
                     }
                 </select>
             </div>
@@ -29,10 +29,6 @@
                 <textarea asp-for="Topic.Description" class="form-control"></textarea>
                 <span asp-validation-for="Topic.Description" class="text-danger"></span>
             </div>
-
-            
-            
-
 
             <div class="row">
                 <div class="col">

@@ -1,32 +1,36 @@
-﻿using AutoMapper;
-using DevInterview.AdminPanel.Domain.Entities;
-using DevInterview.AdminPanel.Domain.Interfaces;
+﻿using DevInterview.AdminPanel.Application.HttpCommunications;
+using DevInterview.AdminPanel.Application.HttpCommunications.Requests;
 using MediatR;
 
 namespace DevInterview.AdminPanel.Application.Commands.Handlers
 {
     public class UpdateTopicCommandHandler : IRequestHandler<UpdateTopicCommand, string>
     {
-        private readonly ITopicRepository _topicRepository;
-        private readonly IMapper _mapper;
+        private readonly IWebApiGatewayCommunication _webApiGatewayCommunication;
 
-        public UpdateTopicCommandHandler(ITopicRepository topicRepository, IMapper mapper)
+        public UpdateTopicCommandHandler(IWebApiGatewayCommunication webApiGatewayCommunication)
         {
-            _topicRepository = topicRepository;
-            _mapper = mapper;
+            _webApiGatewayCommunication = webApiGatewayCommunication;
         }
 
         public async Task<string> Handle(UpdateTopicCommand request, CancellationToken cancellationToken)
         {
-
-            var topic = new Topic
+            try
             {
-                Id = request.topicId,
-                Name = request.name,
-                Description = request.description,
-                SubjectId = request.roleId,
-            };
-            return await _topicRepository.UpdateTopic(topic);
+                await _webApiGatewayCommunication.UpdateTopic(request.topicId, new TopicWebApiGatewayCommunicationRequest
+                {
+                    Id = request.topicId,
+                    Name = request.name,
+                    Description = request.description,
+                    SubjectId = request.subjectId
+                });
+
+                return request.topicId.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
