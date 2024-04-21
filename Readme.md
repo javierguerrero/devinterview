@@ -24,7 +24,7 @@ See how it works with a hands on demo.
 The platform has three types of user:
 
 - **Anonymous**: Anybody with a web browser o smartphone can view free content on the platform.
-- **Authenticated**:
+- **Student**: Authenticated user
 - **Admin**: People with administrative (super-user) access to the platform can manage the content that is aggregated into the platform.
 
 ### External Systems
@@ -35,7 +35,32 @@ There are three types of systems that DevInterview integrates with.
 
 ## Functional Overview
 
-abc
+### Anonymous
+
+- As an anonymous user, I want to be able to access the homepage to explore available content.
+- As an anonymous user, I want to be able to view a list of available categories or topics to filter interview questions.
+- As an anonymous user, I want the option to register for an account to access additional features.
+
+### Student
+
+- As a Student, I want to be able to log in to my account to access personalized features.
+- As a Student, I want the option to update my profile information, such as my email address or password.
+- As a Student, I want to be able to browse the interview question catalog to explore different areas of knowledge.
+- As a Student, I want to be able to search for specific questions by topic or keyword to quickly find what I need.
+- As a Student, I want the option to mark questions as resolved once I have reviewed them.
+- As a Student, I want to be able to bookmark questions for later review.
+- As a Student, I want to receive notifications about important system updates or newly added questions.
+- As a Student, I want to have access to additional resources such as articles, tutorials, or code examples related to interview questions.
+- As a Student, I want to have the option to provide feedback on the usefulness and quality of questions and answers to help improve the system.
+
+### Administrator
+
+- As an administrator, I want the ability to add new interview questions to the catalog to expand and keep the content up-to-date.
+- As an administrator, I want to be able to edit or delete existing questions in the catalog to correct errors or update information as needed.
+- As an administrator, I want to be able to manage the tags or categories associated with questions to ensure consistent organization and facilitate user search.
+- As an administrator, I want the ability to send notifications to users about important system updates or new features available.
+- As an administrator, I want to be able to manage user accounts, including the ability to create, edit, or delete accounts as needed.
+- As an administrator, I want the ability to customize the appearance and settings of the system, including the ability to change the theme, add custom logos, and adjust privacy settings.
 
 ## Quality Attributes
 
