@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DevInterview.Catalog.Application.Responses
+﻿namespace DevInterview.Catalog.Application.Responses
 {
     public class QuestionResponse
     {
@@ -12,5 +6,6 @@ namespace DevInterview.Catalog.Application.Responses
         public string QuestionText { get; set; }
         public string AnswerText { get; set; }
         public int TopicId { get; set; }
+        public int SubjectId { get; set; }
     }
 }

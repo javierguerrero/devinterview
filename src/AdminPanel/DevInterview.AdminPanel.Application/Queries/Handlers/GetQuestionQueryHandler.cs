@@ -21,7 +21,8 @@ namespace DevInterview.AdminPanel.Application.Queries.Handlers
                 Id = response.Id,
                 QuestionText = response.QuestionText,
                 AnswerText = response.AnswerText,
-                TopicId = response.TopicId
+                TopicId = response.TopicId,
+                SubjectId = response.SubjectId
             };
             return question;
         }

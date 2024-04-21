@@ -15,12 +15,43 @@ namespace DevInterview.Catalog.Infrastructure.DataAccess.Repositories
 
         public async Task<List<Question>> GetAllQuestions()
         {
-            return await _context.Questions.ToListAsync();
+            var questionsWithSubjectInfo = await (from q in _context.Questions
+                                                  join t in _context.Topics on q.TopicId equals t.Id
+                                                  join s in _context.Subjects on t.SubjectId equals s.Id
+                                                  select new
+                                                  {
+                                                      Question = q,
+                                                      Topic = t,
+                                                      Subject = s
+                                                  }).ToListAsync();
+
+            var questions = questionsWithSubjectInfo.Select(qs =>
+            {
+                qs.Question.Topic = qs.Topic;
+                return qs.Question;
+            }).ToList();
+
+            return questions;
         }
 
         public async Task<Question> GetQuestion(int id)
         {
-            return await _context.Questions.SingleOrDefaultAsync(q => q.Id == id);
+            var questionWithSubjectInfo = await (from q in _context.Questions
+                                                 where q.Id == id
+                                                 join t in _context.Topics on q.TopicId equals t.Id
+                                                 join s in _context.Subjects on t.SubjectId equals s.Id
+                                                 select new
+                                                 {
+                                                     Question = q,
+                                                     Topic = t,
+                                                     Subject = s
+                                                 }).FirstOrDefaultAsync();
+
+            if (questionWithSubjectInfo is null)
+                return null;
+
+            questionWithSubjectInfo.Question.Topic = questionWithSubjectInfo.Topic;
+            return questionWithSubjectInfo.Question;
         }
 
         public async Task<Question> CreateQuestion(Question question)

@@ -61,11 +61,14 @@ namespace DevInterview.AdminPanel.Application.HttpCommunications
         [Get("/api/questions")]
         Task<List<QuestionWebApiGatewayCommunicationResponse>> GetAllQuestions();
 
+        [Get("/api/questions/{id}")]
+        Task<QuestionWebApiGatewayCommunicationResponse> GetQuestion(int id);
+
         [Post("/api/questions")]
         Task<QuestionWebApiGatewayCommunicationResponse> CreateQuestion([Body] QuestionWebApiGatewayCommunicationRequest request);
 
-        [Get("/api/questions/{id}")]
-        Task<QuestionWebApiGatewayCommunicationResponse> GetQuestion(int id);
+        [Put("/api/questions/{id}")]
+        Task UpdateQuestion(int id, [Body] QuestionWebApiGatewayCommunicationRequest request);
 
         [Delete("/api/questions/{id}")]
         Task DeleteQuestion(int id);

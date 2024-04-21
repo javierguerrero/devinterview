@@ -11,8 +11,19 @@
         <form asp-action="Update" asp-controller="Questions" method="post">
             <input asp-for="Question.Id" type="hidden" class="form-control" value="@Model.Question.Id" />
             <div class="mb-3">
+                <label class="form-label">Subject</label>
+                <select class="form-control" asp-for="SelectedSubjectId">
+                    <option value="-1">-- Select a Subject --</option>
+                    @foreach (var subject in Model.SubjectList)
+                    {
+                        <option value="@subject.Id" data="@subject.Name">@subject.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Topic</label>
                 <select class="form-control" asp-for="SelectedTopicId">
+                    <option value="-1">-- Select a Topic --</option>
                     @foreach (var item in Model.TopicList)
                     {
                         <option value="@item.Id" data="@item.Name">@item.Name</option>
@@ -27,9 +38,14 @@
                 <label class="form-label">Answer</label>
                 <textarea asp-for="Question.AnswerText" class="form-control"></textarea>
             </div>
-
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a asp-action="Index" asp-controller="Questions" class="btn btn-warning">Back</a>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                <div class="col text-end">
+                    <a asp-action="Index" asp-controller="Questions" class="btn btn-warning">Cancel</a>
+                </div>
+            </div>
         </form>
     </div>
 </div>

@@ -54,15 +54,20 @@ namespace DevInterview.AdminPanel.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(int questionId, int subjectId)
+        public async Task<IActionResult> Update(int questionId)
         {
             var question = await _mediator.Send(new GetQuestionQuery(questionId));
-            var topics = await _mediator.Send(new GetTopicsBySubjectQuery(subjectId));
+
+            var subjects = await _mediator.Send(new GetAllSubjectsQuery());
+            var topics = await _mediator.Send(new GetTopicsBySubjectQuery(question.SubjectId));
 
             var vm = new UpdateQuestionViewModel
             {
-                Question = _mapper.Map<QuestionViewModel>(question),
+                SubjectList = _mapper.Map<List<SubjectViewModel>>(subjects),
                 TopicList = _mapper.Map<List<TopicViewModel>>(topics),
+                Question = _mapper.Map<QuestionViewModel>(question),
+                SelectedSubjectId = question.SubjectId,
+                SelectedTopicId = question.TopicId
             };
 
             return View(vm);

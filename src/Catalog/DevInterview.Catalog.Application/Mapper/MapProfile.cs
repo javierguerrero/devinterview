@@ -9,7 +9,8 @@ namespace DevInterview.Catalog.Application.Mapper
         {
             CreateMap<Subject, SubjectResponse>().ReverseMap();
             CreateMap<Topic, TopicResponse>().ReverseMap();
-            CreateMap<Question, QuestionResponse>().ReverseMap();
+            //CreateMap<Question, QuestionResponse>().ReverseMap();
+            CreateMap<Question, QuestionResponse>().ForMember(dest => dest.SubjectId, opt => opt.MapFrom(src => src.Topic.SubjectId));
         }
     }
 }

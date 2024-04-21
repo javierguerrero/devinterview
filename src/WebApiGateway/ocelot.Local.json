@@ -134,6 +134,17 @@
     },
     {
       "UpstreamPathTemplate": "/api/questions/{id}",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5258
+        }
+      ],
+      "DownstreamPathTemplate": "/Questions/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/questions/{id}",
       "UpstreamHttpMethod": [ "Get", "Delete" ],
       "DownstreamHostAndPorts": [
         {

@@ -1,4 +1,5 @@
 ﻿using DevInterview.AdminPanel.Application.HttpCommunications;
+using DevInterview.AdminPanel.Application.HttpCommunications.Requests;
 using DevInterview.AdminPanel.Domain.Entities;
 using MediatR;
 
@@ -15,17 +16,22 @@ namespace DevInterview.AdminPanel.Application.Commands.Handlers
 
         public async Task<string> Handle(UpdateQuestionCommand request, CancellationToken cancellationToken)
         {
-            //var question = new Question()
-            //{
-            //    Id = request.Id,
-            //    QuestionText = request.questionText,
-            //    AnswerText = request.answerText,
-            //    TopicId = request.topicId
-            //};
+            try
+            {
+                await _webApiGatewayCommunication.UpdateQuestion(request.Id, new QuestionWebApiGatewayCommunicationRequest
+                {
+                    Id = request.Id,
+                    QuestionText = request.questionText,
+                    AnswerText = request.answerText,
+                    TopicId = request.topicId
+                });
 
-            //return await _questionRepository.UpdateQuestion(question);
-
-            return null;
+                return request.Id.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
