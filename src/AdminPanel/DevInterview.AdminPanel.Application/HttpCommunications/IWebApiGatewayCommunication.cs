@@ -67,6 +67,9 @@ namespace DevInterview.AdminPanel.Application.HttpCommunications
         [Get("/api/questions/{id}")]
         Task<QuestionWebApiGatewayCommunicationResponse> GetQuestion(int id);
 
+        [Delete("/api/questions/{id}")]
+        Task DeleteQuestion(int id);
+
         #endregion Questions
     }
 }

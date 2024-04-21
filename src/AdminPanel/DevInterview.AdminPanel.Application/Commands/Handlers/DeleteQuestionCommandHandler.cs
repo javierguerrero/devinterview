@@ -14,7 +14,15 @@ namespace DevInterview.AdminPanel.Application.Commands.Handlers
 
         public async Task<bool> Handle(DeleteQuestionCommand request, CancellationToken cancellationToken)
         {
-            return true;
+            try
+            {
+                await _webApiGatewayCommunication.DeleteQuestion(request.id);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
