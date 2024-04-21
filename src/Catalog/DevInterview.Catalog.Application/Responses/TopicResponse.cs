@@ -12,5 +12,6 @@ namespace DevInterview.Catalog.Application.Responses
         public string Name { get; set; }
         public string Description { get; set; }
         public int SubjectId { get; set; }
+        public string SubjectName { get; set; }
     }
 }

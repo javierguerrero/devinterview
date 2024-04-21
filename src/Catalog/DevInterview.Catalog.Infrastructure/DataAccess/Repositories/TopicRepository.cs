@@ -15,7 +15,17 @@ namespace DevInterview.Catalog.Infrastructure.DataAccess.Repositories
 
         public async Task<List<Topic>> GetAllTopics()
         {
-            return await _context.Topics.ToListAsync();
+            var topicsWithSubject = await (from t in _context.Topics
+                                           join s in _context.Subjects on t.SubjectId equals s.Id
+                                           select new Topic
+                                           {
+                                               Id = t.Id,
+                                               Name = t.Name,
+                                               Description = t.Description,
+                                               SubjectId = t.SubjectId,
+                                               Subject = s
+                                           }).ToListAsync();
+            return topicsWithSubject;
         }
 
         public async Task<Topic> GetTopic(int id)

@@ -27,7 +27,8 @@ namespace DevInterview.AdminPanel.Application.Queries.Handlers
                         Id = topic.Id,
                         Name = topic.Name,
                         Description = topic.Description,
-                        SubjectId = topic.SubjectId
+                        SubjectId = topic.SubjectId,
+                        SubjectName = topic.SubjectName
                     });
                 }
                 return topics;
