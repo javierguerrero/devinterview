@@ -1,5 +1,4 @@
 ﻿using DevInterview.AdminPanel.Application.HttpCommunications;
-using DevInterview.AdminPanel.Domain.Interfaces;
 using MediatR;
 
 namespace DevInterview.AdminPanel.Application.Commands.Handlers

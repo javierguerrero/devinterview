@@ -51,14 +51,22 @@ namespace DevInterview.AdminPanel.Application.HttpCommunications
         [Delete("/api/topics/{id}")]
         Task DeleteTopic(int id);
 
+        [Get("/api/subjects/{id}/topics")]
+        Task<List<TopicWebApiGatewayCommunicationResponse>> GetTopicsBySubject(int id);
+
         #endregion Topics
 
-
-
         #region Questions
+
         [Get("/api/questions")]
         Task<List<QuestionWebApiGatewayCommunicationResponse>> GetAllQuestions();
-        #endregion Questions
 
+        [Post("/api/questions")]
+        Task<QuestionWebApiGatewayCommunicationResponse> CreateQuestion([Body] QuestionWebApiGatewayCommunicationRequest request);
+
+        [Get("/api/questions/{id}")]
+        Task<QuestionWebApiGatewayCommunicationResponse> GetQuestion(int id);
+
+        #endregion Questions
     }
 }

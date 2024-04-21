@@ -54,7 +54,7 @@ namespace DevInterview.AdminPanel.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(string questionId, string subjectId)
+        public async Task<IActionResult> Update(int questionId, int subjectId)
         {
             var question = await _mediator.Send(new GetQuestionQuery(questionId));
             var topics = await _mediator.Send(new GetTopicsBySubjectQuery(subjectId));

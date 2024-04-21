@@ -79,13 +79,13 @@ namespace DevInterview.AdminPanel.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetTopicsBySubject(string subjectId)
+        public async Task<JsonResult> GetTopicsBySubject(int subjectId)
         {
             var topics = await GetTopics(subjectId);
             return Json(topics);
         }
 
-        private async Task<List<SelectListItem>> GetTopics(string subjectId)
+        private async Task<List<SelectListItem>> GetTopics(int subjectId)
         {
             var results = new List<SelectListItem>();
             var data = await _mediator.Send(new GetTopicsBySubjectQuery(subjectId));

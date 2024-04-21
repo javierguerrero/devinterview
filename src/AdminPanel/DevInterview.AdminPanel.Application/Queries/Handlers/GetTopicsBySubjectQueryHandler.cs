@@ -1,25 +1,42 @@
 ﻿using AutoMapper;
+using DevInterview.AdminPanel.Application.HttpCommunications;
 using DevInterview.AdminPanel.Application.Responses;
-using DevInterview.AdminPanel.Domain.Interfaces;
 using MediatR;
 
 namespace DevInterview.AdminPanel.Application.Queries.Handlers
 {
     public class GetTopicsBySubjectQueryHandler : IRequestHandler<GetTopicsBySubjectQuery, IEnumerable<TopicResponse>>
     {
-        private readonly ITopicRepository _topicRepository;
-        private readonly IMapper _mapper;
+        private readonly IWebApiGatewayCommunication _webApiGatewayCommunication;
 
-        public GetTopicsBySubjectQueryHandler(ITopicRepository topicRepository, IMapper mapper)
+        public GetTopicsBySubjectQueryHandler(IWebApiGatewayCommunication webApiGatewayCommunication)
         {
-            _topicRepository = topicRepository;
-            _mapper = mapper;
+            _webApiGatewayCommunication = webApiGatewayCommunication;
         }
 
         public async Task<IEnumerable<TopicResponse>> Handle(GetTopicsBySubjectQuery request, CancellationToken cancellationToken)
         {
-            var topics = await _topicRepository.GetTopicsBySubject(request.subjectId);
-            return _mapper.Map<IEnumerable<TopicResponse>>(topics);
+            try
+            {
+                var topics = new List<TopicResponse>();
+                var response = await _webApiGatewayCommunication.GetTopicsBySubject(request.subjectId);
+
+                foreach (var topic in response)
+                {
+                    topics.Add(new TopicResponse
+                    {
+                        Id = topic.Id,
+                        Name = topic.Name,
+                        Description = topic.Description,
+                        SubjectId = topic.SubjectId
+                    });
+                }
+                return topics;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DevInterview.AdminPanel.Application.Responses;
 using DevInterview.AdminPanel.Domain.Entities;
-using DevInterview.AdminPanel.Infrastructure.DataAccess.FirebaseEntities;
 using DevInterview.AdminPanel.Web.Models;
 
 namespace DevInterview.AdminPanel.Web.Mapper
@@ -10,9 +9,6 @@ namespace DevInterview.AdminPanel.Web.Mapper
     {
         public MapProfile()
         {
-            CreateMap<TopicFirebase, Topic>().ReverseMap();
-            CreateMap<QuestionFirebase, Question>().ReverseMap();
-
             CreateMap<Subject, SubjectResponse>().ReverseMap();
             CreateMap<Topic, TopicResponse>().ReverseMap();
             CreateMap<Question, QuestionResponse>();

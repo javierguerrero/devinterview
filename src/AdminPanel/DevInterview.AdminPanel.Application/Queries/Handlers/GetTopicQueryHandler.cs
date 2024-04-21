@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using DevInterview.AdminPanel.Application.HttpCommunications;
+﻿using DevInterview.AdminPanel.Application.HttpCommunications;
 using DevInterview.AdminPanel.Application.Responses;
-using DevInterview.AdminPanel.Domain.Interfaces;
 using MediatR;
 
 namespace DevInterview.AdminPanel.Application.Queries.Handlers

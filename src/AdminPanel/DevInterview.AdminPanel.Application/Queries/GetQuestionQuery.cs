@@ -3,5 +3,5 @@ using MediatR;
 
 namespace DevInterview.AdminPanel.Application.Queries
 {
-    public record GetQuestionQuery(string questionId) : IRequest<QuestionResponse>;
+    public record GetQuestionQuery(int questionId) : IRequest<QuestionResponse>;
 }

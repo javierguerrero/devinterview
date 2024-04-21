@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5243
+          "Port": 5119
         }
       ],
       "DownstreamPathTemplate": "/Auth/login"
@@ -120,6 +120,28 @@
         }
       ],
       "DownstreamPathTemplate": "/Questions"
+    },
+    {
+      "UpstreamPathTemplate": "/api/questions",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5258
+        }
+      ],
+      "DownstreamPathTemplate": "/Questions"
+    },
+    {
+      "UpstreamPathTemplate": "/api/questions/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5258
+        }
+      ],
+      "DownstreamPathTemplate": "/Questions/{id}"
     }
   ],
   "GlobalConfiguration": {

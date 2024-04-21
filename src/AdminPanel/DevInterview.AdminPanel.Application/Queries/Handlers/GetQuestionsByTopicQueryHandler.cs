@@ -1,25 +1,21 @@
-﻿using AutoMapper;
+﻿using DevInterview.AdminPanel.Application.HttpCommunications;
 using DevInterview.AdminPanel.Application.Responses;
-using DevInterview.AdminPanel.Domain.Interfaces;
 using MediatR;
 
 namespace DevInterview.AdminPanel.Application.Queries.Handlers
 {
     public class GetQuestionsByTopicQueryHandler : IRequestHandler<GetQuestionsByTopicQuery, IEnumerable<QuestionResponse>>
     {
-        private readonly IQuestionRepository _questionRepository;
-        private readonly IMapper _mapper;
+        private readonly IWebApiGatewayCommunication _webApiGatewayCommunication;
 
-        public GetQuestionsByTopicQueryHandler(IQuestionRepository questionRepository, IMapper mapper)
+        public GetQuestionsByTopicQueryHandler(IWebApiGatewayCommunication webApiGatewayCommunication)
         {
-            _questionRepository = questionRepository;
-            _mapper = mapper;
+            _webApiGatewayCommunication = webApiGatewayCommunication;
         }
 
         public async Task<IEnumerable<QuestionResponse>> Handle(GetQuestionsByTopicQuery request, CancellationToken cancellationToken)
         {
-            var questions = await _questionRepository.GetQuestionsByTopic(request.topicId);
-            return _mapper.Map<IEnumerable<QuestionResponse>>(questions);
+            return null;
         }
     }
 }
