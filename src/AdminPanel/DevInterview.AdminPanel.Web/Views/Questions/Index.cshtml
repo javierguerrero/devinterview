@@ -21,6 +21,7 @@
             <thead>
                 <tr>
                     <th>Question</th>
+                    <th>Subject</th>
                     <th>Topic</th>
                     <th width="130">Actions</th>
                 </tr>
@@ -30,7 +31,8 @@
                 {
                     <tr>
                         <td>@question.QuestionText</td>
-                        <td>@question.TopicId</td>
+                        <td>@question.SubjectName</td>
+                        <td>@question.TopicName</td>
                         <td>
                             <a asp-action="Update" asp-controller="Questions" asp-route-questionId="@question.Id" class="btn btn-sm btn-outline-dark">Edit</a>
                             <a class="btn btn-sm btn-outline-danger" onclick="Confirm('@question.Id')">Delete</a>

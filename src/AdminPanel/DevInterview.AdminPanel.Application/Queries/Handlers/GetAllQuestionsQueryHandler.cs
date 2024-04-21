@@ -28,8 +28,10 @@ namespace DevInterview.AdminPanel.Application.Queries.Handlers
                         Id = item.Id,
                         QuestionText = item.QuestionText,
                         AnswerText = item.AnswerText,
-                        TopicId = item.TopicId, 
                         SubjectId = item.SubjectId,
+                        SubjectName = item.SubjectName,
+                        TopicId = item.TopicId,
+                        TopicName = item.TopicName
                     });
                 }
                 return questions;
