@@ -12,7 +12,7 @@
             <input asp-for="Question.Id" type="hidden" class="form-control" value="@Model.Question.Id" />
             <div class="mb-3">
                 <label class="form-label">Subject</label>
-                <select class="form-control" asp-for="SelectedSubjectId">
+                <select class="form-control" asp-for="SelectedSubjectId" onchange="FillTopics(this)">
                     <option value="-1">-- Select a Subject --</option>
                     @foreach (var subject in Model.SubjectList)
                     {
@@ -22,7 +22,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Topic</label>
-                <select class="form-control" asp-for="SelectedTopicId">
+                <select id="topicId" class="form-control" asp-for="SelectedTopicId">
                     <option value="-1">-- Select a Topic --</option>
                     @foreach (var item in Model.TopicList)
                     {
@@ -49,3 +49,30 @@
         </form>
     </div>
 </div>
+
+<input type="hidden" id="subjectIdHidden" />
+
+<script>
+    function FillTopics(listSubjectCtrl) {
+        var topicList = $("#topicId");
+        topicList.empty();
+        topicList.append('<option value="-1">-- Select a Topic --</option>');
+
+        var selectedSubject = listSubjectCtrl.options[listSubjectCtrl.selectedIndex].value;
+        $("#subjectIdHidden").val(selectedSubject);
+
+        if (selectedSubject != null && selectedSubject != '') {
+            $.getJSON("/Topics/GetTopicsBySubject", { subjectId: selectedSubject }, function (topics) {
+                if (topics != null && !jQuery.isEmptyObject(topics)) {
+                    $.each(topics, function (index, topic) {
+                        topicList.append($('<option/>', {
+                            value: topic.value,
+                            text: topic.text
+                        }));
+                    });
+                }
+            });
+        }
+        return;
+    }
+</script>
