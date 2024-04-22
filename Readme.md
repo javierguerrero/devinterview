@@ -19,6 +19,8 @@ See how it works with a hands on demo.
 
 **DevInterview** is a platform designed to assist software developers in preparing for technical interviews or certification exams through questions with respective detailed answers.
 
+![](docs/images/context.png)
+
 ### Users
 
 The platform has three types of user:

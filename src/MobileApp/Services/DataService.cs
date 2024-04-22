@@ -8,7 +8,7 @@ namespace DevInterview.MobileApp.Services
     {
         private readonly HttpClient _httpClient;
         private JsonSerializerOptions _serializerOptions;
-        private string baseUrl = DeviceInfo.Platform == DevicePlatform.Android ? "http://10.0.2.2:8010" : "https://localhost:8010";
+        private string baseUrl = DeviceInfo.Platform == DevicePlatform.Android ? "http://10.0.2.2:8010" : "http://localhost:8010";
 
         public DataService()
         {
