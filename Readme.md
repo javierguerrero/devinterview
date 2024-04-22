@@ -33,7 +33,10 @@ The platform has three types of user:
 
 There are three types of systems that DevInterview integrates with.
 
-- ChatGPT
+- **OpenAI API**: Understand or generate natural language, code, or images.
+- **SMTP Server**: Google e-mail system.
+- **Firebase Cloud Messaging**: Google's cross platform push notifications.
+- **Google Play Billing**: Google's payment system for in-app purchases and subscriptions on Android apps.
 
 ## Functional Overview
 
