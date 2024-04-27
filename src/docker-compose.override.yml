@@ -33,6 +33,13 @@ services:
     ports:
       - "7010:8080"
 
+  app-spa:
+    container_name: app-spa
+    ports:
+      - "7020:80"
+    depends_on:
+      - agw-web
+
   agw-web:
     container_name: agw-web
     environment:

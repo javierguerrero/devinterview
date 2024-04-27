@@ -13,6 +13,12 @@ services:
       context: .
       dockerfile: AdminPanel/DevInterview.AdminPanel.Web/Dockerfile
 
+  app-spa:
+    image: ${DOCKER_REGISTRY-}spa
+    build: 
+        context: .
+        dockerfile: spa/Dockerfile
+
   agw-web:
     image: ${DOCKER_REGISTRY-}agw-web
     build:
