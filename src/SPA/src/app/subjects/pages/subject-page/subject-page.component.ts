@@ -3,6 +3,7 @@ import { SubjectService } from '../../services/subjects.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { delay, switchMap } from 'rxjs';
 import { Subject } from '../../interfaces/subject.interface';
+import { Topic } from '../../interfaces/topic.interface';
 
 @Component({
   selector: 'app-subject-page',
@@ -10,7 +11,7 @@ import { Subject } from '../../interfaces/subject.interface';
   styles: [],
 })
 export class SubjectPageComponent implements OnInit {
-  public subject?: Subject;
+  public topics: Topic[] = [];
 
   constructor(
     private subjectService: SubjectService,
@@ -22,13 +23,10 @@ export class SubjectPageComponent implements OnInit {
     this.activatedRoute.params
       .pipe(
         delay(1000),
-        switchMap(({ id }) => this.subjectService.getSubjectById(id))
+        switchMap(({ id }) => this.subjectService.getTopicsBySubject(id))
       )
-      .subscribe((subject) => {
-        if (!subject) return this.router.navigate(['/subjects/list']);
-
-        this.subject = subject;
-        console.log(subject);
+      .subscribe((topics) => {
+        this.topics = topics;
         return;
       });
   }

@@ -14,7 +14,7 @@ services:
       dockerfile: AdminPanel/DevInterview.AdminPanel.Web/Dockerfile
 
   app-spa:
-    image: ${DOCKER_REGISTRY-}spa
+    image: ${DOCKER_REGISTRY-}app-spa
     build: 
         context: .
         dockerfile: spa/Dockerfile

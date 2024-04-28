@@ -5,7 +5,6 @@ import { NewPageComponent } from './pages/new-page/new-page.component';
 import { ListPageComponent } from './pages/list-page/list-page.component';
 import { SubjectPageComponent } from './pages/subject-page/subject-page.component';
 
-// localhost:4200/subjects
 const routes: Routes = [
   {
     path: '',
