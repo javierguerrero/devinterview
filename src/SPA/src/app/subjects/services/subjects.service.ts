@@ -4,6 +4,7 @@ import { Observable, catchError, of } from 'rxjs';
 import { Subject } from '../interfaces/subject.interface';
 import { environments } from 'src/environments/environments';
 import { Topic } from '../interfaces/topic.interface';
+import { Question } from '../interfaces/question.interface';
 
 @Injectable({ providedIn: 'root' })
 export class SubjectService {
@@ -26,6 +27,11 @@ export class SubjectService {
     var results = this.http.get<Topic[]>(
       `${this.baseUrl}/api/subjects/${subjectId}/topics`
     );
+    return results;
+  }
+
+  getQuestions(topicId: number): Observable<Question[]> {
+    var results = this.http.get<Question[]>(`${this.baseUrl}/api/questions`);
     return results;
   }
 }

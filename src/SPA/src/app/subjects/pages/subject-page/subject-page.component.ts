@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { SubjectService } from '../../services/subjects.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { delay, switchMap } from 'rxjs';
-import { Subject } from '../../interfaces/subject.interface';
 import { Topic } from '../../interfaces/topic.interface';
+import { Question } from '../../interfaces/question.interface';
 
 @Component({
   selector: 'app-subject-page',
   templateUrl: './subject-page.component.html',
-  styles: [],
+  styleUrls: ['subject-page.component.css'],
 })
 export class SubjectPageComponent implements OnInit {
-  public topics: Topic[] = [];
+  public topics: Topic[] | null = null;
+  public questions: Question[] | null = null;
 
   constructor(
     private subjectService: SubjectService,
@@ -29,6 +30,12 @@ export class SubjectPageComponent implements OnInit {
         this.topics = topics;
         return;
       });
+  }
+
+  getQuestions(topicId: number) {
+    this.subjectService
+      .getQuestions(topicId)
+      .subscribe((questions) => (this.questions = questions));
   }
 
   goBack(): void {

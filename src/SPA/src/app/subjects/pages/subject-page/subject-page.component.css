@@ -1,0 +1,11 @@
+ul.topics {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+ul.topics li {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
