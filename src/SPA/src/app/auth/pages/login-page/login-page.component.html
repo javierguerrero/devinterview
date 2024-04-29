@@ -1,20 +1,37 @@
-<div class="flex flex-column">
-  <span class="text-lg mb-4">Login</span>
-  <mat-form-field>
-    <mat-label>Username</mat-label>
-    <input type="text" matInput placeholder="Username" />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Password</mat-label>
-    <input type="password" matInput placeholder="Password" />
-  </mat-form-field>
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="login()">
+  <div class="flex flex-column">
+    <span class="text-lg mb-4">Login</span>
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Username"
+        formControlName="username"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input
+        type="password"
+        matInput
+        placeholder="Password"
+        formControlName="password"
+      />
+    </mat-form-field>
 
-  <button mat-button mat-flat-button color="primary">
-    <mat-icon>save</mat-icon>
-    Save
-  </button>
+    <button
+      mat-button
+      mat-flat-button
+      color="primary"
+      [disabled]="myForm.invalid"
+    >
+      <mat-icon>login</mat-icon>
+      Login
+    </button>
 
-  <div class="flex justify-content-end mt-5">
-    <a routerLink="/auth/new-account">Register</a>
+    <div class="flex justify-content-end mt-5">
+      <a routerLink="/auth/register">Register</a>
+    </div>
   </div>
-</div>
+</form>
