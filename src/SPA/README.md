@@ -11,7 +11,10 @@
 
 ng serve
 
-ng g component auth/pages/layoutPage --inline-style --skip-tests
+ng g m profile --routing
+ng g component profile/layouts/profileLayout --inline-style --skip-tests
+ng generate guard auth/guards/isAuthenticated --functional
+
 ng g component auth/pages/loginPage --inline-style --skip-tests
 ng g component auth/pages/registerPage --inline-style --skip-tests
 

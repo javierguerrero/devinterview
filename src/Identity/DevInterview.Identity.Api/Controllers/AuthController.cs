@@ -51,6 +51,7 @@ namespace DevInterview.Identity.Api.Controllers
 
                 return Ok(new
                 {
+                    user = new { email="demo@acme.com", name="demo"},
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo
                 });
