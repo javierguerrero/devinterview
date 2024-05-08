@@ -186,11 +186,12 @@ The following diagram shows the logical containers that make up the **DevIntervi
 
 ![](docs/images/containers.png)
 
-- **Admin Panel**: An admin panel serves as a user-friendly control center to maintain various aspects of your web application like managing and organising content, tracking website analytics, managing user accounts, and performing various other tasks.
-- **Web-DevInterview API Gateway**: abc
-- **Mobile-DevInterview API Gateway**: abc
-- **Identity Service**: abc
-- **Catalog Service**: abc
+- **Admin Panel WebApp**: An admin panel serves as a user-friendly control center to maintain various aspects of your web application like managing and organising content, tracking website analytics, managing user accounts, and performing various other tasks.
+- **DevInterview SPA**: ...
+- **Web-DevInterview API Gateway**: ...
+- **Mobile-DevInterview API Gateway**: ...
+- **Identity Service**: ...
+- **Catalog Service**: ...
 
 ## Infrastructure Architecture
 
