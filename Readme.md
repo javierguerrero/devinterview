@@ -2,22 +2,24 @@
 
 ## Introduction
 
-This software guidebook provides an overview of the **DevInterview** tool. It includes a summary of the following:
+This software guidebook provides an overview of the **DevInterview** application. It includes a summary of the following:
 
 - The requirements, constraints and principles behind the solution.
 - The software architecture, including the high-level technology choices and structure of the software.
 - The infrastructure architecture and how the software is deployed.
 - Operational and support aspects of the application.
 
+<!--
 See how it works with a hands on demo.
 
 - Mobile App: https://www.demo.com
 - SPA Web App: https://www.demo.com
 - Admin Panel: https://www.demo.com
+-->
 
 ## Context
 
-**DevInterview** is a tool designed to assist software developers in preparing for technical interviews or certification exams through questions with respective detailed answers.
+**DevInterview** is an application designed to assist software developers in preparing for technical interviews or certification exams through questions with respective detailed answers.
 
 ![](docs/images/context.png)
 
@@ -25,9 +27,9 @@ See how it works with a hands on demo.
 
 The tool has three types of user:
 
-- **Anonymous**: Anybody with a web browser o smartphone can view free content on the tool.
+- **Anonymous**: Anybody with a web browser o smartphone can view free content on the application.
 - **Student**: Authenticated user
-- **Admin**: People with administrative (super-user) access to the Administration Panel can manage the content that is aggregated into the tool.
+- **Admin**: People with administrative (super-user) access to the Administration Panel can manage the content that is aggregated into the application.
 
 ### External Systems
 
@@ -69,17 +71,118 @@ There are three types of systems that DevInterview integrates with.
 
 ## Quality Attributes
 
-abc
+This section provides information about the desired quality attributes (non-functional requirements) of the application.
+
+### Performance
+
+All pages on **DevInterview** should load and render in under five seconds, for fifty concurrent users.
+
+### Security
+
+All authentication must be done via a third-party mechanism such as Twitter, Facebook or Google.
+
+### Internationalisation
+
+All user interface text will be presented in English only.
+
+### Browser compatibility
+
+The application should work consistently across the following browsers:
+
+- Chrome
+- Edge
+- Firefox
+- Safari
 
 ## Constraints
 
-abc
+This section provides information about the constraints imposed on the development of the **DevInterview** application.
+
+### Budget
+
+Since there is no formal budget for the **DevInterview** application, there is a constraint to use free and open source technologies for the development. Ideally, the application should run on a single server with hosting costs of less than 20 USD per month.
 
 ## Principles
 
-abc
+This section provides information about the principles adopted for the development of the **DevInterview** application.
+
+### Automated testing
+
+The strategy for automated testing is to use automated unit and component tests.
+
+- **Unit tests:** These are fast running, very small tests that operate on a single class or method in isolation.
+- **Component tests:** Rather than mocking out database connections to test component internals, components are tested as single units to avoid breaking encapsulation.
+
+### Configuration
+
+All configuration needed by components is externalised into a configuration file, which is held outside of the deployment files created by the build process. This means that builds can be migrated from development, testing and into production without change.
+
+### Logging
+
+- **Logging Framework for .NET:** Serilog
+- **Use an optimal structured log format:** By using a structured log with an optimal format, developers ensure that log data is readable, uniform, and easily searchable.
+
+```
+2023-03-07T12:15:30+00:00 [INFO] PaymentService - Payment processed successfully for Order #12345
+```
+
+- **Do NOT log sensitive information:** API keys, passwords, credentials and more fall under this category. It's far to risky to log anything sensitive as it increases the chances of it leaking and becoming a security problem
+
+```
+❌
+logger.error("Unable to log in", {request});
+
+✅
+logger.error("Unable to log in", {
+  username: request.user,
+  password: request.pass ? "[HIDDEN]" : null,
+// any additional context needed?
+})
+```
+
+- **Be specific in your messages:** Logging is only as beneficial as the message in the log, therefor, be specific.
+
+```
+❌
+logger.info("We're starting!")
+...
+logger.info("task complete!")
+
+✅
+logger.info("Starting task", {
+  name: taskName,
+  params: params,
+  startTime: startTime
+});
+
+logger.info("task complete", {
+  response: output.response,
+  event: {
+    action: taskName,
+    duration: currentTime - startTime
+  }
+})
+```
+
+- **Log all errors:** Logs are a best friend to those debugging, so, as a programmer if you find yourself in a situation writing error handling, make sure you always log the error before throwing a different one for the user. If we don't log the original error then we could find ourselves with no context as too why we're throwing a `SystemError`.
+
+```
+catch(err)
+{
+    logger.error('An error occured', {error: err, args: args});
+    throw new SystemError('Unable to process request');
+}
+```
+
+### Dependency injection
 
 ## Software Architecture
+
+This section provides an overview of the **DevInterview** software architecture.
+
+### Containers
+
+The following diagram shows the logical containers that make up the **DevInterview** application. The diagram does not represent the physical number and location of containers - please see the infrastructure and deployment sections for this information.
 
 ![](docs/images/containers.png)
 
@@ -91,11 +194,11 @@ abc
 
 ## Infrastructure Architecture
 
-abc
+This section provides information about the infrastructure architecture of the **DevInterview** application.
 
 ## Deployment
 
-abc
+This section provides information about the mapping between the **software architecture** and the **infrastructure architecture**. We use a deployment diagram to illustrate how instances of software systems and/or containers in the static model are deployed on to the infrastructure within a given **deployment environment** (e.g. production, staging, development, etc).
 
 ## Development
 
