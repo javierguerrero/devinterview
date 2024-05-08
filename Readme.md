@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This software guidebook provides an overview of the **DevInterview** platform. It includes a summary of the following:
+This software guidebook provides an overview of the **DevInterview** tool. It includes a summary of the following:
 
 - The requirements, constraints and principles behind the solution.
 - The software architecture, including the high-level technology choices and structure of the software.
@@ -17,17 +17,17 @@ See how it works with a hands on demo.
 
 ## Context
 
-**DevInterview** is a platform designed to assist software developers in preparing for technical interviews or certification exams through questions with respective detailed answers.
+**DevInterview** is a tool designed to assist software developers in preparing for technical interviews or certification exams through questions with respective detailed answers.
 
 ![](docs/images/context.png)
 
 ### Users
 
-The platform has three types of user:
+The tool has three types of user:
 
-- **Anonymous**: Anybody with a web browser o smartphone can view free content on the platform.
+- **Anonymous**: Anybody with a web browser o smartphone can view free content on the tool.
 - **Student**: Authenticated user
-- **Admin**: People with administrative (super-user) access to the platform can manage the content that is aggregated into the platform.
+- **Admin**: People with administrative (super-user) access to the Administration Panel can manage the content that is aggregated into the tool.
 
 ### External Systems
 

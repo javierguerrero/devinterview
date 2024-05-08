@@ -26,10 +26,16 @@ export class AuthService {
     this.checkAuthStatus().subscribe();
   }
 
-  private setAuthentication(user: User, token: string): boolean {
+  private setAuthentication(
+    user: User,
+    accessToken: string,
+    refreshToken: string
+  ): boolean {
     this._currentUser.set(user);
     this._authStatus.set(AuthStatus.authenticated);
-    localStorage.setItem('token', token);
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+
     return true;
   }
 
@@ -38,7 +44,7 @@ export class AuthService {
     const body = { username: username, password: password };
 
     return this.http.post<LoginResponse>(url, body).pipe(
-      map(({ user, token }) => this.setAuthentication(user, token)),
+      map(({ user, accessToken, refreshToken }) => this.setAuthentication(user, accessToken, refreshToken)),
       catchError((err) => {
         return throwError(() => err.error.title);
       })
@@ -47,17 +53,20 @@ export class AuthService {
 
   checkAuthStatus(): Observable<boolean> {
     const url = `${this.baseUrl}/api/check-token`;
-    const token = localStorage.getItem('token');
+    const accessToken = localStorage.getItem('accessToken');
 
-    if (!token) {
+    if (!accessToken) {
       this.logout();
       return of(false);
     }
 
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${accessToken}`
+    );
 
     return this.http.get<CheckTokenResponse>(url, { headers }).pipe(
-      map(({ user, token }) => this.setAuthentication(user, token)),
+      map(({ user, accessToken, refreshToken }) => this.setAuthentication(user, accessToken, refreshToken)),
       catchError(() => {
         this._authStatus.set(AuthStatus.notAuthenticated);
         return of(false);
