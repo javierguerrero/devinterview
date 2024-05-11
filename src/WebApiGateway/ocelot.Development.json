@@ -12,6 +12,17 @@
       "DownstreamPathTemplate": "/Auth/login"
     },
     {
+      "UpstreamPathTemplate": "/api/refresh",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "svc-identity",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/Auth/refresh"
+    },
+    {
       "UpstreamPathTemplate": "/api/subjects",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamHostAndPorts": [

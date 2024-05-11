@@ -28,3 +28,8 @@ ng g component shared/pages/error404Page --inline-style --skip-tests
 ng g component jobapplications/components/card --inline-style --skip-tests
 
 ng generate service auth/services/auth
+
+ng s --port 3005
+
+ng g interceptor shared/interceptors/Token
+

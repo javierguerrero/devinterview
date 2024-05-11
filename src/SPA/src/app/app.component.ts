@@ -27,7 +27,7 @@ export class AppComponent {
         return;
 
       case AuthStatus.authenticated:
-        this.router.navigateByUrl('/profile');
+        this.router.navigateByUrl('/subjects');
         return;
 
       case AuthStatus.notAuthenticated:

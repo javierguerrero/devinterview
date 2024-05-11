@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { Observable, Subject, catchError, map, of, throwError } from 'rxjs';
 import { environments } from 'src/environments/environments';
 import {
   AuthStatus,
@@ -21,9 +21,14 @@ export class AuthService {
 
   public currentUser = computed(() => this._currentUser());
   public authStatus = computed(() => this._authStatus());
+  public refreshToken = new Subject<boolean>();
 
   constructor() {
     this.checkAuthStatus().subscribe();
+
+    this.refreshToken.subscribe((res: any) => {
+      this.getRefreshToken();
+    });
   }
 
   private setAuthentication(
@@ -44,9 +49,36 @@ export class AuthService {
     const body = { username: username, password: password };
 
     return this.http.post<LoginResponse>(url, body).pipe(
-      map(({ user, accessToken, refreshToken }) => this.setAuthentication(user, accessToken, refreshToken)),
+      map(({ user, accessToken, refreshToken }) =>
+        this.setAuthentication(user, accessToken, refreshToken)
+      ),
       catchError((err) => {
         return throwError(() => err.error.title);
+      })
+    );
+  }
+
+  getRefreshToken(): Observable<boolean> {
+    const url = `${this.baseUrl}/api/refresh`;
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (!refreshToken) {
+      this.logout();
+      return of(false);
+    }
+
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${refreshToken}`
+    );
+
+    return this.http.get<CheckTokenResponse>(url, { headers }).pipe(
+      map(({ user, accessToken, refreshToken }) =>
+        this.setAuthentication(user, accessToken, refreshToken)
+      ),
+      catchError(() => {
+        this._authStatus.set(AuthStatus.notAuthenticated);
+        return of(false);
       })
     );
   }
@@ -66,7 +98,9 @@ export class AuthService {
     );
 
     return this.http.get<CheckTokenResponse>(url, { headers }).pipe(
-      map(({ user, accessToken, refreshToken }) => this.setAuthentication(user, accessToken, refreshToken)),
+      map(({ user, accessToken, refreshToken }) =>
+        this.setAuthentication(user, accessToken, refreshToken)
+      ),
       catchError(() => {
         this._authStatus.set(AuthStatus.notAuthenticated);
         return of(false);
