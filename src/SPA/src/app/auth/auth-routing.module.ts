@@ -4,7 +4,6 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 
-// localhost:4200/auth
 const routes: Routes = [
   {
     path: '',

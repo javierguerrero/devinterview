@@ -9,6 +9,7 @@ import { AuthStatus } from './auth/interfaces';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  /*
   private authService = inject(AuthService);
   private router = inject(Router);
 
@@ -35,4 +36,5 @@ export class AppComponent {
         return;
     }
   });
+  */
 }

@@ -12,6 +12,17 @@
       "DownstreamPathTemplate": "/Auth/login"
     },
     {
+      "UpstreamPathTemplate": "/api/refresh",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5119
+        }
+      ],
+      "DownstreamPathTemplate": "/Auth/refresh"
+    },
+    {
       "UpstreamPathTemplate": "/api/subjects",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamHostAndPorts": [

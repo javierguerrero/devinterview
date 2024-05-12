@@ -2,12 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, Subject, catchError, map, of, throwError } from 'rxjs';
 import { environments } from 'src/environments/environments';
-import {
-  AuthStatus,
-  CheckTokenResponse,
-  LoginResponse,
-  User,
-} from '../interfaces';
+import { AuthStatus, LoginResponse, User } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -21,10 +16,12 @@ export class AuthService {
 
   public currentUser = computed(() => this._currentUser());
   public authStatus = computed(() => this._authStatus());
+
   public refreshToken = new Subject<boolean>();
+  public refreshTokenRecieved = new Subject<boolean>();
 
   constructor() {
-    this.checkAuthStatus().subscribe();
+    this.getRefreshToken().subscribe();
 
     this.refreshToken.subscribe((res: any) => {
       this.getRefreshToken();
@@ -61,43 +58,14 @@ export class AuthService {
   getRefreshToken(): Observable<boolean> {
     const url = `${this.baseUrl}/api/refresh`;
     const refreshToken = localStorage.getItem('refreshToken');
+    const body = { accessToken: '', refreshToken: refreshToken };
 
     if (!refreshToken) {
       this.logout();
       return of(false);
     }
 
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${refreshToken}`
-    );
-
-    return this.http.get<CheckTokenResponse>(url, { headers }).pipe(
-      map(({ user, accessToken, refreshToken }) =>
-        this.setAuthentication(user, accessToken, refreshToken)
-      ),
-      catchError(() => {
-        this._authStatus.set(AuthStatus.notAuthenticated);
-        return of(false);
-      })
-    );
-  }
-
-  checkAuthStatus(): Observable<boolean> {
-    const url = `${this.baseUrl}/api/check-token`;
-    const accessToken = localStorage.getItem('accessToken');
-
-    if (!accessToken) {
-      this.logout();
-      return of(false);
-    }
-
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${accessToken}`
-    );
-
-    return this.http.get<CheckTokenResponse>(url, { headers }).pipe(
+    return this.http.post<LoginResponse>(url, body).pipe(
       map(({ user, accessToken, refreshToken }) =>
         this.setAuthentication(user, accessToken, refreshToken)
       ),
@@ -109,7 +77,9 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+
     this._currentUser.set(null);
     this._authStatus.set(AuthStatus.notAuthenticated);
   }

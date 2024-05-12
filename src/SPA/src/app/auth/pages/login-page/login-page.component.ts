@@ -23,7 +23,7 @@ export class LoginPageComponent {
     const { username, password } = this.myForm.value;
     this.authService.login(username, password).subscribe({
       next: () => {
-        this.router.navigateByUrl('/subjects');
+        this.router.navigateByUrl('/profile');
       },
       error: (message) => {
         Swal.fire('Error', message, 'error');

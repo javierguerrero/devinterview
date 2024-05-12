@@ -4,7 +4,6 @@ import { catchError, throwError } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
-  
   const authService = inject(AuthService);
   const accessToken = localStorage.getItem('accessToken');
 
@@ -16,9 +15,11 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(cloneRequest).pipe(
     catchError((error: HttpErrorResponse) => {
-      if(error.status ===401) {
-        const isRefresh = confirm("Your session is expired. Do you wnat to continue?");
-        if(isRefresh) {
+      if (error.status === 401) {
+        const isRefresh = confirm(
+          'Your session is expired. Do you wnat to continue?'
+        );
+        if (isRefresh) {
           authService.refreshToken.next(true);
         }
       }
