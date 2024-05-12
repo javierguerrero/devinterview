@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-layout-page',
   templateUrl: './layout-page.component.html',
-  styles: [],
+  styleUrls: ['layout-page.component.css'],
 })
 export class LayoutPageComponent {
   public sidebarItems = [
-    { label: 'Subjects', icon: 'label', url: './list' },
+    { label: 'Home', icon: 'home', url: './list' },
+    { label: 'Sign Up', icon: 'app_registration', url: '/auth/register' },
     { label: 'Login', icon: 'login', url: '/auth/login' },
   ];
 }

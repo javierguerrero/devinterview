@@ -25,10 +25,20 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span class="spacer"></span>
-    <button mat-button>Logout</button>
+    <button mat-button routerLink="/auth/register">
+      <mat-icon>app_registration</mat-icon>Sign Up
+    </button>
+    <button mat-button routerLink="/auth/login">
+      <mat-icon>login</mat-icon>Login
+    </button>
   </mat-toolbar>
 
   <div class="container p-2">
+    <h1>
+      Master your next tech interview and prepare for your certification with
+      confidence
+    </h1>
+
     <router-outlet></router-outlet>
   </div>
 </mat-sidenav-container>
