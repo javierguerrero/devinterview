@@ -7,6 +7,9 @@ services:
   sqldb-catalog:
     image: mcr.microsoft.com/mssql/server
 
+  sqldb-students:
+    image: mcr.microsoft.com/mssql/server
+
   app-admin:
     image: ${DOCKER_REGISTRY-}app-admin
     build:
@@ -36,6 +39,12 @@ services:
     build:
       context: .
       dockerfile: Catalog/DevInterview.Catalog.Api/Dockerfile
+
+  svc-students:
+    image: ${DOCKER_REGISTRY-}svc-students
+    build:
+      context: .
+      dockerfile: Students/DevInterview.Students.Api/Dockerfile
 
 
 

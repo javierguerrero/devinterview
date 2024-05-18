@@ -23,6 +23,17 @@ services:
       SA_PASSWORD: ".123Pass456."
       ACCEPT_EULA: "Y"
 
+  sqldb-students:
+    container_name: sqldb-students
+    restart: always
+    volumes:
+      - /c/data/docker/devinterview/sqlserver/students:/var/opt/mssql/data
+    ports:
+      - "1419:1433"
+    environment:
+      SA_PASSWORD: ".123Pass456."
+      ACCEPT_EULA: "Y"
+
   app-admin:
     container_name: app-admin
     environment:
@@ -71,3 +82,14 @@ services:
       - "ConnectionStrings:CatalogDB:Password=.123Pass456."
     depends_on:
       - sqldb-catalog
+
+  svc-students:
+    container_name: svc-students
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:CatalogDB:HostName=sqldb-students"
+      - "ConnectionStrings:CatalogDB:Catalogue=Students"
+      - "ConnectionStrings:CatalogDB:User=sa"
+      - "ConnectionStrings:CatalogDB:Password=.123Pass456."
+    depends_on:
+      - sqldb-students
