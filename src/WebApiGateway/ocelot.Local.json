@@ -164,6 +164,28 @@
         }
       ],
       "DownstreamPathTemplate": "/Questions/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/students/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5258
+        }
+      ],
+      "DownstreamPathTemplate": "/Students/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/students",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5258
+        }
+      ],
+      "DownstreamPathTemplate": "/Students"
     }
   ],
   "GlobalConfiguration": {

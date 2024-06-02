@@ -87,9 +87,9 @@ services:
     container_name: svc-students
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:CatalogDB:HostName=sqldb-students"
-      - "ConnectionStrings:CatalogDB:Catalogue=Students"
-      - "ConnectionStrings:CatalogDB:User=sa"
-      - "ConnectionStrings:CatalogDB:Password=.123Pass456."
+      - "ConnectionStrings:StudentsDB:HostName=sqldb-students"
+      - "ConnectionStrings:StudentsDB:Catalogue=Students"
+      - "ConnectionStrings:StudentsDB:User=sa"
+      - "ConnectionStrings:StudentsDB:Password=.123Pass456."
     depends_on:
       - sqldb-students

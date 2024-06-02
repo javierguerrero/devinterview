@@ -175,6 +175,28 @@
         }
       ],
       "DownstreamPathTemplate": "/Questions/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/students/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "svc-students",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/Students/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/students",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "svc-students",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/Students"
     }
   ],
   "GlobalConfiguration": {
