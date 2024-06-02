@@ -9,6 +9,22 @@ namespace DevInterview.Students.Infrastructure.DataAccess
         {
         }
 
-        public DbSet<Student> Subjects { get; set; }
+        public DbSet<Student> Students { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Student>()
+                        .HasData(
+                            new Student()
+                            {
+                                Id = 1,
+                                UserName = "jguerrero",
+                                FirstName = "Javier",
+                                LastName = "Guerrero"
+                            }
+                        );
+        }
     }
 }

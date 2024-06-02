@@ -4,9 +4,9 @@ using DevInterview.Students.Domain.Entities;
 
 namespace DevInterview.Students.Application.Mapper
 {
-    public class StudentsMapperProfile : Profile
+    public class MapperProfile : Profile
     {
-        public StudentsMapperProfile()
+        public MapperProfile()
         {
             CreateMap<Student, StudentResponse>().ReverseMap();
         }

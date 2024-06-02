@@ -9,6 +9,8 @@ namespace DevInterview.Students.Domain.Interfaces
 {
     public interface IStudentRepository
     {
+        Task<Student> GetAsync(int id);
+
         Task<Student> CreateAsync(Student student);
     }
 }

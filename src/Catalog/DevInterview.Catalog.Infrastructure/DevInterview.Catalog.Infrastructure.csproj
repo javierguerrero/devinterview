@@ -14,10 +14,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\DevInterview.Catalog.Domain\DevInterview.Catalog.Domain.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Storage\" />
 	</ItemGroup>	
 	
 </Project>

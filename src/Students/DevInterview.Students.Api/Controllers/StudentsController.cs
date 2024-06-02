@@ -1,4 +1,5 @@
 ﻿using DevInterview.Students.Application.Commands;
+using DevInterview.Students.Application.Queries;
 using DevInterview.Students.Application.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,13 +20,12 @@ namespace DevInterview.Students.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSubject(int id)
         {
-            //var response = await _mediator.Send(new GetSubjectQuery(id));
-            //if (response is null)
-            //{
-            //    return NotFound();
-            //}
-            //return Ok(response);
-            return Ok();
+            var response = await _mediator.Send(new GetStudentQuery(id));
+            if (response is null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
         }
 
         [HttpPost]
