@@ -25,8 +25,9 @@ namespace DevInterview.Students.Application.Commands.Handlers
                 FirstName = request.firstName,
                 LastName = request.lastName
             };
-
             await _repository.CreateAsync(student);
+
+            //_producer.Produce(_mapper.Map<StudentCreatedEvent>(request));
 
             var response = _mapper.Map<StudentResponse>(student);
             return response;

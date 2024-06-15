@@ -46,6 +46,7 @@ services:
 
   app-spa:
     container_name: app-spa
+    restart: always
     ports:
       - "7020:80"
     depends_on:

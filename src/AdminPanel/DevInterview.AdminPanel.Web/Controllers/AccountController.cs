@@ -32,7 +32,7 @@ namespace DevInterview.AdminPanel.Web.Controllers
                 var response = await _mediator.Send(new LoginCommand(vm.Username, vm.Password));
 
                 //save the token to a session variable
-                if (response.Token != null)
+                if (response.AccessToken != null)
                 {
                     var claims = new List<Claim>
                 {

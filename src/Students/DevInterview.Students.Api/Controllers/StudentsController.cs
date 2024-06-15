@@ -31,7 +31,13 @@ namespace DevInterview.Students.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> PostSubject([FromBody] CreateStudentRequest student)
         {
-            var response = await _mediator.Send(new CreateStudentCommand(student.UserName, student.FirstName, student.LastName));
+            var response = await _mediator.Send(new CreateStudentCommand(
+                                                            student.UserName, 
+                                                            student.FirstName, 
+                                                            student.LastName, 
+                                                            student.Password, 
+                                                            student.Role
+                                                            ));
 
             return CreatedAtAction(nameof(GetSubject), new { id = response.Id }, response);
         }

@@ -22,8 +22,8 @@ namespace DevInterview.AdminPanel.Application.Commands.Handlers
 
                 var loginResponse = new LoginResponse
                 {
-                    Token = response.Token,
-                    Expiration = response.Expiration,
+                    AccessToken = response.AccessToken,
+                    RefreshToken = response.RefreshToken,
                 };
                 return loginResponse;
             }
